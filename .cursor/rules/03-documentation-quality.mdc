@@ -1,3 +1,10 @@
+---
+description: "Documentation quality standards - HIGH: Always maintain documentation standards"
+globs: ["**/*.md", "**/*.py", "**/*.ts", "**/*.tsx"]
+alwaysApply: true
+contextTriggers: ["documentation", "readme", "docs"]
+priority: "high"
+---
 - **Documentation Organization**: All documentation files (except README.md) must be placed in the `/docs` folder. This includes:
   - API documentation
   - Architectural decisions (ADRs)
@@ -9,12 +16,28 @@
 
 - **README.md Location**: The main README.md file should remain in the project root directory.
 
+- **CRITICAL COMPLETION REQUIREMENT**: Before marking any work as complete, you MUST:
+  1. Update `docs/agent-work/project_plan.md` with completion details
+  2. Amend README.md with any relevant changes
+  3. Update any other documentation that requires amendment
+  4. Ensure all documentation reflects the current state of the project
+
 - **Code Quality Standards**: Before completing any task or telling the user you are complete:
   1. Run `trunk check` to identify all linting issues
   2. Run `trunk fmt` to automatically format code
   3. Fix any remaining linting errors manually
   4. Ensure all code passes all quality checks
   5. Never leave linting errors in the codebase
+
+- **Trunk Usage Guidelines**:
+  - **Initial Setup**: Run `trunk init` to initialize trunk in a git repository
+  - **Checking Code**: Use `trunk check` to identify linting issues
+  - **Auto-fixing**: Use `trunk check --fix` to automatically fix issues
+  - **Formatting**: Use `trunk fmt` to format code according to project standards
+  - **Specific Files**: Use `trunk check <file>` to check specific files
+  - **All Files**: Use `trunk check --all` to check all files (not just changed ones)
+  - **Git Integration**: Trunk automatically manages git hooks for pre-commit and pre-push checks
+  - **Workflow**: Always run `trunk check --fix` before committing code
 
 - **Documentation Quality**: All documentation must be:
   - Clear and concise
@@ -28,7 +51,3 @@
   - Inline comments for complex logic
   - Type hints for all functions and variables
   - Proper error handling documentation
-description:
-globs:
-alwaysApply: false
----

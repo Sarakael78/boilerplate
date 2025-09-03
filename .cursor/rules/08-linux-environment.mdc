@@ -1,0 +1,179 @@
+# Cursor Configuration for Linux/WSL Environment
+
+## Terminal Configuration
+
+### Shell Preferences
+- **Primary Shell**: Always use `/bin/bash` for all terminal operations
+- **WSL Integration**: Ensure WSL2 is properly configured and used
+- **Environment**: Linux environment with proper locale settings (en_US.UTF-8)
+
+### Terminal Commands
+- **Never use PowerShell**: All terminal operations must use bash
+- **Shell Detection**: Always check current shell and switch to bash if needed
+- **Path Handling**: Use Linux-style paths (forward slashes, not backslashes)
+- **Environment Variables**: Use Linux environment variable syntax
+
+## Development Environment Rules
+
+### File System Operations
+- **Path Separators**: Always use forward slashes (`/`) for paths
+- **File Permissions**: Use Linux file permissions (chmod, chown)
+- **Line Endings**: Use Unix line endings (LF, not CRLF)
+- **Hidden Files**: Use dot prefix for hidden files (`.env`, `.gitignore`)
+
+### Package Management
+- **Python**: Use Poetry for dependency management
+- **Node.js**: Use npm/yarn with Linux paths
+- **System Packages**: Use apt/apt-get for Ubuntu/Debian packages
+
+### Git Configuration
+- **Git Bash**: Always use Git Bash or WSL bash for Git operations
+- **Line Endings**: Configure Git for LF line endings
+- **Locale**: Set proper locale (en_US.UTF-8) for Git operations
+
+## Terminal Commands to Always Use
+
+### Shell Switching
+```bash
+# Always start with bash
+bash
+
+# Check current shell
+echo $SHELL
+
+# Set proper locale
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+```
+
+### File Operations
+```bash
+# Use Linux commands
+ls -la
+cp -r source/ destination/
+mv old_name new_name
+rm -rf directory/
+chmod +x script.sh
+```
+
+### Package Management
+```bash
+# Python (Poetry)
+poetry install
+poetry run python script.py
+
+# Node.js
+npm install
+npm run dev
+
+# System packages
+sudo apt update
+sudo apt install package_name
+```
+
+## Environment Setup
+
+### WSL Configuration
+- **WSL Version**: Use WSL2 for better performance
+- **Distribution**: Ubuntu or Debian-based distribution
+- **Integration**: Proper Windows-WSL file system integration
+
+### Locale Configuration
+```bash
+# Generate locale
+sudo locale-gen en_US.UTF-8
+
+# Set in .bashrc
+echo 'export LC_ALL=en_US.UTF-8' >> ~/.bashrc
+echo 'export LANG=en_US.UTF-8' >> ~/.bashrc
+```
+
+### Git Configuration
+```bash
+# Configure Git for Linux
+git config --global core.autocrlf false
+git config --global core.eol lf
+```
+
+## Error Prevention
+
+### Common Issues to Avoid
+- **PowerShell Commands**: Never use PowerShell-specific commands
+- **Windows Paths**: Never use backslashes or Windows drive letters
+- **CRLF Line Endings**: Always use LF line endings
+- **Windows Environment Variables**: Use Linux environment variable syntax
+
+### Validation Commands
+```bash
+# Check current shell
+ps -p $$
+
+# Check locale
+locale
+
+# Check line endings
+file filename.txt
+
+# Check Git configuration
+git config --list
+```
+
+## Integration with Development Tools
+
+### Docker
+- **Docker Desktop**: Use Docker Desktop with WSL2 backend
+- **Docker Commands**: Use Linux-style Docker commands
+- **Volumes**: Use Linux path syntax for volume mounts
+
+### VS Code/Cursor
+- **WSL Extension**: Use WSL extension for proper integration
+- **Terminal**: Configure integrated terminal to use bash
+- **File System**: Access files through WSL file system
+
+### Database Tools
+- **PostgreSQL**: Use Linux PostgreSQL client
+- **Redis**: Use Linux Redis client
+- **Connection Strings**: Use Linux-style connection strings
+
+## Troubleshooting
+
+### Locale Issues
+```bash
+# Fix locale warnings
+sudo locale-gen en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+```
+
+### Shell Issues
+```bash
+# Switch to bash
+bash
+
+# Check shell
+echo $0
+```
+
+### Path Issues
+```bash
+# Use proper Linux paths
+cd /home/user/project
+ls -la /path/to/directory
+```
+
+## Compliance Checklist
+
+- [ ] All terminal operations use bash
+- [ ] All file paths use forward slashes
+- [ ] All line endings are LF
+- [ ] Locale is set to en_US.UTF-8
+- [ ] Git is configured for Linux
+- [ ] No PowerShell commands are used
+- [ ] Environment variables use Linux syntax
+- [ ] Package management uses Linux tools
+description: "Linux/WSL environment configuration - CRITICAL: Always use bash, never PowerShell"
+globs: ["**/*"]
+alwaysApply: true
+contextTriggers: ["terminal", "shell", "environment"]
+priority: "critical"
+---

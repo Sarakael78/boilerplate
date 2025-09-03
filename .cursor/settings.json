@@ -1,0 +1,30 @@
+{
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.shell.linux": "/bin/bash",
+  "terminal.integrated.shellArgs.linux": ["-l"],
+  "terminal.integrated.env.linux": {
+    "LC_ALL": "en_US.UTF-8",
+    "LANG": "en_US.UTF-8"
+  },
+  "terminal.integrated.env.windows": {
+    "LC_ALL": "en_US.UTF-8",
+    "LANG": "en_US.UTF-8"
+  },
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "git.autocrlf": false,
+  "git.eol": "lf",
+  "python.defaultInterpreterPath": "/usr/bin/python3",
+  "python.terminal.activateEnvironment": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  }
+}

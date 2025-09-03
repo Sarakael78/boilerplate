@@ -1,0 +1,109 @@
+# Performance Optimization Guidelines
+
+---
+description: "Performance optimization guidelines - Apply when performance is critical"
+globs: ["**/*.py", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+alwaysApply: false
+contextTriggers: ["performance", "optimization", "caching", "database", "frontend", "backend"]
+priority: "medium"
+---
+
+- **Backend Performance**:
+  - **Database Optimization**: Use proper indexing, query optimization, and connection pooling
+  - **Caching Strategy**: Implement Redis caching for frequently accessed data
+  - **Async Processing**: Use background tasks for long-running operations
+  - **API Response Optimization**: Minimize response payload size and use compression
+  - **Database Connection Management**: Use connection pooling and proper session management
+  - **Memory Management**: Monitor memory usage and implement proper garbage collection
+  - **Load Balancing**: Implement load balancing for horizontal scaling
+  - **Query Optimization**: Use database query analyzers to identify slow queries
+  - **Connection Pooling**: Implement proper connection pooling for database and Redis
+  - **Background Jobs**: Use Celery or similar for background task processing
+
+- **Frontend Performance**:
+  - **Bundle Optimization**: Minimize bundle size through code splitting and tree shaking
+  - **Image Optimization**: Use Next.js Image component and WebP format
+  - **Font Optimization**: Use Next.js font optimization and system fonts where possible
+  - **Lazy Loading**: Implement lazy loading for components, routes, and images
+  - **Caching Strategy**: Implement browser caching and service workers
+  - **Critical CSS**: Inline critical CSS and defer non-critical styles
+  - **CDN Usage**: Use CDN for static assets and API responses
+  - **Code Splitting**: Implement dynamic imports for route-based code splitting
+  - **Preloading**: Use preload and prefetch for critical resources
+  - **Service Workers**: Implement service workers for offline functionality
+
+- **Database Performance**:
+  - **Query Optimization**: Write efficient queries and use database indexes
+  - **Connection Pooling**: Use proper connection pooling for database connections
+  - **Read Replicas**: Use read replicas for read-heavy workloads
+  - **Database Partitioning**: Implement partitioning for large tables
+  - **Query Monitoring**: Monitor slow queries and optimize them
+  - **Database Maintenance**: Regular database maintenance and cleanup
+  - **Index Strategy**: Create composite indexes for complex queries
+  - **Query Caching**: Cache frequently executed queries
+  - **Database Sharding**: Implement sharding for large datasets
+  - **Connection Limits**: Set appropriate connection limits
+
+- **Caching Strategies**:
+  - **Application Cache**: Use Redis for application-level caching
+  - **CDN Caching**: Implement CDN caching for static assets
+  - **Browser Cache**: Set appropriate cache headers for browser caching
+  - **API Response Caching**: Cache API responses where appropriate
+  - **Database Query Caching**: Cache frequently executed database queries
+  - **Cache Invalidation**: Implement proper cache invalidation strategies
+  - **Cache Warming**: Implement cache warming for critical data
+  - **Distributed Caching**: Use distributed caching for multi-instance deployments
+  - **Cache Compression**: Compress cached data to reduce memory usage
+  - **Cache Monitoring**: Monitor cache hit rates and performance
+
+- **Monitoring & Analytics**:
+  - **Performance Monitoring**: Monitor response times, throughput, and error rates
+  - **Resource Usage**: Monitor CPU, memory, and disk usage
+  - **User Experience Metrics**: Track Core Web Vitals and user experience metrics
+  - **Error Tracking**: Implement error tracking and alerting
+  - **Performance Budgets**: Set and enforce performance budgets
+  - **A/B Testing**: Use A/B testing for performance improvements
+  - **Real User Monitoring**: Implement RUM for real user experience tracking
+  - **Synthetic Monitoring**: Use synthetic monitoring for proactive performance testing
+  - **Performance Alerts**: Set up alerts for performance degradation
+  - **Performance Dashboards**: Create comprehensive performance dashboards
+
+- **Scalability Considerations**:
+  - **Horizontal Scaling**: Design for horizontal scaling with stateless services
+  - **Microservices Architecture**: Consider microservices for better scalability
+  - **Message Queues**: Use message queues for asynchronous processing
+  - **Auto-scaling**: Implement auto-scaling based on demand
+  - **Database Scaling**: Use database sharding and read replicas
+  - **CDN Scaling**: Use CDN for global content delivery
+  - **Load Balancing**: Implement intelligent load balancing
+  - **Resource Provisioning**: Use dynamic resource provisioning
+  - **Capacity Planning**: Implement proper capacity planning
+  - **Performance Testing**: Conduct regular performance testing
+
+- **Development Performance**:
+  - **Build Optimization**: Optimize build times and development workflow
+  - **Hot Reloading**: Use fast hot reloading for development
+  - **Development Tools**: Use performance profiling tools during development
+  - **Performance Testing**: Implement performance testing in CI/CD
+  - **Bundle Analysis**: Regular bundle analysis and optimization
+  - **Performance Budgets**: Enforce performance budgets in development
+  - **Development Monitoring**: Monitor performance during development
+  - **Performance Profiling**: Use profiling tools to identify bottlenecks
+  - **Memory Leak Detection**: Implement memory leak detection
+  - **Performance Documentation**: Document performance characteristics
+
+- **Network Performance**:
+  - **HTTP/2 and HTTP/3**: Use modern HTTP protocols for better performance
+  - **Compression**: Implement gzip/brotli compression for all responses
+  - **Connection Pooling**: Use connection pooling for external API calls
+  - **DNS Optimization**: Optimize DNS resolution and use DNS caching
+  - **CDN Optimization**: Optimize CDN configuration for better performance
+  - **Network Monitoring**: Monitor network latency and throughput
+  - **Geographic Distribution**: Distribute services geographically
+  - **Network Security**: Implement network security without performance impact
+  - **Bandwidth Optimization**: Optimize bandwidth usage
+  - **Network Caching**: Implement network-level caching
+description:
+globs:
+alwaysApply: false
+---

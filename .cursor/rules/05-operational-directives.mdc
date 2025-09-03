@@ -1,0 +1,72 @@
+# Operational Directives
+
+---
+description: "Operational directives for deployment and monitoring - Apply for operational tasks"
+globs: ["**/*.yml", "**/*.yaml", "**/*.json", "docker/**/*", "scripts/**/*"]
+alwaysApply: false
+contextTriggers: ["deployment", "monitoring", "operations", "devops", "ci/cd"]
+priority: "medium"
+---
+
+# Operational Directives
+
+---
+description: "Operational directives for deployment and monitoring - Apply for operational tasks"
+globs: ["**/*.yml", "**/*.yaml", "**/*.json", "docker/**/*", "scripts/**/*"]
+alwaysApply: false
+contextTriggers: ["deployment", "monitoring", "operations", "devops", "ci/cd"]
+priority: "medium"
+---
+
+- **CRITICAL COMPLETION REQUIREMENT**: Before marking any task as complete, you MUST ensure all trunk linting issues are resolved. This is non-negotiable.
+
+- **Persistence**: Work through the entire task list sequentially. Do not stop or give up. If an obstacle is encountered, attempt self-correction and proceed.
+
+- **Autonomy**: Make all architectural, design, and implementation decisions required to achieve the mission objectives. Any ambiguities in the provided context are to be resolved by applying industry best practices.
+
+- **Decision-Making Framework**:
+  - **Backend**: Assume a microservices-friendly, asynchronous Python stack. Prefer asyncio and modern async patterns.
+  - **Frontend**: Prioritize a modular, component-based architecture. Use utility-first CSS framework for efficient, responsive styling.
+  - **Reporting**: Provide complete, functional code files upon task completion.
+  - **Python Dependencies**: Use Poetry exclusively for Python dependency management. Never use pip, conda, or other package managers.
+
+- **Professional Standards & Quality Control**:
+  - **Version Control**: Logical grouping of changes; all changes must be atomic.
+  - **Code Integrity**: All code must be robust, secure, and production-ready.
+  - **Testing**: Implement basic sanity checks and unit tests for critical functionality to prevent regressions.
+  - **Documentation**: All new code and architectural decisions must be self-documenting.
+  - **Dependency Management**: Use Poetry for all Python dependencies with proper groups and lock files.
+
+- **Task Completion Requirements**:
+  - **Comprehensive Fixes**: Address all critical bugs and issues completely
+  - **Functional Code**: Ensure all code is fully functional and production-ready
+  - **Clean Architecture**: Maintain clean, modern, and maintainable code structure
+  - **Complete Delivery**: Provide all necessary code files for a self-contained application
+  - **No Placeholders**: Never leave TODO comments, placeholder functions, or incomplete implementations
+  - **No Dead Code**: Remove all unused code, imports, and non-functional components
+  - **Full Implementation**: Every feature must be fully implemented and functional
+
+- **Security & Performance Standards**:
+  - **Security First**: Implement proper authentication, authorization, input validation, and data sanitization
+  - **Performance Optimization**: Ensure minimal response times, efficient database queries, and optimized frontend loading
+  - **Error Handling**: Provide meaningful error messages without exposing sensitive information
+  - **Logging & Monitoring**: Implement structured logging and monitoring for debugging and observability
+
+- **Modern Development Practices**:
+  - **API Design**: Follow RESTful principles with consistent naming conventions
+  - **State Management**: Use appropriate state management patterns (Zustand for client state, React Query for server state)
+  - **Type Safety**: Maintain strict TypeScript and Python type checking
+  - **Testing Strategy**: Implement unit, integration, and end-to-end tests as appropriate
+  - **CI/CD Integration**: Ensure all changes work with the existing CI/CD pipeline
+
+- **Scalability Considerations**:
+  - **Database Design**: Use proper indexing, normalization, and query optimization
+  - **Caching Strategy**: Implement appropriate caching layers (Redis, CDN, browser caching)
+  - **Microservices Ready**: Design components that can be easily extracted into separate services
+  - **Async Processing**: Use background tasks for long-running operations
+---
+
+  - **No Placeholders**: Never leave TODO comments, placeholder functions, or incomplete implementations
+  - **No Dead Code**: Remove all unused code, imports, and non-functional components
+  - **Full Implementation**: Every feature must be fully implemented and functional
+---

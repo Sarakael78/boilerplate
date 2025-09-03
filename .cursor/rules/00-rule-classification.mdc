@@ -1,0 +1,122 @@
+# Cursor Rules Classification
+
+## 🎯 ALWAYS APPLY Rules
+
+These rules should be applied to every interaction and code change:
+
+### 1. Linux Environment Rules (08-linux-environment.mdc)
+- **Priority**: Critical
+- **Scope**: All terminal operations, file system, environment
+- **Reason**: Ensures consistent Linux/WSL environment
+- **Impact**: Prevents PowerShell usage, maintains proper locale
+
+### 2. Security Best Practices (06-security-best-practices.mdc)
+- **Priority**: Critical
+- **Scope**: All code, authentication, authorization
+- **Reason**: Security is non-negotiable
+- **Impact**: Prevents vulnerabilities, ensures secure practices
+
+### 3. Code Quality Standards (04-trunk-usage.mdc)
+- **Priority**: Critical
+- **Scope**: All code changes, linting, formatting
+- **Reason**: Maintains code quality and consistency
+- **Impact**: Prevents linting errors, ensures formatting standards
+
+### 4. Documentation Quality (03-documentation-quality.mdc)
+- **Priority**: Critical
+- **Scope**: All documentation, README files, code comments, project plan updates
+- **Reason**: Ensures proper documentation structure and completion tracking
+- **Impact**: Maintains organized documentation and project progress tracking
+
+### 5. Task Completion Requirements (09-task-completion-requirements.mdc)
+- **Priority**: Critical
+- **Scope**: All task completions, work finalization
+- **Reason**: Ensures quality before completion
+- **Impact**: Prevents incomplete work, maintains standards
+
+## 🤔 INTELLIGENTLY APPLY Rules
+
+These rules should be applied based on context and task:
+
+### 1. Backend General Rules (01-backend-general.mdc)
+- **Apply When**: Backend development, API endpoints, database operations
+- **Context**: FastAPI, SQLAlchemy, Poetry, database interactions
+- **Trigger**: Backend-related tasks, API development
+
+### 2. Frontend React Rules (02-frontend-react.mdc)
+- **Apply When**: Frontend development, React components, Next.js pages
+- **Context**: React, Next.js, Tailwind CSS, TypeScript
+- **Trigger**: Frontend-related tasks, UI development
+
+### 3. Performance Optimization (07-performance-optimization.mdc)
+- **Apply When**: Performance-critical code, database queries, API endpoints
+- **Context**: Optimization, monitoring, performance analysis
+- **Trigger**: Performance-related tasks, slow operations
+
+### 4. Operational Directives (05-operational-directives.mdc)
+- **Apply When**: Deployment, monitoring, operational tasks
+- **Context**: DevOps, deployment, monitoring
+- **Trigger**: Operational tasks, deployment-related work
+
+### 5. Component Templates (react-component-template.mdc)
+- **Apply When**: Creating React components
+- **Context**: Component creation, UI development
+- **Trigger**: Component creation requests
+
+## 📊 Decision Matrix
+
+| Rule | Always Apply | Intelligent Apply | Context Trigger |
+|------|-------------|------------------|-----------------|
+| Linux Environment | ✅ | ❌ | All interactions |
+| Security | ✅ | ❌ | All code changes |
+| Code Quality | ✅ | ❌ | All code changes |
+| Documentation | ✅ | ❌ | All documentation & project plan |
+| Task Completion | ✅ | ❌ | All completions |
+| Backend Rules | ❌ | ✅ | Backend tasks |
+| Frontend Rules | ❌ | ✅ | Frontend tasks |
+| Performance | ❌ | ✅ | Performance tasks |
+| Operations | ❌ | ✅ | Operational tasks |
+| Templates | ❌ | ✅ | Component creation |
+
+## 🔧 Implementation Strategy
+
+### Always Apply Rules
+- Set `alwaysApply: true` in rule metadata
+- Apply to every code generation and review
+- Enforce in all contexts regardless of task
+
+### Intelligent Apply Rules
+- Set `alwaysApply: false` in rule metadata
+- Apply based on task analysis and context
+- Use trigger keywords and task classification
+- Apply only when relevant to current work
+
+## 📝 Rule Metadata Format
+
+```yaml
+---
+description: "Rule description"
+globs: ["**/*.py", "**/*.tsx"]  # File patterns
+alwaysApply: true/false
+contextTriggers: ["backend", "frontend", "security"]  # For intelligent rules
+priority: "critical|high|medium|low"
+---
+```
+
+## 🎯 Benefits of This Approach
+
+### Always Apply Rules
+- **Consistency**: Ensures consistent environment and practices
+- **Security**: Maintains security standards across all work
+- **Quality**: Preserves code quality standards
+- **Documentation**: Maintains organized documentation
+
+### Intelligent Apply Rules
+- **Relevance**: Only applies rules when contextually appropriate
+- **Efficiency**: Avoids unnecessary rule application
+- **Focus**: Keeps responses focused on relevant concerns
+- **Flexibility**: Adapts to different types of tasks
+description:
+globs:
+alwaysApply: false
+---

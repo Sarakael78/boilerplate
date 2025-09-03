@@ -1,104 +1,288 @@
 version: '3.8'
 
 services:
-  # NGINX REVERSE PROXY
-  # The single entry point for all traffic.
+  # Frontend Application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    container_name: frontend_app
+    command: npm run dev
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp
+      - /var/cache/nginx
+    user: "1000:1000"  # Run as non-root user
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: development
+    container_name: backend_api
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --workers 1
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - ./backend:/app
+      - /app/__pycache__
+    env_file:
+      - ./.env
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-app_db}
+      - REDIS_URL=redis://${REDIS_HOST:-redis}:${REDIS_PORT:-6379}/${REDIS_DB:-0}
+      - SECRET_KEY=${SECRET_KEY:-your-super-secret-key-change-this-in-production}
+      - DEBUG=${DEBUG:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - WORKER_PROCESSES=${WORKER_PROCESSES:-1}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp
+    user: "1000:1000"  # Run as non-root user
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
+      - POSTGRES_DB=${POSTGRES_DB:-app_db}
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-user} -d ${POSTGRES_DB:-app_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    user: "999:999"  # postgres user
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: redis_cache
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-} --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    user: "999:999"  # redis user
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+
+  # Database Admin Interface
+  adminer:
+    image: adminer:latest
+    container_name: db_adminer
+    ports:
+      - "${ADMINER_PORT:-8080}:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+    depends_on:
+      - db
+    networks:
+      - app-network
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+
+  # Reverse Proxy
   nginx:
     image: nginx:alpine
     container_name: nginx_proxy
     ports:
-      - "80:80" # Main entry point
+      - "80:80"
+      - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
     depends_on:
-      - backend
       - frontend
+      - backend
     networks:
       - app-network
-    restart: always
-
-  # BACKEND SERVICE (FastAPI)
-  backend:
-    build:
-      context: ./backend # Assumes a 'backend' folder with a Dockerfile
-    container_name: backend_api
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-    volumes:
-      - ./backend:/app # Mounts local code for hot-reloading
-    env_file:
-      - ./.env
-    ports:
-      - "8000:8000" # Expose for direct API testing
-    depends_on:
-      db:
-        condition: service_healthy # Waits for DB to be ready
-      redis:
-        condition: service_started
-    networks:
-      - app-network
-    restart: always
-
-  # FRONTEND SERVICE (Next.js)
-  frontend:
-    build:
-      context: ./frontend # Assumes a 'frontend' folder with a Dockerfile
-    container_name: frontend_app
-    command: npm run dev
-    volumes:
-      - ./frontend:/app # Mounts local code for hot-reloading
-      - /app/node_modules # Prevents local node_modules from overwriting container's
-      - /app/.next
-    env_file:
-      - ./.env
-    ports:
-      - "3000:3000" # Expose for direct browser access
-    networks:
-      - app-network
-    restart: always
-
-  # DATABASE SERVICE (PostgreSQL)
-  db:
-    image: postgres:15-alpine
-    container_name: postgres_db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - ./.env
-    ports:
-      - "5432:5432" # Expose for connecting with external DB tools
-    networks:
-      - app-network
+    restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    restart: always
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    security_opt:
+      - no-new-privileges:true
 
-  # CACHING SERVICE (Redis)
-  redis:
-    image: redis:7-alpine
-    container_name: redis_cache
-    networks:
-      - app-network
-    restart: always
-
-  # DATABASE ADMIN TOOL (Adminer)
-  # Access at http://localhost:8080
-  adminer:
-    image: adminer
-    container_name: db_adminer
+  # Monitoring Stack (Development)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus_monitoring
     ports:
-      - "8080:8080"
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
     networks:
       - app-network
-    restart: always
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
 
-# Define named volumes for data persistence
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana_dashboard
+    ports:
+      - "${GRAFANA_PORT:-3001}:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      - prometheus
+    networks:
+      - app-network
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+
+  # Development Tools
+  storybook:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.storybook
+    container_name: storybook_dev
+    ports:
+      - "${STORYBOOK_PORT:-6006}:6006"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+    profiles:
+      - dev-tools
+
+  # Backup Service
+  backup:
+    image: postgres:15-alpine
+    container_name: backup_service
+    volumes:
+      - ./backups:/backups
+      - postgres_data:/var/lib/postgresql/data:ro
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
+      - POSTGRES_DB=${POSTGRES_DB:-app_db}
+    command: >
+      sh -c "
+        pg_dump -h db -U $${POSTGRES_USER} -d $${POSTGRES_DB} > /backups/backup_$$(date +%Y%m%d_%H%M%S).sql &&
+        find /backups -name 'backup_*.sql' -mtime +${BACKUP_RETENTION_DAYS:-30} -delete
+      "
+    depends_on:
+      - db
+    networks:
+      - app-network
+    profiles:
+      - backup
+
 volumes:
   postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
 
-# Define the network for inter-service communication
 networks:
   app-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

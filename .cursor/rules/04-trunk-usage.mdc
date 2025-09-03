@@ -1,0 +1,60 @@
+---
+title: Trunk Usage Rules
+description: "Code quality standards - CRITICAL: Always run trunk check and fix ALL issues before completing work"
+globs: ["**/*.py", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.sh", "**/*.md"]
+alwaysApply: true
+contextTriggers: ["code", "quality", "linting", "formatting", "completion"]
+priority: "critical"
+---
+
+- **CRITICAL COMPLETION REQUIREMENT**: Before informing the user that any work is complete, you MUST:
+  1. Run `trunk check` to identify ALL linting and formatting issues
+  2. Run `trunk check --fix` to automatically fix all fixable issues
+  3. Manually fix any remaining issues that cannot be auto-fixed
+  4. Run `trunk check` again to verify ALL issues are resolved
+  5. Only then inform the user that the work is complete
+
+- **NEVER complete work with linting errors**: If trunk check shows any failures, errors, or warnings, you must fix them before marking the task as complete.
+
+- **Trunk Initialization**:
+  - Run `trunk init` only in a git repository with committed files
+  - Trunk will automatically detect file types and enable appropriate linters
+  - It will create configuration files (.trunk/trunk.yaml) and manage git hooks
+
+- **Code Quality Workflow**:
+  1. **Check for Issues**: `trunk check` - identifies linting and formatting issues
+  2. **Auto-fix Issues**: `trunk check --fix` - automatically fixes most issues
+  3. **Format Code**: `trunk fmt` - formats code according to project standards
+  4. **Verify Clean State**: `trunk check` - ensure all issues are resolved
+
+- **Common Trunk Commands**:
+  - `trunk check` - Check changed files for issues
+  - `trunk check --all` - Check all files in the repository
+  - `trunk check --fix` - Check and auto-fix issues
+  - `trunk fmt` - Format code files
+  - `trunk check <file>` - Check specific file or directory
+  - `trunk check backend/ frontend/` - Check specific directories
+
+- **Pre-Commit Requirements**:
+  - Always run `trunk check --fix` before completing any task
+  - Ensure no linting errors remain in the codebase
+  - If manual fixes are needed, address them before marking task complete
+  - Never commit code with linting errors
+
+- **Git Integration**:
+  - Trunk automatically sets up pre-commit and pre-push hooks
+  - Pre-commit hook runs `trunk fmt` to format code
+  - Pre-push hook runs `trunk check` to ensure code quality
+  - These hooks prevent committing code with quality issues
+
+- **Troubleshooting**:
+  - If linters fail to run, check if dependencies are installed
+  - For frontend issues, ensure `npm install` or `yarn install` has been run
+  - For Python issues, ensure virtual environment is activated or use `poetry run`
+  - Check `.trunk/out/` directory for detailed error logs
+
+- **Best Practices**:
+  - Run trunk checks frequently during development
+  - Fix issues as they arise, don't let them accumulate
+  - Use `trunk check --fix` as the primary command for code cleanup
+  - Review trunk output carefully for any issues that need manual attention

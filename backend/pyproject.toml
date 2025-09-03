@@ -4,26 +4,58 @@ version = "0.1.0"
 description = "Backend service for the project."
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
+packages = [{ include = "app" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = "^0.104.1"
-uvicorn = {extras = ["standard"], version = "^0.24.0"}
+uvicorn = { extras = ["standard"], version = "^0.24.0" }
 sqlalchemy = "^2.0.23"
 psycopg2-binary = "^2.9.9"
 redis = "^5.0.1"
 pydantic-settings = "^2.1.0"
 python-dotenv = "^1.0.0"
-python-jose = {extras = ["cryptography"], version = "^3.3.0"}
-passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-jose = { extras = ["cryptography"], version = "^3.3.0" }
+passlib = { extras = ["bcrypt"], version = "^1.7.4" }
 python-multipart = "^0.0.6"
 email-validator = "^2.1.0"
+structlog = "^23.2.0"                                           # Structured logging
+prometheus-client = "^0.19.0"                                   # Metrics collection
+sentry-sdk = "^1.38.0"                                          # Error tracking
+celery = "^5.3.4"                                               # Background tasks
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.3"
-httpx = "^0.25.1" # For testing FastAPI endpoints
+httpx = "^0.25.1"          # For testing FastAPI endpoints
 pytest-asyncio = "^0.21.1"
 alembic = "^1.13.0"
+pytest-cov = "^4.1.0"      # Coverage reporting
+black = "^23.11.0"         # Code formatting
+ruff = "^0.1.5"            # Linting
+mypy = "^1.7.0"            # Type checking
+isort = "^5.12.0"          # Import sorting
+safety = "^2.3.5"          # Security scanning
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.3"
+httpx = "^0.25.1"
+pytest-asyncio = "^0.21.1"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+factory-boy = "^3.3.0"     # Test data factories
+
+[tool.poetry.scripts]
+start = "uvicorn app.main:app --host 0.0.0.0 --port 8000"
+dev = "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+test = "pytest"
+test-cov = "pytest --cov=app --cov-report=html --cov-report=term"
+lint = "ruff check ."
+format = "black ."
+format-check = "black --check ."
+type-check = "mypy app"
+security-check = "safety check"
+migrate = "alembic upgrade head"
+migrate-create = "alembic revision --autogenerate -m"
 
 [build-system]
 requires = ["poetry-core"]
@@ -42,3 +74,52 @@ profile = "black"
 
 [tool.mypy]
 strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+  "--strict-markers",
+  "--strict-config",
+  "--cov=app",
+  "--cov-report=term-missing",
+  "--cov-report=html",
+  "--cov-fail-under=80",
+]
+markers = [
+  "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+  "integration: marks tests as integration tests",
+  "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["*/tests/*", "*/migrations/*", "*/__init__.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "if self.debug:",
+  "if settings.DEBUG",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if 0:",
+  "if __name__ == .__main__.:",
+  "class .*\\bProtocol\\):",
+  "@(abc\\.)?abstractmethod",
+]

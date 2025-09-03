@@ -1,11 +1,14 @@
 """
 Main application entry point for the FastAPI backend.
 """
+
 import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .core.config import settings
+
 from .api.users import router as users_router
+from .core.config import settings
 from .db.database import engine
 from .models import user
 
@@ -53,5 +56,5 @@ def root() -> dict[str, str]:
     return {
         "message": "Welcome to the API",
         "version": settings.APP_VERSION,
-        "docs": "/docs"
+        "docs": "/docs",
     }

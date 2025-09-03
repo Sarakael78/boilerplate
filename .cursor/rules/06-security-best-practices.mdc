@@ -1,0 +1,97 @@
+# Security Best Practices
+
+- **Authentication & Authorization**:
+  - **JWT Tokens**: Use secure JWT tokens with appropriate expiration times
+  - **Password Security**: Hash passwords using bcrypt with salt rounds of 12+
+  - **Session Management**: Implement secure session handling with proper cleanup
+  - **Role-Based Access**: Implement role-based access control (RBAC)
+  - **API Keys**: Use secure API key management with rotation capabilities
+  - **Multi-Factor Authentication**: Implement MFA for sensitive operations
+  - **OAuth Integration**: Use OAuth 2.0 for third-party authentication
+
+- **Input Validation & Sanitization**:
+  - **Server-Side Validation**: Always validate input on the server side
+  - **SQL Injection Prevention**: Use parameterized queries and ORM
+  - **XSS Prevention**: Sanitize user input and use Content Security Policy
+  - **CSRF Protection**: Implement CSRF tokens for state-changing operations
+  - **File Upload Security**: Validate file types, sizes, and scan for malware
+  - **Input Length Limits**: Implement reasonable length limits for all inputs
+  - **Content Type Validation**: Validate content types for file uploads
+
+- **Data Protection**:
+  - **Encryption**: Encrypt sensitive data at rest and in transit
+  - **PII Handling**: Minimize collection and properly handle personally identifiable information
+  - **Data Retention**: Implement proper data retention and deletion policies
+  - **Backup Security**: Secure backup storage with encryption
+  - **Log Security**: Avoid logging sensitive information
+  - **Data Masking**: Mask sensitive data in logs and error messages
+  - **Secure Communication**: Use TLS 1.3 for all communications
+
+- **API Security**:
+  - **Rate Limiting**: Implement rate limiting to prevent abuse
+  - **CORS Configuration**: Configure CORS properly for production
+  - **HTTPS Only**: Use HTTPS in production with proper SSL/TLS configuration
+  - **API Versioning**: Use proper API versioning for security updates
+  - **Error Handling**: Don't expose sensitive information in error messages
+  - **Request Validation**: Validate all API requests thoroughly
+  - **Response Sanitization**: Sanitize API responses
+
+- **Infrastructure Security**:
+  - **Environment Variables**: Store secrets in environment variables, never in code
+  - **Container Security**: Use minimal base images and scan for vulnerabilities
+  - **Network Security**: Implement proper network segmentation
+  - **Monitoring**: Set up security monitoring and alerting
+  - **Vulnerability Scanning**: Regularly scan dependencies for vulnerabilities
+  - **Secrets Management**: Use proper secrets management tools (HashiCorp Vault, AWS Secrets Manager)
+  - **Network Policies**: Implement network policies for container communication
+
+- **Development Security**:
+  - **Secret Management**: Use proper secret management tools
+  - **Code Review**: Implement security-focused code reviews
+  - **Dependency Updates**: Keep dependencies updated and scan for vulnerabilities
+  - **Security Testing**: Implement security testing in CI/CD pipeline
+  - **Security Headers**: Implement security headers (HSTS, CSP, etc.)
+  - **Secure Development**: Follow secure development practices
+  - **Security Training**: Provide security training for development teams
+
+- **Compliance & Standards**:
+  - **OWASP Guidelines**: Follow OWASP Top 10 security guidelines
+  - **GDPR Compliance**: Implement proper data protection measures
+  - **SOC 2**: Consider SOC 2 compliance for enterprise applications
+  - **Security Audits**: Conduct regular security audits
+  - **Incident Response**: Have a security incident response plan
+  - **Penetration Testing**: Conduct regular penetration testing
+  - **Security Metrics**: Track and monitor security metrics
+
+- **Frontend Security**:
+  - **Content Security Policy**: Implement strict CSP policies
+  - **XSS Prevention**: Sanitize all user-generated content
+  - **Secure Storage**: Use secure storage methods (httpOnly cookies, secure localStorage)
+  - **HTTPS Enforcement**: Enforce HTTPS for all connections
+  - **Input Validation**: Validate all user inputs on the client side
+  - **Error Handling**: Don't expose sensitive information in client-side errors
+  - **Third-Party Scripts**: Carefully vet and monitor third-party scripts
+
+- **Database Security**:
+  - **Connection Encryption**: Use encrypted connections to the database
+  - **Access Control**: Implement proper database access controls
+  - **Query Logging**: Log database queries for security monitoring
+  - **Data Encryption**: Encrypt sensitive data at rest
+  - **Backup Encryption**: Encrypt database backups
+  - **Connection Pooling**: Use secure connection pooling
+  - **Database Hardening**: Follow database security hardening guidelines
+
+- **Monitoring & Incident Response**:
+  - **Security Logging**: Implement comprehensive security logging
+  - **Alerting**: Set up security alerting for suspicious activities
+  - **Incident Response**: Have a documented incident response plan
+  - **Forensics**: Maintain logs for security forensics
+  - **Compliance Monitoring**: Monitor compliance with security standards
+  - **Threat Intelligence**: Integrate threat intelligence feeds
+  - **Security Metrics**: Track security metrics and KPIs
+description: "Security best practices - CRITICAL: Always apply security standards"
+globs: ["**/*"]
+alwaysApply: true
+contextTriggers: ["security", "authentication", "authorization", "validation"]
+priority: "critical"
+---

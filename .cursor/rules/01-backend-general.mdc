@@ -1,12 +1,100 @@
+# Backend Development Rules
+
 ---
-title: Backend General Rules
+description: "Backend development standards - Apply when working on backend/API"
+globs: ["**/*.py", "backend/**/*"]
+alwaysApply: false
+contextTriggers: ["backend", "api", "fastapi", "database", "python"]
+priority: "medium"
 ---
+
+# Backend Development Rules
+
+---
+description: "Backend development standards - Apply when working on backend/API"
+globs: ["**/*.py", "backend/**/*"]
+alwaysApply: false
+contextTriggers: ["backend", "api", "fastapi", "database", "python"]
+priority: "medium"
+---
+
+- **CRITICAL COMPLETION REQUIREMENT**: Before completing any backend work, you MUST run `trunk check` and fix ALL linting issues. Never leave linting errors in the codebase.
 
 - **Framework**: All API endpoints must be built using the FastAPI framework.
 - **Validation**: Use Pydantic models for all request body validation and response serialization. Do not use manual dictionary validation.
 - **Database Interaction**: Use SQLAlchemy Core or ORM for all database interactions. Raw SQL queries are forbidden unless absolutely necessary for performance and approved. All database logic must be isolated in a repository layer.
-- **Dependencies**: Use `poetry add <package>` to add any new dependencies. Do not use pip directly.
+- **Dependency Management**: 
+  - **Poetry Required**: Use Poetry exclusively for Python dependency management. Never use pip, conda, or other package managers.
+  - **Poetry Commands**: Use `poetry add <package>` for adding dependencies, `poetry remove <package>` for removing dependencies.
+  - **Poetry Lock**: Always commit `poetry.lock` file to version control for reproducible builds.
+  - **Poetry Groups**: Use Poetry groups for development dependencies (`poetry add --group dev <package>`).
+  - **Poetry Scripts**: Use Poetry scripts for running commands (`poetry run pytest`, `poetry run alembic upgrade head`).
 - **Error Handling**: Use FastAPI's dependency injection system for handling exceptions and returning standardized JSON error responses.
 - **Configuration**: Load all configuration from environment variables using a settings management library like `pydantic-settings`. Do not hardcode secrets or configuration values.
-- **Code Quality**: Before completing any task, run `trunk check` and `trunk fmt` to ensure all linting issues are resolved. Never leave linting errors in the codebase.
+- **Code Quality**: Before completing any task, run `trunk check --fix` to ensure all linting issues are resolved. Never leave linting errors in the codebase.
 - **Documentation**: All documentation files (except README.md) must be placed in the `/docs` folder. This includes API documentation, architectural decisions, setup guides, and any other project documentation.
+
+- **Professional Standards**:
+  - **Code Integrity**: All code must be robust, secure, and production-ready
+  - **Type Hints**: Use explicit type hints for all function signatures and variables
+  - **PEP 8 Compliance**: Adhere strictly to PEP 8 standards
+  - **Defensive Programming**: Implement try...except blocks for all I/O, network, and database operations
+  - **Dead Code Removal**: Remove all unused code and imports
+  - **Self-Documenting**: All new code and architectural decisions must be self-documenting
+  - **No Placeholders**: Never leave TODO comments, placeholder functions, or incomplete implementations
+  - **Full Implementation**: Every endpoint and service must be fully functional
+
+- **Security Standards**:
+  - **Input Validation**: Validate and sanitize all user inputs
+  - **SQL Injection Prevention**: Use parameterized queries and ORM
+  - **Authentication**: Implement proper JWT-based authentication
+  - **Authorization**: Use role-based access control (RBAC)
+  - **Rate Limiting**: Implement rate limiting on all endpoints
+  - **CORS Configuration**: Configure CORS properly for production
+  - **HTTPS Only**: Use HTTPS in production with proper SSL/TLS configuration
+  - **Secret Management**: Store secrets in environment variables, never in code
+  - **Password Security**: Hash passwords using bcrypt with salt rounds of 12+
+  - **Session Security**: Implement secure session handling with proper cleanup
+
+- **Performance & Security**:
+  - **Optimize for Speed**: Ensure minimal response times and efficient database queries
+  - **Security First**: Implement proper authentication, authorization, and input validation
+  - **Error Handling**: Provide meaningful error messages without exposing sensitive information
+  - **Logging**: Implement structured logging for debugging and monitoring
+  - **Caching**: Implement Redis caching for frequently accessed data
+  - **Connection Pooling**: Use proper database connection pooling
+  - **Async Processing**: Use background tasks for long-running operations
+
+- **Modern FastAPI Patterns**:
+  - **Async/Await**: Use async functions for all I/O operations (database, HTTP requests, file operations)
+  - **Dependency Injection**: Leverage FastAPI's dependency injection for database sessions, authentication, and other dependencies
+  - **Background Tasks**: Use FastAPI's background tasks for long-running operations
+  - **Middleware**: Implement appropriate middleware for CORS, authentication, logging, and rate limiting
+  - **API Versioning**: Use proper API versioning strategies (URL path, headers, or query parameters)
+  - **Response Models**: Define explicit response models for all endpoints to ensure consistent API responses
+  - **Health Checks**: Implement health check endpoints for monitoring
+
+- **Database Best Practices**:
+  - **Repository Pattern**: Implement repository pattern for data access layer
+  - **Connection Pooling**: Use proper database connection pooling
+  - **Migrations**: Use Alembic for database schema migrations
+  - **Transactions**: Use database transactions appropriately for data consistency
+  - **Indexing**: Ensure proper database indexing for performance
+  - **Query Optimization**: Monitor and optimize slow database queries
+  - **Data Validation**: Validate data at the database level with constraints
+
+- **Testing Standards**:
+  - **Unit Tests**: Write unit tests for all business logic
+  - **Integration Tests**: Test API endpoints with database integration
+  - **Test Coverage**: Aim for at least 80% test coverage
+  - **Test Database**: Use separate test database with proper cleanup
+  - **Mocking**: Use appropriate mocking for external dependencies
+  - **Security Testing**: Include security tests for authentication and authorization
+  - **Performance Testing**: Test API response times and database query performance
+
+- **Monitoring & Observability**:
+  - **Structured Logging**: Use structured logging with correlation IDs
+  - **Metrics Collection**: Implement metrics collection for monitoring
+  - **Error Tracking**: Set up error tracking and alerting
+  - **Health Checks**: Implement comprehensive health checks
+  - **Performance Monitoring**: Monitor response times, throughput, and error rates

@@ -4,15 +4,26 @@
 - **Goal-Oriented Action**: Before any action, state your goal. After completion, confirm the outcome.
 - **Tool Utilisation**: You have access to a suite of tools (MCP, terminal). Use the best tool for the job.
 - **Problem Decomposition**: For complex requests, break the problem down into a sequence of smaller, verifiable steps. Announce the plan before executing.
-- **Code Quality Mandate**: Before completing any task or telling the user you are complete, you MUST run `trunk check` and `trunk fmt` to ensure all linting issues are resolved. Never leave linting errors in the codebase.
+- **Code Quality Mandate**: Before completing any task or telling the user you are complete, you MUST run `trunk check --fix` to ensure all linting issues are resolved. Never leave linting errors in the codebase.
 - **Documentation Standards**: All documentation files (except README.md) must be placed in the `/docs` folder. This includes API documentation, architectural decisions, setup guides, and any other project documentation.
+- **Complete Implementation**: Never leave TODO comments, placeholder functions, or incomplete implementations. Every feature must be fully functional and production-ready.
 
 ### B. Filesystem & Terminal Interaction (PowerShell Context)
 - **Environment**: Your default terminal is PowerShell on Windows. Use PowerShell-compatible syntax (e.g., `ls` is `Get-ChildItem`, `cat` is `Get-Content`).
 - **Python Environment**: Use `poetry run <command>` for all Python operations. Do not use virtual environment activation commands.
-- **Code Quality**: Before committing, always run `trunk check` and `trunk fmt` to ensure code quality and consistent formatting.
+- **Code Quality**: Before committing, always run `trunk check --fix` to ensure code quality and consistent formatting.
 
-### C. MCP Tool Setup Protocol
+### C. Trunk Code Quality Workflow
+- **Initial Setup**: Run `trunk init` in a git repository with committed files
+- **Daily Workflow**:
+  1. `trunk check` - identify issues
+  2. `trunk check --fix` - auto-fix issues
+  3. `trunk fmt` - format code
+  4. `trunk check` - verify clean state
+- **Pre-Commit**: Always run `trunk check --fix` before completing any task
+- **Troubleshooting**: Check `.trunk/out/` for detailed error logs
+
+### D. MCP Tool Setup Protocol
 - **Verification**: Before use, verify that the third-party MCP tool server is running locally.
 - **Setup (If Not Running)**:
     1.  Announce the need to start the required MCP server.
@@ -62,7 +73,7 @@ If the project is new or missing configuration files, create them in the root di
 - **Containerisation**: The entire stack must be containerized using Docker and defined in `docker-compose.yml`.
 - **Startup Script**: A `run-dev.sh` script must exist to build and launch the full stack.
 - **CI/CD**: The CI workflow is defined in `.github/workflows/ci.yml`.
-- **Code Quality**: Before completing any task, run `trunk check` and `trunk fmt` to ensure all linting issues are resolved.
+- **Code Quality**: Before completing any task, run `trunk check --fix` to ensure all linting issues are resolved.
 
 ### F. Testing & Commits
 - **Testing**: Every feature requires tests. Every bug fix requires a regression test.

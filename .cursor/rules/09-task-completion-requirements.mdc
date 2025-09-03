@@ -1,0 +1,134 @@
+# Task Completion Requirements
+
+---
+description: "CRITICAL: Task completion requirements - Must be followed before marking any work as complete"
+globs: ["**/*"]
+alwaysApply: true
+contextTriggers: ["completion", "finish", "done", "complete"]
+priority: "critical"
+---
+
+## 🚨 CRITICAL COMPLETION REQUIREMENTS
+
+### **MANDATORY PRE-COMPLETION CHECKLIST**
+
+Before informing the user that ANY work is complete, you MUST:
+
+1. **Run Trunk Check**: Execute `trunk check` to identify ALL linting and formatting issues
+2. **Auto-Fix Issues**: Run `trunk check --fix` to automatically fix all fixable issues
+3. **Manual Fixes**: Manually fix any remaining issues that cannot be auto-fixed
+4. **Final Verification**: Run `trunk check` again to verify ALL issues are resolved
+5. **Update Project Plan**: Update `docs/agent-work/project_plan.md` with completion details
+6. **Update Documentation**: Amend README.md and any other relevant documentation
+7. **Zero Tolerance**: Only proceed if trunk check shows "No issues" or "0 failures"
+
+### **DOCUMENTATION UPDATE REQUIREMENTS**
+
+Before marking work as complete, you MUST update:
+
+1. **Project Plan** (`docs/agent-work/project_plan.md`):
+   - Add completion timestamp
+   - Update task status to "Completed"
+   - Add summary of what was accomplished
+   - Update progress indicators
+   - Add any new tasks discovered during work
+
+2. **README.md**:
+   - Update any relevant sections
+   - Add new features or capabilities
+   - Update version information if applicable
+   - Ensure all links and references are current
+   - Update installation or setup instructions if needed
+
+3. **Other Documentation**:
+   - Update any API documentation
+   - Amend setup guides if changed
+   - Update architecture documentation if modified
+   - Ensure all documentation reflects current state
+
+### **COMPLETION BLOCKERS**
+
+You MUST NOT mark work as complete if:
+- Trunk check shows ANY failures, errors, or warnings
+- There are linting issues in any file
+- Code formatting is inconsistent
+- There are unresolved code quality issues
+- Any shell scripts have linting errors
+- Documentation has formatting issues
+
+### **COMPLETION VERIFICATION**
+
+Before saying "work is complete", verify:
+- ✅ `trunk check` shows "No issues" or "0 failures"
+- ✅ All code follows project standards
+- ✅ All files are properly formatted
+- ✅ No linting errors remain
+- ✅ Code quality standards are met
+- ✅ Project plan has been updated with completion details
+- ✅ README.md has been amended if needed
+- ✅ All relevant documentation is current and accurate
+
+### **EXCEPTIONS**
+
+There are NO exceptions to this requirement. Even if:
+- The user asks for completion before linting
+- The task seems urgent
+- The issues seem minor
+- You're under time pressure
+
+### **COMPLETION MESSAGE**
+
+Only after ALL requirements are met, use this format:
+```
+✅ Task completed successfully!
+
+All code quality checks passed:
+- Trunk check: ✅ No issues
+- Code formatting: ✅ Consistent
+- Linting: ✅ Clean
+- Documentation: ✅ Updated
+
+Documentation updated:
+- Project plan: ✅ Updated with completion details
+- README.md: ✅ Amended as needed
+- Other docs: ✅ Current and accurate
+```
+
+### **FAILURE HANDLING**
+
+If trunk check shows issues:
+1. **DO NOT** say the work is complete
+2. **DO** fix the issues immediately
+3. **DO** run trunk check again
+4. **DO** only complete after all issues are resolved
+
+### **QUALITY STANDARDS**
+
+Maintain these standards:
+- **Code Quality**: All code must pass trunk checks
+- **Formatting**: Consistent formatting across all files
+- **Documentation**: Proper documentation with no formatting issues
+- **Scripts**: All shell scripts must pass shellcheck
+- **Types**: TypeScript files must have proper type checking
+- **Python**: Python files must follow PEP 8 standards
+
+### **MONITORING**
+
+Always monitor:
+- Linting status
+- Formatting consistency
+- Code quality metrics
+- Documentation standards
+- Script quality
+
+### **ENFORCEMENT**
+
+This is a **CRITICAL** rule that must be enforced:
+- **Always**: Before any completion
+- **Every Time**: For every task
+- **No Exceptions**: Under any circumstances
+- **Zero Tolerance**: For any quality issues
+description:
+globs:
+alwaysApply: false
+---
