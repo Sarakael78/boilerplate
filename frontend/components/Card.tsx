@@ -1,0 +1,41 @@
+import React from "react";
+
+interface CardProps {
+  /** A descriptive title for the card. */
+  title: string;
+  /** The content to be displayed inside the card. */
+  children: React.ReactNode;
+  /** Optional text for the call-to-action button. */
+  ctaText?: string;
+  /** Optional callback function for when the button is clicked. */
+  onCtaClick?: () => void;
+}
+
+/**
+ * A reusable card component for displaying structured content.
+ * It follows the project's design system and uses Tailwind CSS.
+ */
+export const Card = ({ title, children, ctaText, onCtaClick }: CardProps): JSX.Element => {
+  return (
+    <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+      <div className="flex flex-col space-y-1.5 p-6">
+        <h3 className="text-2xl font-semibold leading-none tracking-tight">
+          {title}
+        </h3>
+      </div>
+      <div className="p-6 pt-0">
+        {children}
+      </div>
+      {ctaText && onCtaClick && (
+        <div className="flex items-center p-6 pt-0">
+          <button
+            onClick={onCtaClick}
+            className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            {ctaText}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};

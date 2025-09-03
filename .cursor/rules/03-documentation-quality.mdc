@@ -1,0 +1,34 @@
+- **Documentation Organization**: All documentation files (except README.md) must be placed in the `/docs` folder. This includes:
+  - API documentation
+  - Architectural decisions (ADRs)
+  - Setup guides
+  - Development guidelines
+  - Deployment instructions
+  - Troubleshooting guides
+  - Any other project documentation
+
+- **README.md Location**: The main README.md file should remain in the project root directory.
+
+- **Code Quality Standards**: Before completing any task or telling the user you are complete:
+  1. Run `trunk check` to identify all linting issues
+  2. Run `trunk fmt` to automatically format code
+  3. Fix any remaining linting errors manually
+  4. Ensure all code passes all quality checks
+  5. Never leave linting errors in the codebase
+
+- **Documentation Quality**: All documentation must be:
+  - Clear and concise
+  - Up-to-date with the current codebase
+  - Written in proper markdown format
+  - Include examples where appropriate
+  - Follow consistent formatting standards
+
+- **Code Comments**: All code must have:
+  - Clear docstrings for functions and classes
+  - Inline comments for complex logic
+  - Type hints for all functions and variables
+  - Proper error handling documentation
+description:
+globs:
+alwaysApply: false
+---

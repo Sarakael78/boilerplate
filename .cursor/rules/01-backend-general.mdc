@@ -1,0 +1,12 @@
+---
+title: Backend General Rules
+---
+
+- **Framework**: All API endpoints must be built using the FastAPI framework.
+- **Validation**: Use Pydantic models for all request body validation and response serialization. Do not use manual dictionary validation.
+- **Database Interaction**: Use SQLAlchemy Core or ORM for all database interactions. Raw SQL queries are forbidden unless absolutely necessary for performance and approved. All database logic must be isolated in a repository layer.
+- **Dependencies**: Use `poetry add <package>` to add any new dependencies. Do not use pip directly.
+- **Error Handling**: Use FastAPI's dependency injection system for handling exceptions and returning standardized JSON error responses.
+- **Configuration**: Load all configuration from environment variables using a settings management library like `pydantic-settings`. Do not hardcode secrets or configuration values.
+- **Code Quality**: Before completing any task, run `trunk check` and `trunk fmt` to ensure all linting issues are resolved. Never leave linting errors in the codebase.
+- **Documentation**: All documentation files (except README.md) must be placed in the `/docs` folder. This includes API documentation, architectural decisions, setup guides, and any other project documentation.

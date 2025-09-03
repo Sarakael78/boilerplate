@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # NGINX REVERSE PROXY (Production)
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_proxy_prod
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - app-network
+    restart: always
+
+  # BACKEND SERVICE (Production)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: backend_api_prod
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
+    env_file:
+      - ./.env.production
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - app-network
+    restart: always
+
+  # FRONTEND SERVICE (Production)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: frontend_app_prod
+    command: npm start
+    env_file:
+      - ./.env.production
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    restart: always
+
+  # DATABASE SERVICE (Production)
+  db:
+    image: postgres:15-alpine
+    container_name: postgres_db_prod
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    env_file:
+      - ./.env.production
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  # CACHING SERVICE (Production)
+  redis:
+    image: redis:7-alpine
+    container_name: redis_cache_prod
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    networks:
+      - app-network
+    restart: always
+
+  # MONITORING (Prometheus)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    networks:
+      - app-network
+    restart: always
+
+  # MONITORING (Grafana)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - app-network
+    restart: always
+
+volumes:
+  postgres_data_prod:
+  grafana_data:
+
+networks:
+  app-network:
+    driver: bridge

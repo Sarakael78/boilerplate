@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # NGINX REVERSE PROXY
+  # The single entry point for all traffic.
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_proxy
+    ports:
+      - "80:80" # Main entry point
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - app-network
+    restart: always
+
+  # BACKEND SERVICE (FastAPI)
+  backend:
+    build:
+      context: ./backend # Assumes a 'backend' folder with a Dockerfile
+    container_name: backend_api
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./backend:/app # Mounts local code for hot-reloading
+    env_file:
+      - ./.env
+    ports:
+      - "8000:8000" # Expose for direct API testing
+    depends_on:
+      db:
+        condition: service_healthy # Waits for DB to be ready
+      redis:
+        condition: service_started
+    networks:
+      - app-network
+    restart: always
+
+  # FRONTEND SERVICE (Next.js)
+  frontend:
+    build:
+      context: ./frontend # Assumes a 'frontend' folder with a Dockerfile
+    container_name: frontend_app
+    command: npm run dev
+    volumes:
+      - ./frontend:/app # Mounts local code for hot-reloading
+      - /app/node_modules # Prevents local node_modules from overwriting container's
+      - /app/.next
+    env_file:
+      - ./.env
+    ports:
+      - "3000:3000" # Expose for direct browser access
+    networks:
+      - app-network
+    restart: always
+
+  # DATABASE SERVICE (PostgreSQL)
+  db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+    ports:
+      - "5432:5432" # Expose for connecting with external DB tools
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  # CACHING SERVICE (Redis)
+  redis:
+    image: redis:7-alpine
+    container_name: redis_cache
+    networks:
+      - app-network
+    restart: always
+
+  # DATABASE ADMIN TOOL (Adminer)
+  # Access at http://localhost:8080
+  adminer:
+    image: adminer
+    container_name: db_adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    restart: always
+
+# Define named volumes for data persistence
+volumes:
+  postgres_data:
+
+# Define the network for inter-service communication
+networks:
+  app-network:
+    driver: bridge

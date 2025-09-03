@@ -1,0 +1,12 @@
+---
+title: Frontend React Rules
+---
+
+- **Framework**: All frontend pages and components must be built using Next.js and React.
+- **Styling**: Use Tailwind CSS for all styling. Do not write custom `.css` or `.module.css` files unless creating a base style layer.
+- **State Management**: Use Zustand for all global and cross-component state. For server state (data fetching, caching, mutation), use React Query (`@tanstack/react-query`).
+- **Component Naming**: Follow the `PascalCase.tsx` naming convention for all component files.
+- **Hooks**: Custom hooks should be placed in a dedicated `/hooks` directory and be prefixed with `use`, e.g., `useUserData.ts`.
+- **Type Safety**: All components must have explicitly typed props using TypeScript interfaces.
+- **Code Quality**: Before completing any task, run `trunk check` and `trunk fmt` to ensure all linting issues are resolved. Never leave linting errors in the codebase.
+- **Documentation**: All documentation files (except README.md) must be placed in the `/docs` folder. This includes component documentation, architectural decisions, setup guides, and any other project documentation.

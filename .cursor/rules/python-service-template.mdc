@@ -1,0 +1,46 @@
+Please create a new Python service file in the appropriate `src/services/` directory. The service must follow this exact structure, including dependency injection for the repository layer, type hinting, and structured logging.
+
+```python
+# src/services/new_feature_service.py
+
+import logging
+from typing import Any, Dict
+from sqlalchemy.orm import Session
+from ..repositories.new_feature_repository import NewFeatureRepository
+
+logger = logging.getLogger(__name__)
+
+class NewFeatureService:
+    """
+    Service containing business logic for managing new features.
+    """
+    def __init__(self, db_session: Session):
+        self.repository = NewFeatureRepository(db_session)
+
+    def get_feature_by_id(self, feature_id: int) -> Dict[str, Any] | None:
+        """
+        Retrieves a feature by its ID.
+
+        Args:
+            feature_id: The ID of the feature to retrieve.
+
+        Returns:
+            A dictionary representing the feature, or None if not found.
+        """
+        try:
+            logger.info(f"Fetching feature with ID: {feature_id}")
+            feature = self.repository.get(feature_id)
+            if not feature:
+                logger.warning(f"Feature with ID {feature_id} not found.")
+                return None
+            return feature.to_dict()  # Assumes a to_dict method on the model
+        except Exception as e:
+            logger.error(f"Error fetching feature {feature_id}: {e}", exc_info=True)
+            # In a real app, you'd likely raise a custom service-layer exception
+            raise
+
+    # Add other business logic methods here...
+description:
+globs:
+alwaysApply: false
+---
