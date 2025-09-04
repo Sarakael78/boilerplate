@@ -34,6 +34,21 @@ lint:
     - taplo@0.10.0
     - trufflehog@3.90.5
     - yamllint@1.37.1
+  ignore:
+    - node_modules/
+    - */node_modules/
+    - **/node_modules/
+    - frontend/node_modules/
+    - backend/node_modules/
+    - .next/
+    - out/
+    - dist/
+    - build/
+    - coverage/
+    - *.log
+    - .cache/
+    - __pycache__/
+    - *.pyc
 actions:
   enabled:
     - trunk-announce
