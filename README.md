@@ -4,45 +4,71 @@ A production-ready, secure, and scalable full-stack application template built w
 
 ## 🚀 Features
 
-- **Modern Tech Stack**: Next.js 14, FastAPI, PostgreSQL, Redis
-- **Security First**: Comprehensive security practices and configurations
-- **Production Ready**: Docker, monitoring, logging, and CI/CD
-- **Developer Experience**: Hot reloading, code quality tools, and comprehensive documentation
-- **Scalable Architecture**: Microservices-ready with proper separation of concerns
-- **Real Implementation Examples**: Complete authentication, file upload, and CRUD operations
-- **Advanced Features**: Rate limiting, audit logging, error boundaries, and loading states
+* **Modern Tech Stack**: Next.js 14, FastAPI, PostgreSQL, Redis
 
----
+* **Security First**: Comprehensive security practices and configurations
+
+* **Production Ready**: Docker, monitoring, logging, and CI/CD
+
+* **Developer Experience**: Hot reloading, code quality tools, and comprehensive documentation
+
+* **Scalable Architecture**: Microservices-ready with proper separation of concerns
+
+* **Real Implementation Examples**: Complete authentication, file upload, and CRUD operations
+
+* **Advanced Features**: Rate limiting, audit logging, error boundaries, and loading states
 
 ## 🏗️ Tech Stack
 
 ### Frontend
-- **Framework**: Next.js 14 with App Router
-- **Language**: TypeScript with strict mode
-- **Styling**: Tailwind CSS with utility-first approach
-- **State Management**: Zustand for client state, React Query for server state
-- **UI Components**: Custom components with accessibility focus
-- **Authentication**: Complete login/register forms with validation
-- **Error Handling**: Comprehensive error boundaries and user-friendly messages
-- **Loading States**: Multiple loading variants (spinner, skeleton, overlay)
+
+* **Framework**: Next.js 14 with App Router
+
+* **Language**: TypeScript with strict mode
+
+* **Styling**: Tailwind CSS with utility-first approach
+
+* **State Management**: Zustand for client state, React Query for server state
+
+* **UI Components**: **Shadcn UI** with **Radix UI** primitives for a customizable, accessible component system.
+
+* **Authentication**: Complete login/register forms with validation. A specific front-end library isn't stated as secure authentication relies on back-end logic. The front end's role is to send credentials to the back end and securely store the returned JWT (e.g., via HTTP-only cookies).
+
+* **Error Handling**: Comprehensive error boundaries using **React's built-in APIs** for a lightweight solution.
+
+* **Loading States**: Multiple loading variants (spinner, skeleton, overlay) using **React Suspense** and Next.js `loading.js`.
 
 ### Backend
-- **Framework**: FastAPI with async/await support
-- **Language**: Python 3.11 with type hints
-- **Dependency Management**: Poetry (exclusive Python package manager)
-- **Database**: PostgreSQL 15 with SQLAlchemy ORM
-- **Caching**: Redis with connection pooling
-- **Authentication**: JWT-based with bcrypt password hashing
-- **File Upload**: Complete file upload system with thumbnails and validation
-- **Rate Limiting**: Redis-based rate limiting with configurable limits
-- **Audit Logging**: Comprehensive audit trail for security and compliance
+
+* **Framework**: FastAPI with async/await support
+
+* **Language**: Python 3.11 with type hints
+
+* **Dependency Management**: Poetry (exclusive Python package manager)
+
+* **Database**: PostgreSQL 15 with SQLAlchemy ORM
+
+* **Caching**: Redis with connection pooling
+
+* **Authentication**: **`python-jose`** for JWT-based auth and **`passlib`** for bcrypt password hashing.
+
+* **File Upload**: Complete file upload system using **`python-multipart`**, **`Pillow`** for image processing, and **`boto3`** for S3 storage.
+
+* **Rate Limiting**: **`fastapi-limiter`** with Redis-based rate limiting.
+
+* **Audit Logging**: Comprehensive audit trail using **`loguru`** and **`contextvars`**.
 
 ### Infrastructure
-- **Containerization**: Docker & Docker Compose
-- **Reverse Proxy**: Nginx with SSL support
-- **Monitoring**: Prometheus & Grafana
-- **CI/CD**: GitHub Actions with Trunk
-- **Code Quality**: Ruff, Black, ESLint, Prettier
+
+* **Containerization**: Docker & Docker Compose
+
+* **Reverse Proxy**: Nginx with SSL support
+
+* **Monitoring**: Prometheus & Grafana
+
+* **CI/CD**: GitHub Actions with Trunk
+
+* **Code Quality**: Ruff, Black, ESLint, Prettier
 
 ---
 
@@ -50,36 +76,56 @@ A production-ready, secure, and scalable full-stack application template built w
 
 ### Prerequisites
 
-- Docker and Docker Compose
-- Node.js 18+ (for local development)
-- Python 3.11+ (for local development)
-- Git
+* Docker and Docker Compose
+
+* Node.js 18+ (for local development)
+
+* Python 3.11+ (for local development)
+
+* Git
 
 ### Installation
 
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd project_template
-   ```
+1.  **Clone the repository**:
 
-2. **Set up environment**:
-   ```bash
-   cp env.example .env
-   # Edit .env with your configuration
-   ```
+    ```
+    git clone <repository-url>
+    cd project_template
+    
+    
+    
+    ```
 
-3. **Start development environment**:
-   ```bash
-   ./run-dev.sh
-   ```
+2.  **Set up environment**:
 
-4. **Access the application**:
-   - Frontend: http://localhost
-   - Backend API: http://localhost:8000
-   - API Documentation: http://localhost:8000/docs
-   - Database Admin: http://localhost:8080
-   - Monitoring: http://localhost:9090 (Prometheus), http://localhost:3001 (Grafana)
+    ```
+    cp env.example .env
+    # Edit .env with your configuration
+    
+    
+    
+    ```
+
+3.  **Start development environment**:
+
+    ```
+    ./run-dev.sh
+    
+    
+    
+    ```
+
+4.  **Access the application**:
+
+    * Frontend: http://localhost
+
+    * Backend API: http://localhost:8000
+
+    * API Documentation: http://localhost:8000/docs
+
+    * Database Admin: http://localhost:8080
+
+    * Monitoring: http://localhost:9090 (Prometheus), http://localhost:3001 (Grafana)
 
 ---
 

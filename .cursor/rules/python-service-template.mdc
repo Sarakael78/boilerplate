@@ -50,7 +50,3 @@ class NewFeatureService:
             raise
 
     # Add other business logic methods here...
-description:
-globs:
-alwaysApply: false
----

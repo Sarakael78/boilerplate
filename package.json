@@ -1,5 +1,5 @@
 {
-  "name": "sf-crossword",
+  "name": "modern-fullstack-template",
   "version": "1.0.0",
   "description": "A production-ready, secure, and scalable full-stack application template built with modern technologies and best practices.",
   "main": "index.js",
@@ -7,20 +7,36 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "./run-dev.sh",
+    "prod": "./run-prod.sh",
+    "lint": "trunk check",
+    "lint:fix": "trunk check --fix",
+    "format": "trunk fmt"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sarakael78/sf-crossword.git"
+    "url": "git+https://github.com/your-username/modern-fullstack-template.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "fullstack",
+    "nextjs",
+    "fastapi",
+    "postgresql",
+    "redis",
+    "docker",
+    "typescript",
+    "python",
+    "modern",
+    "template"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Sarakael78/sf-crossword/issues"
+    "url": "https://github.com/your-username/modern-fullstack-template/issues"
   },
-  "homepage": "https://github.com/Sarakael78/sf-crossword#readme",
+  "homepage": "https://github.com/your-username/modern-fullstack-template#readme",
   "devDependencies": {
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14"

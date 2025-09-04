@@ -1,3 +1,11 @@
+---
+description: "Cursor rules classification and decision matrix - Apply to understand rule application strategy"
+globs: ["**/*"]
+alwaysApply: true
+contextTriggers: ["rules", "classification", "decision"]
+priority: "critical"
+---
+
 # Cursor Rules Classification
 
 ## 🎯 ALWAYS APPLY Rules

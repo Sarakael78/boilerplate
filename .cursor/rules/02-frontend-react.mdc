@@ -2,32 +2,32 @@
 
 ---
 description: "Frontend development standards - Apply when working on frontend/React"
-globs: ["**/*.tsx", "**/*.ts", "frontend/**/*"]
+globs: ["**/*.tsx", "**/*.ts", "frontend/**/*", "**/*.json", "**/*.js", "**/*.jsx"]
 alwaysApply: false
-contextTriggers: ["frontend", "react", "nextjs", "typescript", "ui"]
-priority: "medium"
----
-
-# Frontend Development Rules
-
----
-description: "Frontend development standards - Apply when working on frontend/React"
-globs: ["**/*.tsx", "**/*.ts", "frontend/**/*"]
-alwaysApply: false
-contextTriggers: ["frontend", "react", "nextjs", "typescript", "ui"]
-priority: "medium"
+contextTriggers: ["frontend", "react", "nextjs", "typescript", "ui", "shadcn", "radix"]
+priority: "high"
 ---
 
 - **CRITICAL COMPLETION REQUIREMENT**: Before completing any frontend work, you MUST run `trunk check` and fix ALL linting issues. Never leave linting errors in the codebase.
 
-- **Framework**: All frontend pages and components must be built using Next.js and React.
-- **Styling**: Use Tailwind CSS for all styling. Do not write custom `.css` or `.module.css` files unless creating a base style layer.
+- **Framework**: All frontend pages and components must be built using Next.js 14 with App Router and React.
+- **Styling**: Use Tailwind CSS with utility-first approach for all styling. Do not write custom `.css` or `.module.css` files unless creating a base style layer.
 - **State Management**: Use Zustand for all global and cross-component state. For server state (data fetching, caching, mutation), use React Query (`@tanstack/react-query`).
+- **UI Components**: Use **Shadcn UI** with **Radix UI** primitives for a customizable, accessible component system. Build upon these foundations rather than creating custom components from scratch.
 - **Component Naming**: Follow the `PascalCase.tsx` naming convention for all component files.
 - **Hooks**: Custom hooks should be placed in a dedicated `/hooks` directory and be prefixed with `use`, e.g., `useUserData.ts`.
-- **Type Safety**: All components must have explicitly typed props using TypeScript interfaces.
+- **Type Safety**: All components must have explicitly typed props using TypeScript interfaces with strict mode enabled.
 - **Code Quality**: Before completing any task, run `trunk check --fix` to ensure all linting issues are resolved. Never leave linting errors in the codebase.
 - **Documentation**: All documentation files (except README.md) must be placed in the `/docs` folder. This includes component documentation, architectural decisions, setup guides, and any other project documentation.
+
+- **Authentication Implementation**:
+  - **Frontend Role**: The frontend's role is to send credentials to the backend and securely store the returned JWT (e.g., via HTTP-only cookies)
+  - **No Specific Library**: A specific frontend authentication library isn't required as secure authentication relies on backend logic
+  - **Form Validation**: Implement complete login/register forms with proper validation
+
+- **Error Handling & Loading States**:
+  - **Error Boundaries**: Use **React's built-in APIs** for comprehensive error boundaries (lightweight solution)
+  - **Loading States**: Implement multiple loading variants (spinner, skeleton, overlay) using **React Suspense** and Next.js `loading.js`
 
 - **Professional Standards**:
   - **Code Integrity**: All code must be robust, secure, and production-ready
@@ -53,7 +53,7 @@ priority: "medium"
 - **UI/UX Standards**:
   - **Modern Aesthetic**: Apply professional, minimalist design with curated color palettes
   - **Responsive Design**: Ensure all components work seamlessly across all device sizes
-  - **Accessibility**: Follow WCAG guidelines for inclusive design
+  - **Accessibility**: Follow WCAG guidelines for inclusive design using Radix UI primitives
   - **User Experience**: Implement intuitive navigation and clear visual feedback
   - **Consistent Styling**: Use utility-first CSS framework with consistent design tokens
   - **Loading States**: Provide clear loading indicators for all async operations

@@ -1,3 +1,11 @@
+---
+description: "Security best practices - CRITICAL: Always apply security standards"
+globs: ["**/*"]
+alwaysApply: true
+contextTriggers: ["security", "authentication", "authorization", "validation"]
+priority: "critical"
+---
+
 # Security Best Practices
 
 - **Authentication & Authorization**:
@@ -89,9 +97,3 @@
   - **Compliance Monitoring**: Monitor compliance with security standards
   - **Threat Intelligence**: Integrate threat intelligence feeds
   - **Security Metrics**: Track security metrics and KPIs
-description: "Security best practices - CRITICAL: Always apply security standards"
-globs: ["**/*"]
-alwaysApply: true
-contextTriggers: ["security", "authentication", "authorization", "validation"]
-priority: "critical"
----

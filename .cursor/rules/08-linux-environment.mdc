@@ -1,3 +1,11 @@
+---
+description: "Linux/WSL environment configuration - CRITICAL: Always use bash, never PowerShell"
+globs: ["**/*"]
+alwaysApply: true
+contextTriggers: ["terminal", "shell", "linux", "wsl", "bash"]
+priority: "critical"
+---
+
 # Cursor Configuration for Linux/WSL Environment
 
 ## Terminal Configuration
@@ -171,9 +179,3 @@ ls -la /path/to/directory
 - [ ] No PowerShell commands are used
 - [ ] Environment variables use Linux syntax
 - [ ] Package management uses Linux tools
-description: "Linux/WSL environment configuration - CRITICAL: Always use bash, never PowerShell"
-globs: ["**/*"]
-alwaysApply: true
-contextTriggers: ["terminal", "shell", "environment"]
-priority: "critical"
----

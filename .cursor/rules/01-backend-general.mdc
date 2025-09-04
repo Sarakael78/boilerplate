@@ -2,27 +2,17 @@
 
 ---
 description: "Backend development standards - Apply when working on backend/API"
-globs: ["**/*.py", "backend/**/*"]
+globs: ["**/*.py", "backend/**/*", "**/*.toml", "**/*.yml", "**/*.yaml"]
 alwaysApply: false
-contextTriggers: ["backend", "api", "fastapi", "database", "python"]
-priority: "medium"
----
-
-# Backend Development Rules
-
----
-description: "Backend development standards - Apply when working on backend/API"
-globs: ["**/*.py", "backend/**/*"]
-alwaysApply: false
-contextTriggers: ["backend", "api", "fastapi", "database", "python"]
-priority: "medium"
+contextTriggers: ["backend", "api", "fastapi", "database", "python", "poetry", "sqlalchemy"]
+priority: "high"
 ---
 
 - **CRITICAL COMPLETION REQUIREMENT**: Before completing any backend work, you MUST run `trunk check` and fix ALL linting issues. Never leave linting errors in the codebase.
 
-- **Framework**: All API endpoints must be built using the FastAPI framework.
+- **Framework**: All API endpoints must be built using the FastAPI framework with async/await support.
 - **Validation**: Use Pydantic models for all request body validation and response serialization. Do not use manual dictionary validation.
-- **Database Interaction**: Use SQLAlchemy Core or ORM for all database interactions. Raw SQL queries are forbidden unless absolutely necessary for performance and approved. All database logic must be isolated in a repository layer.
+- **Database Interaction**: Use SQLAlchemy ORM for all database interactions. Raw SQL queries are forbidden unless absolutely necessary for performance and approved. All database logic must be isolated in a repository layer.
 - **Dependency Management**: 
   - **Poetry Required**: Use Poetry exclusively for Python dependency management. Never use pip, conda, or other package managers.
   - **Poetry Commands**: Use `poetry add <package>` for adding dependencies, `poetry remove <package>` for removing dependencies.
@@ -33,6 +23,17 @@ priority: "medium"
 - **Configuration**: Load all configuration from environment variables using a settings management library like `pydantic-settings`. Do not hardcode secrets or configuration values.
 - **Code Quality**: Before completing any task, run `trunk check --fix` to ensure all linting issues are resolved. Never leave linting errors in the codebase.
 - **Documentation**: All documentation files (except README.md) must be placed in the `/docs` folder. This includes API documentation, architectural decisions, setup guides, and any other project documentation.
+
+- **Authentication & Security Libraries**:
+  - **JWT Authentication**: Use **`python-jose`** for JWT-based authentication
+  - **Password Hashing**: Use **`passlib`** with bcrypt for secure password hashing
+  - **Rate Limiting**: Use **`fastapi-limiter`** with Redis-based rate limiting
+  - **Audit Logging**: Use **`loguru`** and **`contextvars`** for comprehensive audit trails
+
+- **File Upload System**:
+  - **Multipart Handling**: Use **`python-multipart`** for handling file uploads
+  - **Image Processing**: Use **`Pillow`** for image processing and thumbnail generation
+  - **Cloud Storage**: Use **`boto3`** for S3 storage integration
 
 - **Professional Standards**:
   - **Code Integrity**: All code must be robust, secure, and production-ready
@@ -47,20 +48,20 @@ priority: "medium"
 - **Security Standards**:
   - **Input Validation**: Validate and sanitize all user inputs
   - **SQL Injection Prevention**: Use parameterized queries and ORM
-  - **Authentication**: Implement proper JWT-based authentication
+  - **Authentication**: Implement proper JWT-based authentication using `python-jose`
   - **Authorization**: Use role-based access control (RBAC)
-  - **Rate Limiting**: Implement rate limiting on all endpoints
+  - **Rate Limiting**: Implement rate limiting on all endpoints using `fastapi-limiter`
   - **CORS Configuration**: Configure CORS properly for production
   - **HTTPS Only**: Use HTTPS in production with proper SSL/TLS configuration
   - **Secret Management**: Store secrets in environment variables, never in code
-  - **Password Security**: Hash passwords using bcrypt with salt rounds of 12+
+  - **Password Security**: Hash passwords using `passlib` with bcrypt and salt rounds of 12+
   - **Session Security**: Implement secure session handling with proper cleanup
 
 - **Performance & Security**:
   - **Optimize for Speed**: Ensure minimal response times and efficient database queries
   - **Security First**: Implement proper authentication, authorization, and input validation
   - **Error Handling**: Provide meaningful error messages without exposing sensitive information
-  - **Logging**: Implement structured logging for debugging and monitoring
+  - **Logging**: Implement structured logging with `loguru` for debugging and monitoring
   - **Caching**: Implement Redis caching for frequently accessed data
   - **Connection Pooling**: Use proper database connection pooling
   - **Async Processing**: Use background tasks for long-running operations
@@ -93,7 +94,7 @@ priority: "medium"
   - **Performance Testing**: Test API response times and database query performance
 
 - **Monitoring & Observability**:
-  - **Structured Logging**: Use structured logging with correlation IDs
+  - **Structured Logging**: Use structured logging with `loguru` and correlation IDs
   - **Metrics Collection**: Implement metrics collection for monitoring
   - **Error Tracking**: Set up error tracking and alerting
   - **Health Checks**: Implement comprehensive health checks

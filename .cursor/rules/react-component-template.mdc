@@ -53,7 +53,3 @@ export const Card = ({ title, children, ctaText, onCtaClick }: CardProps): JSX.E
   );
 };
 ```
-description:
-globs:
-alwaysApply: false
----
