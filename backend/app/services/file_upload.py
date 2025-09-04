@@ -79,7 +79,7 @@ class FileUploadService:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Failed to save file: {str(e)}",
-            )
+            ) from e
 
     async def save_image_with_thumbnails(
         self, file: UploadFile, user_id: Optional[int] = None
@@ -130,7 +130,7 @@ class FileUploadService:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Failed to create thumbnails: {str(e)}",
-            )
+            ) from e
 
     async def get_file(self, filename: str) -> Optional[Path]:
         """Get file path if it exists."""
