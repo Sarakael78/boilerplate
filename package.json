@@ -1,0 +1,28 @@
+{
+  "name": "sf-crossword",
+  "version": "1.0.0",
+  "description": "A production-ready, secure, and scalable full-stack application template built with modern technologies and best practices.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sarakael78/sf-crossword.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Sarakael78/sf-crossword/issues"
+  },
+  "homepage": "https://github.com/Sarakael78/sf-crossword#readme",
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14"
+  }
+}
