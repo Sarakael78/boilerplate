@@ -1,5 +1,3 @@
-# React Component Template
-
 ---
 description: "React component template - Apply when creating React components"
 globs: ["**/*.tsx", "**/*.ts", "frontend/**/*"]
@@ -7,6 +5,8 @@ alwaysApply: false
 contextTriggers: ["react", "component", "frontend", "typescript"]
 priority: "low"
 ---
+
+# React Component Template
 
 When asked to create a new React component, use the following code as the exact template for its structure, typing, and styling. The component must be placed in the `/components` directory.
 

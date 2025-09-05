@@ -1,5 +1,3 @@
-# Backend Development Rules
-
 ---
 description: "Backend development standards - Apply when working on backend/API"
 globs: ["**/*.py", "backend/**/*", "**/*.toml", "**/*.yml", "**/*.yaml"]
@@ -7,6 +5,8 @@ alwaysApply: false
 contextTriggers: ["backend", "api", "fastapi", "database", "python", "poetry", "sqlalchemy"]
 priority: "high"
 ---
+
+# Backend Development Rules
 
 - **CRITICAL COMPLETION REQUIREMENT**: Before completing any backend work, you MUST run `trunk check` and fix ALL linting issues. Never leave linting errors in the codebase.
 

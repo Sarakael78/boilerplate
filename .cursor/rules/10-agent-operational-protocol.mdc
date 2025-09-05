@@ -1,0 +1,91 @@
+---
+description: "Agent operational protocol - CRITICAL: Always follow operational directives"
+globs: ["**/*"]
+alwaysApply: true
+contextTriggers: ["operation", "protocol", "workflow", "completion"]
+priority: "critical"
+---
+
+# Agent Operational Protocol
+
+## 🎯 Core Directives
+
+### **Goal-Oriented Action**
+- **Before Action**: State your goal clearly before taking any action
+- **After Completion**: Confirm the outcome and verify success
+- **Problem Decomposition**: For complex requests, break down into smaller, verifiable steps and announce the plan before executing
+
+### **Tool Utilization**
+- **Best Tool Selection**: Use the best tool for the job (MCP, terminal, file operations)
+- **Efficient Workflow**: Choose the most appropriate tool based on the task requirements
+- **Tool Verification**: Verify tools are working before using them
+
+### **Complete Implementation**
+- **No Placeholders**: Never leave TODO comments, placeholder functions, or incomplete implementations
+- **Production Ready**: Every feature must be fully functional and production-ready
+- **Full Functionality**: Ensure all code is complete and working before marking as done
+
+## 🔧 MCP Tool Setup Protocol
+
+### **Verification Process**
+- **Before Use**: Verify that third-party MCP tool servers are running locally
+- **Setup Required**: If not running, announce the need to start required MCP servers
+
+### **Setup Process**
+1. **Navigate**: Use terminal to navigate to designated local directory for MCP tools
+2. **Clone Repositories**: Clone required MCP server repositories if they don't exist:
+   - **Filesystem**: `https://github.com/example/mcp-filesystem.git`
+   - **Memory/KG**: `https://github.com/example/mcp-memory.git`
+   - **Sequential Thinking**: `https://github.com/example/mcp-sequential-thinker.git`
+   - **WSL Executor**: `https://github.com/example/mcp-wsl.git`
+   - **Browser Automation**: `https://github.com/example/mcp-playwright.git`
+   - **API Testing**: `https://github.com/example/mcp-postman.git`
+3. **Install Dependencies**: Follow README.md in each repository to install dependencies
+4. **Start Servers**: Start the required servers
+5. **Confirm Access**: Confirm servers are running and accessible before proceeding
+
+## 📋 Project Management
+
+### **Initial File Creation**
+- **Missing Files**: If project is new or missing configuration files, create them in root directory
+- **Kickstart Kit**: Use exact content specified in project's Kickstart Kit
+- **Configuration**: Ensure all necessary configuration files are present and properly configured
+
+### **Documentation Standards**
+- **README.md**: Maintain project overview and setup instructions in root directory
+- **Documentation Folder**: Maintain `/docs/` folder for all detailed documentation
+- **Project Plan**: Update `docs/agent-work/project_plan.md` with every significant contribution
+- **Living Document**: Include goals, current status, next steps, and architectural decisions
+
+### **Development Workflow**
+- **Containerization**: Entire stack must be containerized using Docker in `docker-compose.yml`
+- **Startup Script**: Ensure `run-dev.sh` script exists to build and launch full stack
+- **CI/CD**: Follow CI workflow defined in `.github/workflows/ci.yml`
+- **Testing**: Every feature requires tests, every bug fix requires regression test
+- **Commit Messages**: Follow Conventional Commits specification
+
+## 🏗️ Architecture Standards
+
+### **Core Stack Requirements**
+- **Backend**: FastAPI (Python)
+- **Frontend**: Next.js (React)
+- **Database**: PostgreSQL
+- **Caching**: Redis
+
+### **Extended Stack for Scaling**
+- **Logging & Search (ELK)**: Elasticsearch, Logstash, Kibana
+- **Async Tasks**: RabbitMQ
+- **Monitoring**: Prometheus & Grafana
+
+### **Data Access & Configuration**
+- **Repository Pattern**: Follow repository pattern for data access
+- **Environment Variables**: All settings must be configurable via environment variables
+- **Configuration Files**: Load from `.env` file and document in `.env.example`
+- **No Hardcoding**: Hardcoding variables is forbidden
+
+### **Code Style & Documentation**
+- **Linting & Formatting**: Adhere strictly to rules in `trunk.yaml`, `.prettierrc.json`, `.eslintrc.json`
+- **Python Standards**: All backend code must be Python 3.10+ with full type hints
+- **Naming Conventions**: Use `snake_case` for variables/functions, `PascalCase` for classes
+- **Docstrings**: All modules, classes, and functions must have clear, descriptive docstrings (Google Python Style)
+- **Purpose Documentation**: Explain purpose, arguments, and return values clearly

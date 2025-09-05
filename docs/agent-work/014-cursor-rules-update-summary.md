@@ -10,6 +10,7 @@ All Cursor rules have been updated to follow the classification structure from `
 ## ✅ **ALWAYS APPLY Rules** (4 rules)
 
 ### **Critical Priority**
+
 1. **Linux Environment Rules** (08-linux-environment.mdc)
    - `alwaysApply: true`
    - `priority: "critical"`
@@ -23,6 +24,7 @@ All Cursor rules have been updated to follow the classification structure from `
    - `contextTriggers: ["security", "authentication", "authorization", "validation"]`
 
 ### **High Priority**
+
 3. **Code Quality Standards** (04-trunk-usage.mdc)
    - `alwaysApply: true`
    - `priority: "high"`
@@ -38,6 +40,7 @@ All Cursor rules have been updated to follow the classification structure from `
 ## 🤔 **INTELLIGENTLY APPLY Rules** (5 rules)
 
 ### **Medium Priority**
+
 1. **Backend General Rules** (01-backend-general.mdc)
    - `alwaysApply: false`
    - `priority: "medium"`
@@ -63,6 +66,7 @@ All Cursor rules have been updated to follow the classification structure from `
    - `contextTriggers: ["deployment", "monitoring", "operations", "devops", "ci/cd"]`
 
 ### **Low Priority**
+
 5. **Component Templates** (react-component-template.mdc)
    - `alwaysApply: false`
    - `priority: "low"`
@@ -78,6 +82,7 @@ All Cursor rules have been updated to follow the classification structure from `
 ## 📊 **Rule Metadata Structure**
 
 ### **Standard Format**
+
 ```yaml
 ---
 description: "Rule description - Apply when/for specific context"
@@ -89,6 +94,7 @@ priority: "critical|high|medium|low"
 ```
 
 ### **Always Apply Rules**
+
 - **Description**: Clear description with "CRITICAL" or "HIGH" priority indication
 - **Globs**: `["**/*"]` for universal application or specific file patterns
 - **Always Apply**: `true`
@@ -96,6 +102,7 @@ priority: "critical|high|medium|low"
 - **Context Triggers**: General triggers that apply to all work
 
 ### **Intelligent Apply Rules**
+
 - **Description**: Clear description with context indication
 - **Globs**: Specific file patterns relevant to the rule
 - **Always Apply**: `false`
@@ -105,6 +112,7 @@ priority: "critical|high|medium|low"
 ## 🔧 **Implementation Details**
 
 ### **File Patterns Used**
+
 - **Universal**: `["**/*"]` - Applies to all files
 - **Backend**: `["**/*.py", "backend/**/*"]` - Python files and backend directory
 - **Frontend**: `["**/*.tsx", "**/*.ts", "frontend/**/*"]` - TypeScript files and frontend directory
@@ -112,10 +120,12 @@ priority: "critical|high|medium|low"
 - **Documentation**: `["**/*.md", "**/*.py", "**/*.ts", "**/*.tsx"]` - Documentation and code files
 
 ### **Context Triggers**
+
 - **Always Apply**: General triggers like "terminal", "security", "code", "documentation"
 - **Intelligent Apply**: Specific triggers like "backend", "frontend", "performance", "deployment"
 
 ### **Priority Levels**
+
 - **Critical**: Must always be applied (environment, security)
 - **High**: Should always be applied (quality, documentation)
 - **Medium**: Applied based on context (backend, frontend, performance, operations)
@@ -141,16 +151,19 @@ priority: "critical|high|medium|low"
 ## 🎯 **Benefits Achieved**
 
 ### **Consistency**
+
 - All rules now follow the same metadata structure
 - Clear descriptions and context triggers
 - Appropriate file patterns for each rule
 
 ### **Efficiency**
+
 - Always apply rules ensure critical standards
 - Intelligent apply rules prevent rule fatigue
 - Context triggers help determine rule application
 
 ### **Maintainability**
+
 - Clear classification system
 - Easy to understand and modify
 - Well-documented structure

@@ -1,0 +1,85 @@
+---
+description: "Rule file standards - CRITICAL: All rule files must follow proper metadata structure"
+globs: ["**/*.mdc", ".cursor/rules/**/*"]
+alwaysApply: true
+contextTriggers: ["rules", "metadata", "cursor", "mdc"]
+priority: "critical"
+---
+
+# Rule File Standards
+
+## 🚨 CRITICAL METADATA REQUIREMENTS
+
+### **YAML Frontmatter Structure**
+All Cursor rule files (`.mdc` files in `.cursor/rules/`) MUST have YAML frontmatter metadata at the very beginning of the file with this exact structure:
+
+```yaml
+---
+description: "Clear description of what the rule does and when to apply it"
+globs: ["file patterns for auto-attachment"]
+alwaysApply: true/false
+contextTriggers: ["trigger keywords"]
+priority: "critical|high|medium|low"
+---
+```
+
+### **Metadata Field Requirements**
+
+#### **description** (Required)
+- **Purpose**: Clear description of what the rule does and when to apply it
+- **Format**: String in quotes
+- **Example**: `"Backend development standards - Apply when working on backend/API"`
+
+#### **globs** (Required)
+- **Purpose**: File patterns for auto-attachment
+- **Format**: Array of strings
+- **Example**: `["**/*.py", "backend/**/*", "**/*.toml"]`
+
+#### **alwaysApply** (Required)
+- **Purpose**: Whether rule should always be applied or contextually
+- **Values**: `true` for critical rules, `false` for context-specific rules
+- **Example**: `true` for security rules, `false` for backend-specific rules
+
+#### **contextTriggers** (Required)
+- **Purpose**: Keywords for intelligent application
+- **Format**: Array of strings
+- **Example**: `["backend", "api", "fastapi", "database"]`
+
+#### **priority** (Required)
+- **Purpose**: Rule importance level
+- **Values**: `"critical"`, `"high"`, `"medium"`, `"low"`
+- **Example**: `"critical"` for security rules, `"medium"` for performance rules
+
+### **CRITICAL PLACEMENT RULE**
+- **Metadata MUST be at the very beginning** of the file
+- **NO content, titles, or text before the metadata block**
+- **NO incomplete metadata blocks** at the end of files
+- **Proper YAML syntax** with correct indentation
+
+### **Common Mistakes to Avoid**
+- ❌ **Wrong**: Metadata after title or content
+- ❌ **Wrong**: Incomplete metadata blocks at end of file
+- ❌ **Wrong**: Missing required fields
+- ❌ **Wrong**: Incorrect YAML syntax
+- ✅ **Correct**: Metadata at very beginning, complete and properly formatted
+
+### **Validation Checklist**
+Before creating or modifying any rule file, verify:
+- [ ] Metadata block is at the very beginning of the file
+- [ ] All required fields are present
+- [ ] YAML syntax is correct
+- [ ] No incomplete metadata blocks elsewhere in file
+- [ ] File passes `trunk check` validation
+
+### **Rule File Naming Convention**
+- **Format**: `##-descriptive-name.mdc`
+- **Numbering**: Use two-digit numbers (01-, 02-, etc.)
+- **Descriptive**: Name should clearly indicate rule purpose
+- **Examples**: `01-backend-general.mdc`, `02-frontend-react.mdc`
+
+### **Rule Classification**
+Rules should be classified in `00-rule-classification.mdc`:
+- **Always Apply Rules**: Critical rules that apply to all interactions
+- **Intelligent Apply Rules**: Context-specific rules applied based on triggers
+- **Decision Matrix**: Clear table showing when each rule applies
+- **Implementation Strategy**: How to apply rules effectively

@@ -1,5 +1,3 @@
-# Performance Optimization Guidelines
-
 ---
 description: "Performance optimization guidelines - Apply when performance is critical"
 globs: ["**/*.py", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
@@ -7,6 +5,8 @@ alwaysApply: false
 contextTriggers: ["performance", "optimization", "caching", "database", "frontend", "backend"]
 priority: "medium"
 ---
+
+# Performance Optimization Guidelines
 
 - **Backend Performance**:
   - **Database Optimization**: Use proper indexing, query optimization, and connection pooling
@@ -103,7 +103,3 @@ priority: "medium"
   - **Network Security**: Implement network security without performance impact
   - **Bandwidth Optimization**: Optimize bandwidth usage
   - **Network Caching**: Implement network-level caching
-description:
-globs:
-alwaysApply: false
----

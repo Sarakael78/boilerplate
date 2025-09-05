@@ -10,6 +10,7 @@ All Cursor rules have been updated to emphasize that **trunk linting must be com
 ## ✅ **Updated Rules**
 
 ### **1. Code Quality Standards** (04-trunk-usage.mdc)
+
 - **Priority**: Upgraded from High to **Critical**
 - **Scope**: Expanded to include shell scripts and markdown files
 - **New Requirements**:
@@ -19,21 +20,25 @@ All Cursor rules have been updated to emphasize that **trunk linting must be com
   - Auto-fix and manual fix requirements
 
 ### **2. Operational Directives** (05-operational-directives.mdc)
+
 - **Added**: CRITICAL COMPLETION REQUIREMENT section
 - **Emphasis**: Non-negotiable trunk linting before completion
 - **Scope**: All operational tasks
 
 ### **3. Backend General Rules** (01-backend-general.mdc)
+
 - **Added**: CRITICAL COMPLETION REQUIREMENT section
 - **Requirement**: Must run trunk check and fix ALL issues
 - **Scope**: All backend development work
 
 ### **4. Frontend React Rules** (02-frontend-react.mdc)
+
 - **Added**: CRITICAL COMPLETION REQUIREMENT section
 - **Requirement**: Must run trunk check and fix ALL issues
 - **Scope**: All frontend development work
 
 ### **5. New Rule: Task Completion Requirements** (09-task-completion-requirements.mdc)
+
 - **Priority**: Critical
 - **Scope**: All task completions
 - **Purpose**: Enforce quality standards before completion
@@ -52,6 +57,7 @@ Before marking ANY work as complete:
 ## 🚫 **Completion Blockers**
 
 Work MUST NOT be marked complete if:
+
 - Trunk check shows ANY failures, errors, or warnings
 - Linting issues exist in any file
 - Code formatting is inconsistent
@@ -62,6 +68,7 @@ Work MUST NOT be marked complete if:
 ## ✅ **Completion Verification**
 
 Before saying "work is complete", verify:
+
 - ✅ `trunk check` shows "No issues" or "0 failures"
 - ✅ All code follows project standards
 - ✅ All files are properly formatted
@@ -71,6 +78,7 @@ Before saying "work is complete", verify:
 ## 📊 **Updated Rule Classification**
 
 ### **Always Apply Rules** (5 rules)
+
 1. **Linux Environment Rules** - Critical priority
 2. **Security Best Practices** - Critical priority
 3. **Code Quality Standards** - Critical priority (upgraded)
@@ -78,6 +86,7 @@ Before saying "work is complete", verify:
 5. **Task Completion Requirements** - Critical priority (new)
 
 ### **Intelligent Apply Rules** (5 rules)
+
 1. **Backend General Rules** - Medium priority
 2. **Frontend React Rules** - Medium priority
 3. **Performance Optimization** - Medium priority
@@ -87,16 +96,19 @@ Before saying "work is complete", verify:
 ## 🎯 **Impact of Changes**
 
 ### **Enhanced Quality Control**
+
 - **Zero Tolerance**: No work completion with linting errors
 - **Mandatory Checks**: Trunk check required before completion
 - **Quality Assurance**: Consistent code quality across all work
 
 ### **Improved User Experience**
+
 - **Reliable Deliverables**: All completed work meets quality standards
 - **Consistent Standards**: Uniform code quality across the project
 - **Professional Output**: Production-ready code every time
 
 ### **Better Development Practices**
+
 - **Proactive Quality**: Issues caught and fixed before completion
 - **Standardized Process**: Consistent completion workflow
 - **Quality Culture**: Quality-first approach to all work
@@ -104,16 +116,19 @@ Before saying "work is complete", verify:
 ## 📝 **Implementation Notes**
 
 ### **Rule Enforcement**
+
 - **Always Apply**: Critical rules enforced in all contexts
 - **No Exceptions**: Zero tolerance for quality issues
 - **Mandatory Process**: Trunk check required before completion
 
 ### **File Coverage**
+
 - **Expanded Scope**: Shell scripts and markdown files included
 - **Comprehensive Checks**: All file types covered by trunk
 - **Quality Standards**: Consistent standards across all file types
 
 ### **Completion Workflow**
+
 1. Complete the requested work
 2. Run `trunk check` to identify issues
 3. Run `trunk check --fix` to auto-fix issues

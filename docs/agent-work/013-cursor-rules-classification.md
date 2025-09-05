@@ -8,24 +8,28 @@
 These rules are applied to every interaction and code change:
 
 ### 1. **Linux Environment Rules** (08-linux-environment.mdc)
+
 - **Status**: ✅ Always Apply
 - **Priority**: Critical
 - **Scope**: All terminal operations, file system, environment
 - **Impact**: Prevents PowerShell usage, maintains proper locale, ensures Linux paths
 
 ### 2. **Security Best Practices** (06-security-best-practices.mdc)
+
 - **Status**: ✅ Always Apply
 - **Priority**: Critical
 - **Scope**: All code, authentication, authorization, validation
 - **Impact**: Prevents vulnerabilities, ensures secure practices
 
 ### 3. **Code Quality Standards** (04-trunk-usage.mdc)
+
 - **Status**: ✅ Always Apply
 - **Priority**: High
 - **Scope**: All code changes, linting, formatting
 - **Impact**: Prevents linting errors, ensures formatting standards
 
 ### 4. **Documentation Quality** (03-documentation-quality.mdc)
+
 - **Status**: ✅ Always Apply
 - **Priority**: High
 - **Scope**: All documentation, README files, code comments
@@ -36,30 +40,35 @@ These rules are applied to every interaction and code change:
 These rules are applied based on context and task:
 
 ### 1. **Backend General Rules** (01-backend-general.mdc)
+
 - **Status**: ❌ Always Apply → ✅ Intelligent Apply
 - **Priority**: Medium
 - **Context**: Backend development, API endpoints, database operations
 - **Triggers**: Backend-related tasks, FastAPI, SQLAlchemy, Poetry
 
 ### 2. **Frontend React Rules** (02-frontend-react.mdc)
+
 - **Status**: ❌ Always Apply → ✅ Intelligent Apply
 - **Priority**: Medium
 - **Context**: Frontend development, React components, Next.js pages
 - **Triggers**: Frontend-related tasks, React, TypeScript, Tailwind CSS
 
 ### 3. **Performance Optimization** (07-performance-optimization.mdc)
+
 - **Status**: ✅ Intelligent Apply
 - **Priority**: Medium
 - **Context**: Performance-critical code, database queries, API endpoints
 - **Triggers**: Performance-related tasks, optimization work
 
 ### 4. **Operational Directives** (05-operational-directives.mdc)
+
 - **Status**: ✅ Intelligent Apply
 - **Priority**: Medium
 - **Context**: Deployment, monitoring, operational tasks
 - **Triggers**: DevOps tasks, deployment-related work
 
 ### 5. **Component Templates** (react-component-template.mdc)
+
 - **Status**: ✅ Intelligent Apply
 - **Priority**: Low
 - **Context**: Component creation, UI development
@@ -68,12 +77,14 @@ These rules are applied based on context and task:
 ## 📊 **Implementation Summary**
 
 ### **Always Apply Rules** (4 rules)
+
 - **Linux Environment**: Critical for consistent development environment
 - **Security**: Non-negotiable security standards
 - **Code Quality**: Maintains code quality across all work
 - **Documentation**: Ensures organized documentation
 
 ### **Intelligent Apply Rules** (5 rules)
+
 - **Backend Rules**: Only when working on backend/API
 - **Frontend Rules**: Only when working on frontend/UI
 - **Performance**: Only when performance is relevant
@@ -83,29 +94,33 @@ These rules are applied based on context and task:
 ## 🔧 **Rule Metadata Configuration**
 
 ### Always Apply Rules
+
 ```yaml
 alwaysApply: true
 priority: "critical|high"
-globs: ["**/*"]  # Apply to all files
+globs: ["**/*"] # Apply to all files
 ```
 
 ### Intelligent Apply Rules
+
 ```yaml
 alwaysApply: false
 priority: "medium|low"
-globs: ["**/*.py", "**/*.tsx"]  # Specific file patterns
+globs: ["**/*.py", "**/*.tsx"] # Specific file patterns
 contextTriggers: ["backend", "frontend", "performance"]
 ```
 
 ## 🎯 **Benefits of This Classification**
 
 ### **Always Apply Rules**
+
 - **Consistency**: Ensures consistent environment and practices
 - **Security**: Maintains security standards across all work
 - **Quality**: Preserves code quality standards
 - **Documentation**: Maintains organized documentation
 
 ### **Intelligent Apply Rules**
+
 - **Relevance**: Only applies rules when contextually appropriate
 - **Efficiency**: Avoids unnecessary rule application
 - **Focus**: Keeps responses focused on relevant concerns

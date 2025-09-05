@@ -14,6 +14,25 @@ priority: "high"
   - Troubleshooting guides
   - Any other project documentation
 
+- **Documentation Numbering**: All documentation files created by the AI agent must be numbered with a three-digit prefix (e.g., 001-, 002-, 003-) to track the progress of the codebase over time. Follow the existing numbering sequence in the `/docs/agent-work/` directory.
+
+- **Rule File Metadata Standards**: All Cursor rule files (`.mdc` files in `.cursor/rules/`) must have YAML frontmatter metadata at the very beginning of the file (before any content) with the following structure:
+  ```yaml
+  ---
+  description: "Clear description of what the rule does and when to apply it"
+  globs: ["file patterns for auto-attachment"]
+  alwaysApply: true/false
+  contextTriggers: ["trigger keywords"]
+  priority: "critical|high|medium|low"
+  ---
+  ```
+  - **description**: Must be clear and descriptive
+  - **globs**: Must specify file patterns for auto-attachment
+  - **alwaysApply**: Must be true for critical rules, false for context-specific rules
+  - **contextTriggers**: Must include relevant keywords for intelligent application
+  - **priority**: Must be one of the specified levels
+  - **CRITICAL**: Metadata block must be at the very beginning, before any content or titles
+
 - **README.md Location**: The main README.md file should remain in the project root directory.
 
 - **CRITICAL COMPLETION REQUIREMENT**: Before marking any work as complete, you MUST:

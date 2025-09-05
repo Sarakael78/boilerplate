@@ -9,6 +9,7 @@ docs/agent-work/XXX-descriptive-name.md
 ```
 
 Where:
+
 - `XXX` is a 3-digit sequential number (001, 002, 003, etc.)
 - `descriptive-name` is a kebab-case description of the document content
 - `.md` extension for markdown files

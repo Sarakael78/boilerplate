@@ -1,12 +1,12 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import "./globals.css";
+import type { Metadata } from "next";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export const metadata: Metadata = {
-  title: 'Your Project',
-  description: 'A full-stack application built with Next.js and FastAPI',
-}
+  title: "Your Project",
+  description: "A full-stack application built with Next.js and FastAPI",
+};
 
 // Create a client
 const queryClient = new QueryClient({
@@ -16,12 +16,12 @@ const queryClient = new QueryClient({
       retry: 1,
     },
   },
-})
+});
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -32,5 +32,5 @@ export default function RootLayout({
         </QueryClientProvider>
       </body>
     </html>
-  )
+  );
 }

@@ -2,11 +2,7 @@
 Test cases for user endpoints.
 """
 
-import pytest
 from fastapi import status
-
-from ..app.core.security import get_password_hash
-from ..app.models.user import User
 
 
 def test_create_user(test_client, test_db):

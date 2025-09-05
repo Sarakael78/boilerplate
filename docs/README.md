@@ -9,6 +9,7 @@ This is a production-ready, secure, and scalable full-stack application template
 ### Technology Stack
 
 #### Frontend
+
 - **Next.js 14**: React framework with App Router
 - **TypeScript**: Type-safe JavaScript
 - **Tailwind CSS**: Utility-first CSS framework
@@ -17,6 +18,7 @@ This is a production-ready, secure, and scalable full-stack application template
 - **Axios**: HTTP client
 
 #### Backend
+
 - **FastAPI**: Modern Python web framework
 - **SQLAlchemy**: Database ORM
 - **PostgreSQL**: Primary database
@@ -25,6 +27,7 @@ This is a production-ready, secure, and scalable full-stack application template
 - **Poetry**: Exclusive Python dependency management
 
 #### Infrastructure
+
 - **Docker**: Containerization
 - **Docker Compose**: Multi-container orchestration
 - **Nginx**: Reverse proxy
@@ -35,6 +38,7 @@ This is a production-ready, secure, and scalable full-stack application template
 ### Security Features
 
 #### Authentication & Authorization
+
 - JWT-based authentication with secure token handling
 - Role-based access control (RBAC)
 - Session management with automatic cleanup
@@ -42,6 +46,7 @@ This is a production-ready, secure, and scalable full-stack application template
 - Multi-factor authentication support
 
 #### Data Protection
+
 - Password hashing with bcrypt (12+ salt rounds)
 - Input validation and sanitization
 - SQL injection prevention through ORM
@@ -49,6 +54,7 @@ This is a production-ready, secure, and scalable full-stack application template
 - CSRF protection for state-changing operations
 
 #### Infrastructure Security
+
 - Non-root container users
 - Security headers (HSTS, CSP, etc.)
 - Rate limiting to prevent abuse
@@ -58,6 +64,7 @@ This is a production-ready, secure, and scalable full-stack application template
 ### Performance Optimizations
 
 #### Backend Performance
+
 - Database connection pooling
 - Redis caching for frequently accessed data
 - Async/await for I/O operations
@@ -65,6 +72,7 @@ This is a production-ready, secure, and scalable full-stack application template
 - Query optimization with proper indexing
 
 #### Frontend Performance
+
 - Code splitting and lazy loading
 - Image optimization with Next.js Image component
 - Font optimization and system font usage
@@ -72,6 +80,7 @@ This is a production-ready, secure, and scalable full-stack application template
 - Service worker for offline functionality
 
 #### Database Performance
+
 - Proper indexing strategy
 - Query optimization
 - Connection pooling
@@ -81,6 +90,7 @@ This is a production-ready, secure, and scalable full-stack application template
 ## Development Workflow
 
 ### Prerequisites
+
 - Docker and Docker Compose
 - Node.js 18+ (for local development)
 - Python 3.11+ (for local development)
@@ -90,28 +100,32 @@ This is a production-ready, secure, and scalable full-stack application template
 ### Getting Started
 
 1. **Install Poetry** (if not already installed):
+
    ```bash
    curl -sSL https://install.python-poetry.org | python3 -
    ```
 
 2. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd project_template
    ```
 
 3. **Set up environment**
+
    ```bash
    cp env.example .env
    # Edit .env with your configuration
    ```
 
 4. **Start development environment**
+
    ```bash
    ./run-dev.sh
    ```
 
-4. **Access the application**
+5. **Access the application**
    - Frontend: http://localhost
    - Backend API: http://localhost:8000
    - API Documentation: http://localhost:8000/docs
@@ -191,6 +205,7 @@ project_template/
 The application uses environment variables for configuration. Key variables include:
 
 #### Application Configuration
+
 - `APP_NAME`: Application name
 - `APP_VERSION`: Application version
 - `APP_ENV`: Environment (development, staging, production)
@@ -198,12 +213,14 @@ The application uses environment variables for configuration. Key variables incl
 - `LOG_LEVEL`: Logging level (INFO, WARNING, ERROR, CRITICAL)
 
 #### Database Configuration
+
 - `POSTGRES_USER`: Database username
 - `POSTGRES_PASSWORD`: Database password (use strong password)
 - `POSTGRES_DB`: Database name
 - `DATABASE_URL`: Full database connection URL
 
 #### Security Configuration
+
 - `SECRET_KEY`: Strong secret key for JWT signing (minimum 32 characters)
 - `JWT_ALGORITHM`: JWT algorithm (HS256)
 - `ACCESS_TOKEN_EXPIRE_MINUTES`: Access token expiration time
@@ -211,12 +228,14 @@ The application uses environment variables for configuration. Key variables incl
 - `PASSWORD_SALT_ROUNDS`: Password hashing salt rounds (12+)
 
 #### Redis Configuration
+
 - `REDIS_HOST`: Redis host
 - `REDIS_PORT`: Redis port
 - `REDIS_PASSWORD`: Redis password (recommended for production)
 - `REDIS_URL`: Full Redis connection URL
 
 #### CORS Configuration
+
 - `CORS_ORIGINS`: Allowed origins for CORS
 - `CORS_ALLOW_CREDENTIALS`: Allow credentials in CORS
 - `CORS_ALLOW_METHODS`: Allowed HTTP methods
@@ -252,21 +271,25 @@ The application uses environment variables for configuration. Key variables incl
 ## Monitoring and Observability
 
 ### Metrics Collection
+
 - **Prometheus**: Collects application and system metrics
 - **Grafana**: Visualizes metrics and creates dashboards
 - **Custom Metrics**: Application-specific metrics for business logic
 
 ### Logging
+
 - **Structured Logging**: JSON-formatted logs with correlation IDs
 - **Log Levels**: Configurable log levels (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 - **Log Aggregation**: Centralized log collection and analysis
 
 ### Health Checks
+
 - **Application Health**: Health check endpoints for all services
 - **Database Health**: Database connectivity and performance checks
 - **External Dependencies**: Health checks for external services
 
 ### Alerting
+
 - **Performance Alerts**: Alerts for high response times
 - **Error Alerts**: Alerts for application errors
 - **Resource Alerts**: Alerts for high resource usage
@@ -274,11 +297,13 @@ The application uses environment variables for configuration. Key variables incl
 ## Deployment
 
 ### Development Deployment
+
 ```bash
 ./run-dev.sh
 ```
 
 ### Production Deployment
+
 ```bash
 ./run-prod.sh
 ```
@@ -286,12 +311,14 @@ The application uses environment variables for configuration. Key variables incl
 ### Environment-Specific Configurations
 
 #### Development
+
 - Debug mode enabled
 - Hot reloading
 - Detailed error messages
 - Local database and Redis
 
 #### Production
+
 - Debug mode disabled
 - Optimized builds
 - Error tracking
@@ -302,6 +329,7 @@ The application uses environment variables for configuration. Key variables incl
 ## Testing
 
 ### Backend Testing
+
 ```bash
 cd backend
 poetry run pytest
@@ -309,6 +337,7 @@ poetry run pytest --cov=app --cov-report=html
 ```
 
 ### Frontend Testing
+
 ```bash
 cd frontend
 npm test
@@ -316,11 +345,13 @@ npm run test:coverage
 ```
 
 ### End-to-End Testing
+
 ```bash
 npm run test:e2e
 ```
 
 ### Test Coverage Requirements
+
 - Minimum 80% test coverage
 - Unit tests for all business logic
 - Integration tests for API endpoints
@@ -329,11 +360,13 @@ npm run test:e2e
 ## Code Quality
 
 ### Linting and Formatting
+
 - **Python**: Ruff, Black, isort, mypy
 - **TypeScript**: ESLint, Prettier
 - **General**: Trunk for unified code quality management
 
 ### Poetry Best Practices
+
 - **Dependency Management**: Use Poetry exclusively for Python dependencies
 - **Lock File**: Always commit `poetry.lock` for reproducible builds
 - **Groups**: Use Poetry groups for development and test dependencies
@@ -342,6 +375,7 @@ npm run test:e2e
 - **Updates**: Use `poetry update` to update dependencies safely
 
 ### Code Review Guidelines
+
 - All code must pass linting checks
 - TypeScript strict mode enabled
 - Python type hints required
@@ -349,6 +383,7 @@ npm run test:e2e
 - Performance considerations reviewed
 
 ### Documentation Standards
+
 - API documentation with OpenAPI/Swagger
 - Code comments for complex logic
 - README files for all major components
@@ -359,6 +394,7 @@ npm run test:e2e
 ### Common Issues
 
 #### Development Environment
+
 1. **Docker not running**
    - Start Docker Desktop
    - Check Docker service status
@@ -377,6 +413,7 @@ npm run test:e2e
    - Rebuild containers: `docker-compose build --no-cache`
 
 #### Production Issues
+
 1. **High resource usage**
    - Monitor container resource usage
    - Optimize database queries
@@ -394,6 +431,7 @@ npm run test:e2e
    - Scale horizontally if needed
 
 ### Log Analysis
+
 - Check application logs: `docker-compose logs [service]`
 - Monitor error rates and patterns
 - Use log correlation IDs for debugging
@@ -402,6 +440,7 @@ npm run test:e2e
 ## Contributing
 
 ### Development Workflow
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
@@ -410,6 +449,7 @@ npm run test:e2e
 6. Submit a pull request
 
 ### Code Standards
+
 - All code must pass `trunk check`
 - TypeScript strict mode enabled
 - Python type hints required
@@ -417,6 +457,7 @@ npm run test:e2e
 - Security best practices enforced
 
 ### Documentation
+
 - Update documentation for new features
 - Include API documentation changes
 - Update README files as needed
@@ -425,6 +466,7 @@ npm run test:e2e
 ## Support and Maintenance
 
 ### Regular Maintenance Tasks
+
 - Update dependencies regularly
 - Monitor security advisories
 - Review and update documentation
@@ -432,11 +474,13 @@ npm run test:e2e
 - Security audits and penetration testing
 
 ### Support Channels
+
 - GitHub Issues for bug reports
 - Documentation for setup and usage
 - Security issues should be reported privately
 
 ### Updates and Upgrades
+
 - Regular dependency updates with security patches
 - Framework updates following release notes
 - Database migrations for schema changes

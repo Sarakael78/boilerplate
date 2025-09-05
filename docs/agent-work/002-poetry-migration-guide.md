@@ -129,7 +129,9 @@ poetry run migrate-create "migration description"
 ## Dependency Groups
 
 ### Production Dependencies (`[tool.poetry.dependencies]`)
+
 Core dependencies required for the application to run:
+
 - `fastapi`: Web framework
 - `sqlalchemy`: Database ORM
 - `redis`: Caching
@@ -140,7 +142,9 @@ Core dependencies required for the application to run:
 - `celery`: Background tasks
 
 ### Development Dependencies (`[tool.poetry.group.dev.dependencies]`)
+
 Tools and dependencies for development:
+
 - `pytest`: Testing framework
 - `black`: Code formatting
 - `ruff`: Linting
@@ -149,7 +153,9 @@ Tools and dependencies for development:
 - `safety`: Security scanning
 
 ### Test Dependencies (`[tool.poetry.group.test.dependencies]`)
+
 Dependencies specifically for testing:
+
 - `pytest-cov`: Coverage reporting
 - `pytest-mock`: Mocking utilities
 - `factory-boy`: Test data factories
@@ -157,6 +163,7 @@ Dependencies specifically for testing:
 ## Tool Configurations
 
 ### Ruff Configuration
+
 ```toml
 [tool.ruff]
 line-length = 88
@@ -165,12 +172,14 @@ ignore = ["E501"]
 ```
 
 ### Black Configuration
+
 ```toml
 [tool.black]
 line-length = 88
 ```
 
 ### MyPy Configuration
+
 ```toml
 [tool.mypy]
 strict = true
@@ -180,6 +189,7 @@ disallow_untyped_defs = true
 ```
 
 ### Pytest Configuration
+
 ```toml
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -195,26 +205,31 @@ addopts = [
 ## Best Practices
 
 ### 1. Lock File Management
+
 - **Always commit `poetry.lock`**: This ensures reproducible builds
 - **Don't edit lock file manually**: Let Poetry manage it
 - **Update lock file regularly**: Run `poetry update` to get security patches
 
 ### 2. Dependency Management
+
 - **Use specific versions**: Avoid using `*` or `^` for critical dependencies
 - **Group dependencies properly**: Use appropriate groups for different types of dependencies
 - **Keep dependencies minimal**: Only add what you actually need
 
 ### 3. Virtual Environments
+
 - **Let Poetry manage environments**: Don't create virtual environments manually
 - **Use project-local environments**: Configure `virtualenvs.in-project = true`
 - **Activate environments**: Use `poetry shell` or `poetry run`
 
 ### 4. Security
+
 - **Regular security scans**: Run `poetry run security-check` regularly
 - **Update dependencies**: Keep dependencies updated for security patches
 - **Review dependencies**: Understand what you're adding to your project
 
 ### 5. Development Workflow
+
 - **Use Poetry scripts**: Leverage the defined scripts for common tasks
 - **Consistent environment**: Use Poetry to ensure all developers have the same environment
 - **Documentation**: Keep dependency documentation up to date
@@ -224,12 +239,14 @@ addopts = [
 ### Common Issues
 
 #### Poetry Not Found
+
 ```bash
 # Add Poetry to PATH
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
 #### Virtual Environment Issues
+
 ```bash
 # Remove existing environment
 poetry env remove python
@@ -239,6 +256,7 @@ poetry install
 ```
 
 #### Lock File Conflicts
+
 ```bash
 # Regenerate lock file
 rm poetry.lock
@@ -246,6 +264,7 @@ poetry install
 ```
 
 #### Dependency Resolution Issues
+
 ```bash
 # Update Poetry
 poetry self update
@@ -257,6 +276,7 @@ poetry cache clear --all pypi
 ### Performance Tips
 
 #### Faster Installation
+
 ```bash
 # Use system packages when possible
 poetry config virtualenvs.prefer-active-python true
@@ -266,6 +286,7 @@ poetry source add --priority=primary pypi https://pypi.org/simple/
 ```
 
 #### Parallel Installation
+
 ```bash
 # Install dependencies in parallel (if supported)
 poetry install --no-dev --no-interaction
@@ -274,6 +295,7 @@ poetry install --no-dev --no-interaction
 ## Integration with CI/CD
 
 ### GitHub Actions Example
+
 ```yaml
 - name: Install Poetry
   uses: snok/install-poetry@v1
@@ -299,6 +321,7 @@ poetry install --no-dev --no-interaction
 ```
 
 ### Docker Integration
+
 ```dockerfile
 # Install Poetry
 RUN pip install poetry
@@ -317,6 +340,7 @@ COPY . .
 ## Migration from Other Tools
 
 ### From pip/requirements.txt
+
 ```bash
 # Install Poetry
 curl -sSL https://install.python-poetry.org | python3 -
@@ -332,6 +356,7 @@ rm requirements.txt
 ```
 
 ### From pipenv
+
 ```bash
 # Export dependencies
 pipenv lock --requirements > requirements.txt

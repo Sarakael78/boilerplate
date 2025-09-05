@@ -1,8 +1,8 @@
 /**
  * Zustand store for global state management.
  */
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface User {
   id: number;
@@ -45,7 +45,7 @@ export const useAuthStore = create<AuthState>()(
         })),
     }),
     {
-      name: 'auth-storage',
+      name: "auth-storage",
     }
   )
 );

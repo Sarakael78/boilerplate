@@ -42,6 +42,18 @@ These rules should be applied to every interaction and code change:
 - **Reason**: Ensures quality before completion
 - **Impact**: Prevents incomplete work, maintains standards
 
+### 6. Agent Operational Protocol (10-agent-operational-protocol.mdc)
+- **Priority**: Critical
+- **Scope**: All agent operations, workflow, project management
+- **Reason**: Ensures consistent operational standards
+- **Impact**: Maintains operational excellence and project standards
+
+### 7. Rule File Standards (11-rule-file-standards.mdc)
+- **Priority**: Critical
+- **Scope**: All rule file creation and modification
+- **Reason**: Ensures proper metadata structure and rule functionality
+- **Impact**: Prevents metadata errors and ensures rules work correctly
+
 ## 🤔 INTELLIGENTLY APPLY Rules
 
 These rules should be applied based on context and task:
@@ -80,6 +92,8 @@ These rules should be applied based on context and task:
 | Code Quality | ✅ | ❌ | All code changes |
 | Documentation | ✅ | ❌ | All documentation & project plan |
 | Task Completion | ✅ | ❌ | All completions |
+| Agent Operational Protocol | ✅ | ❌ | All operations |
+| Rule File Standards | ✅ | ❌ | All rule file creation/modification |
 | Backend Rules | ❌ | ✅ | Backend tasks |
 | Frontend Rules | ❌ | ✅ | Frontend tasks |
 | Performance | ❌ | ✅ | Performance tasks |
@@ -124,7 +138,3 @@ priority: "critical|high|medium|low"
 - **Efficiency**: Avoids unnecessary rule application
 - **Focus**: Keeps responses focused on relevant concerns
 - **Flexibility**: Adapts to different types of tasks
-description:
-globs:
-alwaysApply: false
----

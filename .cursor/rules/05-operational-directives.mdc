@@ -1,5 +1,3 @@
-# Operational Directives
-
 ---
 description: "Operational directives for deployment and monitoring - Apply for operational tasks"
 globs: ["**/*.yml", "**/*.yaml", "**/*.json", "docker/**/*", "scripts/**/*", "**/*.sh"]
@@ -7,6 +5,8 @@ alwaysApply: false
 contextTriggers: ["deployment", "monitoring", "operations", "devops", "ci/cd", "docker"]
 priority: "high"
 ---
+
+# Operational Directives
 
 - **CRITICAL COMPLETION REQUIREMENT**: Before marking any task as complete, you MUST ensure all trunk linting issues are resolved. This is non-negotiable.
 

@@ -1,5 +1,3 @@
-# Task Completion Requirements
-
 ---
 description: "CRITICAL: Task completion requirements - Must be followed before marking any work as complete"
 globs: ["**/*"]
@@ -7,6 +5,8 @@ alwaysApply: true
 contextTriggers: ["completion", "finish", "done", "complete"]
 priority: "critical"
 ---
+
+# Task Completion Requirements
 
 ## 🚨 CRITICAL COMPLETION REQUIREMENTS
 
@@ -45,6 +45,7 @@ Before marking work as complete, you MUST update:
    - Amend setup guides if changed
    - Update architecture documentation if modified
    - Ensure all documentation reflects current state
+   - **CRITICAL**: Any new documentation files must be numbered with three-digit prefix (e.g., 001-, 002-) following the existing sequence in `/docs/agent-work/`
 
 ### **COMPLETION BLOCKERS**
 
@@ -128,7 +129,3 @@ This is a **CRITICAL** rule that must be enforced:
 - **Every Time**: For every task
 - **No Exceptions**: Under any circumstances
 - **Zero Tolerance**: For any quality issues
-description:
-globs:
-alwaysApply: false
----

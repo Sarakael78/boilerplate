@@ -4,71 +4,71 @@ A production-ready, secure, and scalable full-stack application template built w
 
 ## 🚀 Features
 
-* **Modern Tech Stack**: Next.js 14, FastAPI, PostgreSQL, Redis
+- **Modern Tech Stack**: Next.js 14, FastAPI, PostgreSQL, Redis
 
-* **Security First**: Comprehensive security practices and configurations
+- **Security First**: Comprehensive security practices and configurations
 
-* **Production Ready**: Docker, monitoring, logging, and CI/CD
+- **Production Ready**: Docker, monitoring, logging, and CI/CD
 
-* **Developer Experience**: Hot reloading, code quality tools, and comprehensive documentation
+- **Developer Experience**: Hot reloading, code quality tools, and comprehensive documentation
 
-* **Scalable Architecture**: Microservices-ready with proper separation of concerns
+- **Scalable Architecture**: Microservices-ready with proper separation of concerns
 
-* **Real Implementation Examples**: Complete authentication, file upload, and CRUD operations
+- **Real Implementation Examples**: Complete authentication, file upload, and CRUD operations
 
-* **Advanced Features**: Rate limiting, audit logging, error boundaries, and loading states
+- **Advanced Features**: Rate limiting, audit logging, error boundaries, and loading states
 
 ## 🏗️ Tech Stack
 
 ### Frontend
 
-* **Framework**: Next.js 14 with App Router
+- **Framework**: Next.js 14 with App Router
 
-* **Language**: TypeScript with strict mode
+- **Language**: TypeScript with strict mode
 
-* **Styling**: Tailwind CSS with utility-first approach
+- **Styling**: Tailwind CSS with utility-first approach
 
-* **State Management**: Zustand for client state, React Query for server state
+- **State Management**: Zustand for client state, React Query for server state
 
-* **UI Components**: **Shadcn UI** with **Radix UI** primitives for a customizable, accessible component system.
+- **UI Components**: **Shadcn UI** with **Radix UI** primitives for a customizable, accessible component system.
 
-* **Authentication**: Complete login/register forms with validation. A specific front-end library isn't stated as secure authentication relies on back-end logic. The front end's role is to send credentials to the back end and securely store the returned JWT (e.g., via HTTP-only cookies).
+- **Authentication**: Complete login/register forms with validation. A specific front-end library isn't stated as secure authentication relies on back-end logic. The front end's role is to send credentials to the back end and securely store the returned JWT (e.g., via HTTP-only cookies).
 
-* **Error Handling**: Comprehensive error boundaries using **React's built-in APIs** for a lightweight solution.
+- **Error Handling**: Comprehensive error boundaries using **React's built-in APIs** for a lightweight solution.
 
-* **Loading States**: Multiple loading variants (spinner, skeleton, overlay) using **React Suspense** and Next.js `loading.js`.
+- **Loading States**: Multiple loading variants (spinner, skeleton, overlay) using **React Suspense** and Next.js `loading.js`.
 
 ### Backend
 
-* **Framework**: FastAPI with async/await support
+- **Framework**: FastAPI with async/await support
 
-* **Language**: Python 3.11 with type hints
+- **Language**: Python 3.11 with type hints
 
-* **Dependency Management**: Poetry (exclusive Python package manager)
+- **Dependency Management**: Poetry (exclusive Python package manager)
 
-* **Database**: PostgreSQL 15 with SQLAlchemy ORM
+- **Database**: PostgreSQL 15 with SQLAlchemy ORM
 
-* **Caching**: Redis with connection pooling
+- **Caching**: Redis with connection pooling
 
-* **Authentication**: **`python-jose`** for JWT-based auth and **`passlib`** for bcrypt password hashing.
+- **Authentication**: **`python-jose`** for JWT-based auth and **`passlib`** for bcrypt password hashing.
 
-* **File Upload**: Complete file upload system using **`python-multipart`**, **`Pillow`** for image processing, and **`boto3`** for S3 storage.
+- **File Upload**: Complete file upload system using **`python-multipart`**, **`Pillow`** for image processing, and **`boto3`** for S3 storage.
 
-* **Rate Limiting**: **`fastapi-limiter`** with Redis-based rate limiting.
+- **Rate Limiting**: **`fastapi-limiter`** with Redis-based rate limiting.
 
-* **Audit Logging**: Comprehensive audit trail using **`loguru`** and **`contextvars`**.
+- **Audit Logging**: Comprehensive audit trail using **`loguru`** and **`contextvars`**.
 
 ### Infrastructure
 
-* **Containerization**: Docker & Docker Compose
+- **Containerization**: Docker & Docker Compose
 
-* **Reverse Proxy**: Nginx with SSL support
+- **Reverse Proxy**: Nginx with SSL support
 
-* **Monitoring**: Prometheus & Grafana
+- **Monitoring**: Prometheus & Grafana
 
-* **CI/CD**: GitHub Actions with Trunk
+- **CI/CD**: GitHub Actions with Trunk
 
-* **Code Quality**: Ruff, Black, ESLint, Prettier
+- **Code Quality**: Ruff, Black, ESLint, Prettier
 
 ---
 
@@ -76,13 +76,13 @@ A production-ready, secure, and scalable full-stack application template built w
 
 ### Prerequisites
 
-* Docker and Docker Compose
+- Docker and Docker Compose
 
-* Node.js 18+ (for local development)
+- Node.js 18+ (for local development)
 
-* Python 3.11+ (for local development)
+- Python 3.11+ (for local development)
 
-* Git
+- Git
 
 ### Installation
 
@@ -91,9 +91,9 @@ A production-ready, secure, and scalable full-stack application template built w
     ```
     git clone <repository-url>
     cd project_template
-    
-    
-    
+
+
+
     ```
 
 2.  **Set up environment**:
@@ -101,31 +101,30 @@ A production-ready, secure, and scalable full-stack application template built w
     ```
     cp env.example .env
     # Edit .env with your configuration
-    
-    
-    
+
+
+
     ```
 
 3.  **Start development environment**:
 
     ```
     ./run-dev.sh
-    
-    
-    
+
+
+
     ```
 
 4.  **Access the application**:
+    - Frontend: http://localhost
 
-    * Frontend: http://localhost
+    - Backend API: http://localhost:8000
 
-    * Backend API: http://localhost:8000
+    - API Documentation: http://localhost:8000/docs
 
-    * API Documentation: http://localhost:8000/docs
+    - Database Admin: http://localhost:8080
 
-    * Database Admin: http://localhost:8080
-
-    * Monitoring: http://localhost:9090 (Prometheus), http://localhost:3001 (Grafana)
+    - Monitoring: http://localhost:9090 (Prometheus), http://localhost:3001 (Grafana)
 
 ---
 
@@ -223,11 +222,13 @@ project_template/
 ## 🚀 Deployment
 
 ### Development
+
 ```bash
 ./run-dev.sh
 ```
 
 ### Production
+
 ```bash
 ./run-prod.sh
 ```
@@ -249,6 +250,7 @@ See `env.example` for complete configuration options.
 ## 🧪 Testing
 
 ### Backend Testing
+
 ```bash
 cd backend
 poetry run pytest
@@ -256,6 +258,7 @@ poetry run pytest --cov=app --cov-report=html
 ```
 
 ### Frontend Testing
+
 ```bash
 cd frontend
 npm test
@@ -263,6 +266,7 @@ npm run test:coverage
 ```
 
 ### End-to-End Testing
+
 ```bash
 # Run E2E tests (if configured)
 npm run test:e2e

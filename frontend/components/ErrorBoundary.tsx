@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -24,7 +24,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
     this.props.onError?.(error, errorInfo);
   }
 
@@ -35,10 +35,10 @@ export class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-          <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6">
+        <div className="flex min-h-screen items-center justify-center bg-gray-50">
+          <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-md">
             <div className="text-center">
-              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
                 <svg
                   className="h-6 w-6 text-red-600"
                   fill="none"
@@ -53,29 +53,30 @@ export class ErrorBoundary extends Component<Props, State> {
                   />
                 </svg>
               </div>
-              
-              <h2 className="text-lg font-medium text-gray-900 mb-2">
+
+              <h2 className="mb-2 text-lg font-medium text-gray-900">
                 Something went wrong
               </h2>
-              
-              <p className="text-sm text-gray-600 mb-4">
-                We're sorry, but something unexpected happened. Please try refreshing the page.
+
+              <p className="mb-4 text-sm text-gray-600">
+                We're sorry, but something unexpected happened. Please try
+                refreshing the page.
               </p>
-              
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+
+              {process.env.NODE_ENV === "development" && this.state.error && (
                 <details className="text-left">
-                  <summary className="text-sm text-gray-500 cursor-pointer mb-2">
+                  <summary className="mb-2 cursor-pointer text-sm text-gray-500">
                     Error details (development only)
                   </summary>
-                  <pre className="text-xs text-red-600 bg-red-50 p-2 rounded overflow-auto">
+                  <pre className="overflow-auto rounded bg-red-50 p-2 text-xs text-red-600">
                     {this.state.error.toString()}
                   </pre>
                 </details>
               )}
-              
+
               <button
                 onClick={() => window.location.reload()}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 Refresh Page
               </button>
@@ -94,7 +95,7 @@ export function useErrorHandler() {
   const [error, setError] = React.useState<Error | null>(null);
 
   const handleError = React.useCallback((error: Error) => {
-    console.error('Error caught by useErrorHandler:', error);
+    console.error("Error caught by useErrorHandler:", error);
     setError(error);
   }, []);
 

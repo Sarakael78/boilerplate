@@ -1,5 +1,3 @@
-# Python Service Template
-
 ---
 description: "Python service template - Apply when creating Python services"
 globs: ["**/*.py", "backend/**/*"]
@@ -7,6 +5,8 @@ alwaysApply: false
 contextTriggers: ["python", "service", "backend", "fastapi"]
 priority: "low"
 ---
+
+# Python Service Template
 
 Please create a new Python service file in the appropriate `src/services/` directory. The service must follow this exact structure, including dependency injection for the repository layer, type hinting, and structured logging.
 
