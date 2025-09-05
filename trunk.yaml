@@ -45,51 +45,19 @@ lint:
     - trufflehog@3.90.5
     - yamllint@1.37.1
 
-  # Configure automatic fixing without user prompts
-  auto_fix:
-    # Always apply fixes without asking for confirmation
-    - all
-
-  # Disable interactive prompts
-  disabled:
-    - trunk-toolbox
-
-# Configure actions to run non-interactively
+# Disable git hooks to prevent interactive prompts
 actions:
-  enabled:
-    - trunk-announce
-    - trunk-cache-prune
+  disabled:
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
+    - trunk-announce
+    - trunk-cache-prune
     - trunk-upgrade-available
-
-  definitions:
-    - id: trunk-check-pre-push
-      run: trunk check --fix --no-progress --ci
-    - id: trunk-fmt-pre-commit
-      run: trunk fmt --no-progress --ci
 
 # Global settings for non-interactive mode
 repo:
   # Disable all interactive features
   interactive: false
-
-# Configure specific tools for non-interactive behavior
-tools:
-  enabled:
-    - prettier@3.6.2:
-        config:
-          # Disable prettier's interactive mode
-          no_editorconfig: true
-    - black@25.1.0:
-        config:
-          # Run black without interactive prompts
-          quiet: true
-
-# Disable notifications and prompts
-notifications:
-  email: false
-  slack: false
 
 # Set default behavior for fixes
 defaults:
@@ -97,3 +65,10 @@ defaults:
   fix: all
   # Don't show progress bars in CI/non-interactive environments
   progress: false
+  
+# Configure CLI to never prompt
+cli:
+  version: 1.25.0
+  # Force non-interactive mode
+  no_prompt: true
+  
