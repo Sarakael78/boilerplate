@@ -1,6 +1,6 @@
+import secrets
 from datetime import datetime, timedelta
 from typing import Optional
-import secrets
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -11,12 +11,12 @@ from sqlalchemy.orm import Session
 from ..core.config import settings
 from ..db.database import get_db
 from ..models.user import User
-from ..schemas.user import TokenData, UserCreate
 from ..repositories.user_repository import (
-    UserRepository, 
-    RefreshTokenRepository, 
-    AuditLogRepository
+    AuditLogRepository,
+    RefreshTokenRepository,
+    UserRepository,
 )
+from ..schemas.user import TokenData, UserCreate
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
@@ -28,7 +28,7 @@ class AuthService:
         self.user_repo = UserRepository(db)
         self.refresh_token_repo = RefreshTokenRepository(db)
         self.audit_repo = AuditLogRepository(db)
-        
+
         self.secret_key = settings.SECRET_KEY
         self.algorithm = settings.JWT_ALGORITHM
         self.access_token_expire_minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES
@@ -116,11 +116,11 @@ class AuthService:
         return db_user
 
     def login_user(
-        self, 
-        username: str, 
-        password: str, 
-        ip_address: Optional[str] = None, 
-        user_agent: Optional[str] = None
+        self,
+        username: str,
+        password: str,
+        ip_address: Optional[str] = None,
+        user_agent: Optional[str] = None,
     ) -> dict:
         user = self.authenticate_user(username, password)
         if not user:
@@ -191,11 +191,11 @@ class AuthService:
         }
 
     def logout_user(
-        self, 
-        refresh_token: str, 
+        self,
+        refresh_token: str,
         user_id: Optional[int] = None,
         ip_address: Optional[str] = None,
-        user_agent: Optional[str] = None
+        user_agent: Optional[str] = None,
     ) -> bool:
         # Revoke refresh token
         success = self.refresh_token_repo.revoke_token(refresh_token)
@@ -211,7 +211,7 @@ class AuthService:
                 ip_address=ip_address,
                 user_agent=user_agent,
             )
-        
+
         return success
 
     def log_audit_event(

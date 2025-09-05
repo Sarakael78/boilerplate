@@ -129,3 +129,63 @@ This is a **CRITICAL** rule that must be enforced:
 - **Every Time**: For every task
 - **No Exceptions**: Under any circumstances
 - **Zero Tolerance**: For any quality issues
+
+## 🔒 ENFORCEMENT MECHANISMS
+
+### **Automatic Checkpoint Triggers**
+
+The following words/phrases AUTOMATICALLY trigger mandatory completion workflow:
+- "completed" / "complete"
+- "finished" / "done"  
+- "task is complete"
+- "work is finished"
+- "successfully completed"
+- Any statement indicating task completion
+
+### **Checkpoint Questions (MANDATORY)**
+
+Before ANY completion statement, you MUST answer these questions:
+
+1. ❓ Have I run `trunk check --no-progress --ci` and verified zero issues?
+2. ❓ Have I created a numbered completion summary in `/docs/agent-work/`?
+3. ❓ Have I updated `docs/PROJECT_PLAN.md` with completion details?
+4. ❓ Have I updated README.md if the changes affect setup/features?
+5. ❓ Have I verified all code quality standards are met?
+
+**If ANY answer is NO, you CANNOT declare completion.**
+
+### **Completion Statement Template**
+
+Only use this format after ALL requirements are verified:
+
+```
+✅ MANDATORY COMPLETION CHECKPOINT PASSED
+
+Pre-completion verification:
+- ✅ Trunk check: No issues found
+- ✅ Documentation: Completion summary created (XXX-filename.md)
+- ✅ Project plan: Updated with completion timestamp
+- ✅ README: Updated with relevant changes (if applicable)
+- ✅ Quality standards: All requirements met
+
+Task completed successfully!
+```
+
+### **Failure Recovery Protocol**
+
+If you realize you declared completion without following the workflow:
+
+1. **IMMEDIATELY ACKNOWLEDGE**: "I failed to follow the completion workflow"
+2. **EXECUTE WORKFLOW**: Complete all missing requirements
+3. **DOCUMENT FAILURE**: Note the oversight in your completion summary
+4. **CONFIRM COMPLIANCE**: Only then declare actual completion
+
+### **Process Integration**
+
+This completion workflow is now integrated into:
+- Agent Operational Protocol (10-agent-operational-protocol.mdc)
+- Task Completion Requirements (this file)
+- All future agent interactions
+
+**There are no exceptions. Ever.**
+

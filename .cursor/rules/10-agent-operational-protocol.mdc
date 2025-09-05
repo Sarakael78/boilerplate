@@ -89,3 +89,66 @@ priority: "critical"
 - **Naming Conventions**: Use `snake_case` for variables/functions, `PascalCase` for classes
 - **Docstrings**: All modules, classes, and functions must have clear, descriptive docstrings (Google Python Style)
 - **Purpose Documentation**: Explain purpose, arguments, and return values clearly
+
+## 🚨 MANDATORY COMPLETION WORKFLOW
+
+### **Pre-Completion Checkpoint (CRITICAL)**
+
+Before declaring ANY task complete or using words like "completed", "finished", "done", you MUST:
+
+1. **STOP** - Do not proceed with completion statement
+2. **CHECK** - Explicitly retrieve and read `09-task-completion-requirements.mdc`
+3. **VERIFY** - Confirm you have completed ALL mandatory requirements:
+   - ✅ Trunk check shows zero issues
+   - ✅ Documentation updated (README.md if applicable)
+   - ✅ Project plan updated with completion details
+   - ✅ Numbered completion summary created in `/docs/agent-work/`
+   - ✅ All quality standards met
+4. **DOCUMENT** - Create completion summary before declaring success
+5. **CONFIRM** - Only then use the approved completion message format
+
+### **Completion Workflow Protocol**
+
+```
+TASK EXECUTION → PRE-COMPLETION CHECKPOINT → DOCUMENTATION → COMPLETION
+```
+
+**Never skip the checkpoint. This is non-negotiable.**
+
+### **Completion Triggers**
+
+These words/phrases MUST trigger the pre-completion checkpoint:
+- "completed"
+- "finished" 
+- "done"
+- "task complete"
+- "work is complete"
+- "successfully completed"
+- Any variant indicating task completion
+
+### **Checkpoint Enforcement**
+
+If you catch yourself about to declare completion without following this workflow:
+1. **STOP** immediately
+2. **ACKNOWLEDGE** the process failure
+3. **EXECUTE** the proper completion workflow
+4. **COMPLETE** according to standards
+
+### **No Exceptions Policy**
+
+This workflow applies to:
+- All tasks, regardless of size
+- All interactions, regardless of urgency
+- All completion statements, regardless of context
+- Every single time, without exception
+
+### **Metacognitive Reminder**
+
+Before any completion statement, ask yourself:
+- "Have I followed the mandatory completion workflow?"
+- "Have I read the completion requirements?"
+- "Have I created all required documentation?"
+- "Am I certain all quality checks have passed?"
+
+If any answer is "no" or "unsure", you MUST complete the workflow first.
+

@@ -45,30 +45,10 @@ lint:
     - trufflehog@3.90.5
     - yamllint@1.37.1
 
-# Disable git hooks to prevent interactive prompts
 actions:
-  disabled:
-    - trunk-check-pre-push
-    - trunk-fmt-pre-commit
+  enabled:
     - trunk-announce
     - trunk-cache-prune
+    - trunk-check-pre-push
+    - trunk-fmt-pre-commit
     - trunk-upgrade-available
-
-# Global settings for non-interactive mode
-repo:
-  # Disable all interactive features
-  interactive: false
-
-# Set default behavior for fixes
-defaults:
-  # Automatically apply fixes without confirmation
-  fix: all
-  # Don't show progress bars in CI/non-interactive environments
-  progress: false
-  
-# Configure CLI to never prompt
-cli:
-  version: 1.25.0
-  # Force non-interactive mode
-  no_prompt: true
-  

@@ -53,7 +53,7 @@ export const useAuth = create<AuthState & AuthActions>()(
         set({ isLoading: true });
 
         try {
-          const response = await fetch(${API_BASE_URL}/auth/login, {
+          const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -88,11 +88,11 @@ export const useAuth = create<AuthState & AuthActions>()(
 
         if (refreshToken) {
           try {
-            await fetch(${API_BASE_URL}/auth/logout, {
+            await fetch(`${API_BASE_URL}/auth/logout`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: Bearer ,
+                Authorization: `Bearer ${accessToken}`,
               },
               body: JSON.stringify({ refresh_token: refreshToken }),
             });
@@ -113,7 +113,7 @@ export const useAuth = create<AuthState & AuthActions>()(
         set({ isLoading: true });
 
         try {
-          const response = await fetch(${API_BASE_URL}/auth/register, {
+          const response = await fetch(`${API_BASE_URL}/auth/register`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -144,7 +144,7 @@ export const useAuth = create<AuthState & AuthActions>()(
         }
 
         try {
-          const response = await fetch(${API_BASE_URL}/auth/refresh, {
+          const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -181,9 +181,9 @@ export const useAuth = create<AuthState & AuthActions>()(
         }
 
         try {
-          const response = await fetch(${API_BASE_URL}/auth/me, {
+          const response = await fetch(`${API_BASE_URL}/auth/me`, {
             headers: {
-              Authorization: Bearer ,
+              Authorization: `Bearer ${accessToken}`,
             },
           });
 
