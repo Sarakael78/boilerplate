@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 
 interface LoginFormProps {
   onSuccess?: () => void;
@@ -71,84 +73,80 @@ export default function LoginForm({ onSuccess, onError }: LoginFormProps) {
   };
 
   return (
-    <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-md">
-      <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
+    <div className="mx-auto max-w-md rounded-lg bg-card p-6 shadow-md border">
+      <h2 className="mb-6 text-center text-2xl font-bold text-card-foreground">
         Sign In
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {errors.general && (
-          <div className="rounded border border-red-200 bg-red-50 px-4 py-3 text-red-700">
+          <div className="rounded border border-destructive/50 bg-destructive/10 px-4 py-3 text-destructive">
             {errors.general}
           </div>
         )}
 
-        <div>
+        <div className="space-y-2">
           <label
             htmlFor="username"
-            className="mb-1 block text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-foreground"
           >
             Username
           </label>
-          <input
-            type="text"
+          <Input
             id="username"
             name="username"
             value={formData.username}
             onChange={handleChange}
-            className={`w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.username ? "border-red-300" : "border-gray-300"
-            }`}
             placeholder="Enter your username"
             disabled={isLoading}
+            className={errors.username ? "border-destructive" : ""}
           />
           {errors.username && (
-            <p className="mt-1 text-sm text-red-600">{errors.username}</p>
+            <p className="text-sm text-destructive">{errors.username}</p>
           )}
         </div>
 
-        <div>
+        <div className="space-y-2">
           <label
             htmlFor="password"
-            className="mb-1 block text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-foreground"
           >
             Password
           </label>
-          <input
+          <Input
             type="password"
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className={`w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.password ? "border-red-300" : "border-gray-300"
-            }`}
             placeholder="Enter your password"
             disabled={isLoading}
+            className={errors.password ? "border-destructive" : ""}
           />
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+            <p className="text-sm text-destructive">{errors.password}</p>
           )}
         </div>
 
-        <button
+        <Button
           type="submit"
           disabled={isLoading}
-          className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full"
         >
           {isLoading ? "Signing in..." : "Sign In"}
-        </button>
+        </Button>
       </form>
 
       <div className="mt-4 text-center">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-muted-foreground">
           Don't have an account?{" "}
-          <button
+          <Button
+            variant="link"
+            className="p-0 h-auto font-medium"
             onClick={() => router.push("/register")}
-            className="font-medium text-blue-600 hover:text-blue-700"
           >
             Sign up
-          </button>
+          </Button>
         </p>
       </div>
     </div>

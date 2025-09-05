@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { API_BASE_URL } from "@/lib/config";
 
 interface User {
   id: number;
@@ -37,8 +38,6 @@ interface RegisterData {
   full_name?: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-
 export const useAuth = create<AuthState & AuthActions>()(
   persist(
     (set, get) => ({
@@ -54,7 +53,7 @@ export const useAuth = create<AuthState & AuthActions>()(
         set({ isLoading: true });
 
         try {
-          const response = await fetch(`${API_BASE_URL}/auth/login`, {
+          const response = await fetch(${API_BASE_URL}/auth/login, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -89,11 +88,11 @@ export const useAuth = create<AuthState & AuthActions>()(
 
         if (refreshToken) {
           try {
-            await fetch(`${API_BASE_URL}/auth/logout`, {
+            await fetch(${API_BASE_URL}/auth/logout, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${get().accessToken}`,
+                Authorization: Bearer ,
               },
               body: JSON.stringify({ refresh_token: refreshToken }),
             });
@@ -114,7 +113,7 @@ export const useAuth = create<AuthState & AuthActions>()(
         set({ isLoading: true });
 
         try {
-          const response = await fetch(`${API_BASE_URL}/auth/register`, {
+          const response = await fetch(${API_BASE_URL}/auth/register, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -145,7 +144,7 @@ export const useAuth = create<AuthState & AuthActions>()(
         }
 
         try {
-          const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
+          const response = await fetch(${API_BASE_URL}/auth/refresh, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -182,9 +181,9 @@ export const useAuth = create<AuthState & AuthActions>()(
         }
 
         try {
-          const response = await fetch(`${API_BASE_URL}/auth/me`, {
+          const response = await fetch(${API_BASE_URL}/auth/me, {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: Bearer ,
             },
           });
 

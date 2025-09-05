@@ -8,26 +8,61 @@ priority: "high"
 
 # Frontend Development Rules
 
-- **CRITICAL COMPLETION REQUIREMENT**: Before completing any frontend work, you MUST run `trunk check` and fix ALL linting issues. Never leave linting errors in the codebase.
+- **Task Completion**: All frontend work must follow the completion requirements defined in `09-task-completion-requirements.mdc`, including mandatory trunk checks and documentation updates.
 
 - **Framework**: All frontend pages and components must be built using Next.js 14 with App Router and React.
-- **Styling**: Use Tailwind CSS with utility-first approach for all styling. Do not write custom `.css` or `.module.css` files unless creating a base style layer.
-- **State Management**: Use Zustand for all global and cross-component state. For server state (data fetching, caching, mutation), use React Query (`@tanstack/react-query`).
-- **UI Components**: Use **Shadcn UI** with **Radix UI** primitives for a customizable, accessible component system. Build upon these foundations rather than creating custom components from scratch.
-- **Component Naming**: Follow the `PascalCase.tsx` naming convention for all component files.
-- **Hooks**: Custom hooks should be placed in a dedicated `/hooks` directory and be prefixed with `use`, e.g., `useUserData.ts`.
-- **Type Safety**: All components must have explicitly typed props using TypeScript interfaces with strict mode enabled.
-- **Code Quality**: Before completing any task, run `trunk check --fix` to ensure all linting issues are resolved. Never leave linting errors in the codebase.
-- **Documentation**: All documentation files (except README.md) must be placed in the `/docs` folder. This includes component documentation, architectural decisions, setup guides, and any other project documentation.
+
+- **Type Safety Example**:
+  ```tsx
+  // Good: Explicitly typed props
+  interface UserCardProps {
+    user: {
+      id: number;
+      name: string;
+      email: string;
+    };
+    onEdit: (userId: number) => void;
+    className?: string;
+  }
+  
+  export function UserCard({ user, onEdit, className }: UserCardProps) {
+    return (
+      <div className={cn("border rounded p-4", className)}>
+        <h3>{user.name}</h3>
+        <p>{user.email}</p>
+        <Button onClick={() => onEdit(user.id)}>Edit</Button>
+      </div>
+    );
+  }
+  
+  // Bad: Using any type
+  interface UserCardProps {
+    user: any;
+    onEdit: any;
+    className?: any;
+  }
+  
+  export function UserCard(props: any) {
+    return <div>{props.user.name}</div>;
+  }
+  ```
+
+- **Styling**: Use Tailwind CSS with utility-first approach for all styling. Do not write custom CSS or module CSS files unless creating a base style layer.
+
+- **State Management**: Use Zustand for all global and cross-component state. For server state (data fetching, caching, mutation), use React Query.
+
+- **UI Components**: Use Shadcn UI with Radix UI primitives for a customizable, accessible component system. Build upon these foundations rather than creating custom components from scratch.
+
+- **Component Naming**: Follow the PascalCase.tsx naming convention for all component files.
+
+- **Hooks**: Custom hooks should be placed in a dedicated /hooks directory and be prefixed with use, e.g., useUserData.ts.
+
+- **Documentation**: All documentation files (except README.md) must be placed in the /docs folder. This includes component documentation, architectural decisions, setup guides, and any other project documentation.
 
 - **Authentication Implementation**:
   - **Frontend Role**: The frontend's role is to send credentials to the backend and securely store the returned JWT (e.g., via HTTP-only cookies)
   - **No Specific Library**: A specific frontend authentication library isn't required as secure authentication relies on backend logic
   - **Form Validation**: Implement complete login/register forms with proper validation
-
-- **Error Handling & Loading States**:
-  - **Error Boundaries**: Use **React's built-in APIs** for comprehensive error boundaries (lightweight solution)
-  - **Loading States**: Implement multiple loading variants (spinner, skeleton, overlay) using **React Suspense** and Next.js `loading.js`
 
 - **Professional Standards**:
   - **Code Integrity**: All code must be robust, secure, and production-ready
@@ -38,76 +73,3 @@ priority: "high"
   - **Self-Documenting**: All components and architectural decisions must be self-documenting
   - **No Placeholders**: Never leave TODO comments, placeholder components, or incomplete implementations
   - **Full Implementation**: Every component and feature must be fully functional
-
-- **Security Standards**:
-  - **Input Validation**: Validate all user inputs on the client side
-  - **XSS Prevention**: Sanitize user input and use Content Security Policy
-  - **CSRF Protection**: Implement CSRF tokens for state-changing operations
-  - **Secure Storage**: Use secure storage methods for sensitive data
-  - **HTTPS Only**: Ensure all API calls use HTTPS in production
-  - **Content Security Policy**: Implement CSP headers for XSS protection
-  - **Authentication**: Implement secure authentication flows
-  - **Authorization**: Check user permissions before rendering sensitive content
-  - **Data Sanitization**: Sanitize all data before rendering
-
-- **UI/UX Standards**:
-  - **Modern Aesthetic**: Apply professional, minimalist design with curated color palettes
-  - **Responsive Design**: Ensure all components work seamlessly across all device sizes
-  - **Accessibility**: Follow WCAG guidelines for inclusive design using Radix UI primitives
-  - **User Experience**: Implement intuitive navigation and clear visual feedback
-  - **Consistent Styling**: Use utility-first CSS framework with consistent design tokens
-  - **Loading States**: Provide clear loading indicators for all async operations
-  - **Error Handling**: Display user-friendly error messages
-
-- **Modern React Patterns**:
-  - **Server Components**: Use React Server Components where appropriate for better performance
-  - **Client Components**: Mark client-side components with `"use client"` directive
-  - **Error Boundaries**: Implement error boundaries for graceful error handling
-  - **Suspense**: Use React Suspense for loading states and code splitting
-  - **Optimistic Updates**: Implement optimistic updates for better UX
-  - **Form Handling**: Use React Hook Form for form state management and validation
-  - **Custom Hooks**: Create reusable custom hooks for common functionality
-
-- **Next.js Best Practices**:
-  - **App Router**: Use the new App Router for routing and layouts
-  - **API Routes**: Implement API routes for server-side functionality
-  - **Static Generation**: Use static generation where possible for better performance
-  - **Image Optimization**: Use Next.js Image component for optimized image loading
-  - **Font Optimization**: Use Next.js font optimization for better performance
-  - **SEO**: Implement proper meta tags and structured data
-  - **Middleware**: Use Next.js middleware for authentication and routing
-  - **Environment Variables**: Use proper environment variable handling
-
-- **Performance Optimization**:
-  - **Code Splitting**: Implement proper code splitting for better load times
-  - **Bundle Analysis**: Regularly analyze bundle size and optimize
-  - **Caching**: Implement appropriate caching strategies
-  - **Lazy Loading**: Use lazy loading for components and routes
-  - **Virtual Scrolling**: Implement virtual scrolling for large lists
-  - **Memoization**: Use React.memo and useMemo appropriately
-  - **Image Optimization**: Optimize images and use modern formats (WebP, AVIF)
-  - **Font Loading**: Optimize font loading and use system fonts where possible
-
-- **Testing Standards**:
-  - **Component Testing**: Write tests for all React components
-  - **Integration Testing**: Test component interactions and user flows
-  - **E2E Testing**: Implement end-to-end tests for critical user journeys
-  - **Accessibility Testing**: Test for accessibility compliance
-  - **Performance Testing**: Monitor and test performance metrics
-  - **Cross-Browser Testing**: Test across different browsers and devices
-  - **Mobile Testing**: Ensure proper functionality on mobile devices
-
-- **State Management Best Practices**:
-  - **Zustand Stores**: Create focused, single-responsibility stores
-  - **React Query**: Use React Query for server state management
-  - **Local State**: Use useState for component-local state
-  - **Context**: Use React Context sparingly and only for truly global state
-  - **Persistence**: Implement proper state persistence where needed
-  - **DevTools**: Enable Redux DevTools for Zustand stores
-
-- **Error Handling & Monitoring**:
-  - **Error Boundaries**: Implement error boundaries at appropriate levels
-  - **Error Tracking**: Set up error tracking and monitoring
-  - **User Feedback**: Provide clear error messages to users
-  - **Fallback UI**: Implement fallback UI for error states
-  - **Retry Logic**: Implement retry logic for failed operations

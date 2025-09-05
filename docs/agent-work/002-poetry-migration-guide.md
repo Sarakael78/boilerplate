@@ -28,7 +28,7 @@ poetry config virtualenvs.prefer-active-python true
 
 ## Project Structure
 
-```
+```text
 backend/
 ├── pyproject.toml          # Poetry configuration and dependencies
 ├── poetry.lock            # Locked dependency versions (commit this!)

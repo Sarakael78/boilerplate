@@ -254,9 +254,9 @@ show_status() {
 
 	for service in "${services[@]}"; do
 		if docker-compose ps "${service}" | grep -q "Up"; then
-			echo -e "  ${GREEN}✓${NC${ $servi}ce is running"
+			echo -e "  ${GREEN}✓${NC} ${service} is running"
 		else
-			echo -e "  ${RED}✗${NC${ $servi}ce is not running"
+			echo -e "  ${RED}✗${NC} ${service} is not running"
 		fi
 	done
 

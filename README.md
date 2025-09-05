@@ -88,43 +88,30 @@ A production-ready, secure, and scalable full-stack application template built w
 
 1.  **Clone the repository**:
 
-    ```
+    ```bash
     git clone <repository-url>
     cd project_template
-
-
-
     ```
 
 2.  **Set up environment**:
 
-    ```
+    ```bash
     cp env.example .env
     # Edit .env with your configuration
-
-
-
     ```
 
 3.  **Start development environment**:
 
-    ```
+    ```bash
     ./run-dev.sh
-
-
-
     ```
 
 4.  **Access the application**:
-    - Frontend: http://localhost
-
-    - Backend API: http://localhost:8000
-
-    - API Documentation: http://localhost:8000/docs
-
-    - Database Admin: http://localhost:8080
-
-    - Monitoring: http://localhost:9090 (Prometheus), http://localhost:3001 (Grafana)
+    - Frontend: [http://localhost](http://localhost)
+    - Backend API: [http://localhost:8000](http://localhost:8000)
+    - API Documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
+    - Database Admin: [http://localhost:8080](http://localhost:8080)
+    - Monitoring: [http://localhost:9090](http://localhost:9090) (Prometheus), [http://localhost:3001](http://localhost:3001) (Grafana)
 
 ---
 
@@ -161,7 +148,7 @@ npm run lint          # Run linting
 
 ### Project Structure
 
-```
+```text
 project_template/
 ├── backend/                 # FastAPI backend
 │   ├── app/

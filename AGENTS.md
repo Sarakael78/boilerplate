@@ -1,6 +1,6 @@
-# 1. Agent Operational Protocol
+# Agent Operational Protocol
 
-### A. Core Directives
+## A. Core Directives
 
 - **Goal-Oriented Action**: Before any action, state your goal. After completion, confirm the outcome.
 - **Tool Utilisation**: You have access to a suite of tools (MCP, terminal). Use the best tool for the job.
@@ -44,7 +44,7 @@
 
 ---
 
-# 2. Project Initialisation & Standards
+## 2. Project Initialisation & Standards
 
 ### A. Initial File Creation
 

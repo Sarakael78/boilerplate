@@ -126,11 +126,11 @@ This is a production-ready, secure, and scalable full-stack application template
    ```
 
 5. **Access the application**
-   - Frontend: http://localhost
-   - Backend API: http://localhost:8000
-   - API Documentation: http://localhost:8000/docs
-   - Database Admin: http://localhost:8080
-   - Monitoring: http://localhost:9090 (Prometheus), http://localhost:3001 (Grafana)
+   - Frontend: [http://localhost](http://localhost)
+   - Backend API: [http://localhost:8000](http://localhost:8000)
+   - API Documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
+   - Database Admin: [http://localhost:8080](http://localhost:8080)
+   - Monitoring: [http://localhost:9090](http://localhost:9090) (Prometheus), [http://localhost:3001](http://localhost:3001) (Grafana)
 
 ### Development Commands
 
@@ -167,7 +167,7 @@ npm run lint                    # Run linting
 
 ## Project Structure
 
-```
+```text
 project_template/
 ├── backend/                    # FastAPI backend
 │   ├── app/

@@ -48,11 +48,11 @@ check_system_resources() {
 	echo "Disk Usage: ${disk_usage}%"
 
 	# Check thresholds
-	if (($(echo "${cpu_usage} > 80" | bc -l))); then
+	if (( $(echo "${cpu_usage} > 80" | bc -l) )); then
 		print_warning "High CPU usage detected"
 	fi
 
-	if (($(echo "${disk_usage} > 85" | bc -l))); then
+	if (( $(echo "${disk_usage} > 85" | bc -l) )); then
 		print_warning "High disk usage detected"
 	fi
 }
@@ -90,7 +90,7 @@ check_application_health() {
 		response_time=$(curl -w "%{time_total}" -o /dev/null -s http://localhost:8000/health)
 		echo "Backend response time: ${response_time}s"
 
-		if (($(echo "${response_time} > 1.0" | bc -l))); then
+		if (( $(echo "${response_time} > 1.0" | bc -l) )); then
 			print_warning "Slow backend response time detected"
 		fi
 	else
@@ -105,7 +105,7 @@ check_application_health() {
 		response_time=$(curl -w "%{time_total}" -o /dev/null -s http://localhost:3000)
 		echo "Frontend response time: ${response_time}s"
 
-		if (($(echo "${response_time} > 2.0" | bc -l))); then
+		if (( $(echo "${response_time} > 2.0" | bc -l) )); then
 			print_warning "Slow frontend response time detected"
 		fi
 	else
@@ -151,7 +151,7 @@ check_logs() {
 	print_status "Checking application logs for errors..."
 
 	# Check recent Docker logs for errors
-	error_count=$(docker-compose logs --tail=100 2>&1 | grep -i "error\|exception\|failed" | wc -l)
+	error_count=$(docker-compose logs --tail=100 2>&1 | grep -c -i "error\|exception\|failed")
 
 	if [[ ${error_count} -gt 0 ]]; then
 		print_warning "Found ${error_count} error messages in recent logs"

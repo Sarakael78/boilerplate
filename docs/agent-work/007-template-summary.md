@@ -4,7 +4,7 @@ This project template provides a complete full-stack development environment wit
 
 ## 📁 Directory Structure
 
-```
+```text
 project_template/
 ├── .cursor/rules/                    # Cursor IDE rules and templates
 │   ├── 01-backend-general.mdc      # Python/FastAPI development rules
@@ -52,9 +52,9 @@ project_template/
 2. **Create environment file**: `cp env.example .env`
 3. **Start the development environment**: `./run-dev.sh`
 4. **Access your application**:
-   - Frontend: http://localhost
-   - Backend API: http://localhost:8000
-   - Database Admin: http://localhost:8080
+   - Frontend: [http://localhost](http://localhost)
+   - Backend API: [http://localhost:8000](http://localhost:8000)
+   - Database Admin: [http://localhost:8080](http://localhost:8080)
 
 ## 🛠️ Tech Stack
 

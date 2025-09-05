@@ -1,16 +1,11 @@
-from typing import Optional
-
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import HTTPBearer
 from sqlalchemy.orm import Session
 
-from ..core.config import settings
 from ..db.database import get_db
 from ..models.user import User
-from ..schemas.user import Token
-from ..schemas.user import User as UserSchema
-from ..schemas.user import UserCreate
-from ..services.auth import auth_service, get_current_active_user, get_current_superuser
+from ..schemas.user import Token, User as UserSchema, UserCreate
+from ..services.auth import auth_service, get_current_active_user
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 security = HTTPBearer()
@@ -20,7 +15,7 @@ security = HTTPBearer()
     "/register", response_model=UserSchema, status_code=status.HTTP_201_CREATED
 )
 async def register(
-    user: UserCreate, db: Session = Depends(get_db), request: Request = None
+    user: UserCreate, request: Request = None, db: Session = Depends(get_db)
 ):
     """
     Register a new user.
@@ -43,16 +38,16 @@ async def register(
         return db_user
     except HTTPException:
         raise
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An error occurred during registration",
-        )
+        ) from None
 
 
 @router.post("/login", response_model=Token)
 async def login(
-    username: str, password: str, db: Session = Depends(get_db), request: Request = None
+    username: str, password: str, request: Request = None, db: Session = Depends(get_db)
 ):
     """
     Login user and return access token.
@@ -77,11 +72,11 @@ async def login(
         return token_data
     except HTTPException:
         raise
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An error occurred during login",
-        )
+        ) from None
 
 
 @router.post("/refresh", response_model=Token)
@@ -93,19 +88,19 @@ async def refresh_token(refresh_token: str, db: Session = Depends(get_db)):
         return auth_service.refresh_access_token(db, refresh_token)
     except HTTPException:
         raise
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An error occurred during token refresh",
-        )
+        ) from None
 
 
 @router.post("/logout")
 async def logout(
     refresh_token: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user),
     request: Request = None,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
 ):
     """
     Logout user and revoke refresh token.
@@ -133,11 +128,11 @@ async def logout(
             )
     except HTTPException:
         raise
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An error occurred during logout",
-        )
+        ) from None
 
 
 @router.get("/me", response_model=UserSchema)
@@ -152,9 +147,9 @@ async def get_current_user_info(current_user: User = Depends(get_current_active_
 async def change_password(
     current_password: str,
     new_password: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user),
     request: Request = None,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
 ):
     """
     Change user password.
@@ -188,8 +183,8 @@ async def change_password(
         return {"message": "Password changed successfully"}
     except HTTPException:
         raise
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An error occurred while changing password",
-        )
+        ) from None

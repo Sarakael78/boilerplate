@@ -65,7 +65,7 @@ This document summarizes the comprehensive enhancements made to the boilerplate 
 
 ### Backend Architecture
 
-```
+```text
 backend/
 ├── app/
 │   ├── models/
@@ -82,7 +82,7 @@ backend/
 
 ### Frontend Architecture
 
-```
+```text
 frontend/
 ├── components/
 │   ├── auth/
@@ -199,7 +199,7 @@ frontend/
 
 ### File Naming Convention
 
-```
+```text
 docs/agent-work/XXX-descriptive-name.md
 ```
 

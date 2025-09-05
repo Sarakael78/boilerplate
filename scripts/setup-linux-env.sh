@@ -16,7 +16,7 @@ fi
 
 # Generate and set locale
 echo "🌍 Setting up locale..."
-if ! locale -a | grep -q "en_US.utf8"; then
+if ! locale -a | grep -q "en_US.utf8" || true; then
 	echo "Generating en_US.UTF-8 locale..."
 	sudo locale-gen en_US.UTF-8
 fi
@@ -26,7 +26,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # Add to .bashrc if not already present
-if ! grep -q "export LC_ALL=en_US.UTF-8" ~/.bashrc; then
+if ! grep -q "export LC_ALL=en_US.UTF-8" ~/.bashrc || true; then
 	echo "export LC_ALL=en_US.UTF-8" >>~/.bashrc
 	echo "export LANG=en_US.UTF-8" >>~/.bashrc
 	echo "✅ Added locale exports to .bashrc"
@@ -49,7 +49,7 @@ locale
 
 # Verify Git configuration
 echo "🔧 Checking Git configuration..."
-git config --list | grep -E "(core\.|init\.)"
+git config --list | grep -E "(core\.|init\.)" || true
 
 echo "✅ Environment setup complete!"
 echo ""

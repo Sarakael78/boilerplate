@@ -6,8 +6,8 @@ services:
     image: nginx:alpine
     container_name: nginx_proxy_prod
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     volumes:
       - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
@@ -28,7 +28,7 @@ services:
     env_file:
       - ./.env.production
     ports:
-      - "8000:8000"
+      - 8000:8000
     depends_on:
       db:
         condition: service_healthy
@@ -48,7 +48,7 @@ services:
     env_file:
       - ./.env.production
     ports:
-      - "3000:3000"
+      - 3000:3000
     networks:
       - app-network
     restart: always
@@ -62,11 +62,11 @@ services:
     env_file:
       - ./.env.production
     ports:
-      - "5432:5432"
+      - 5432:5432
     networks:
       - app-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: [CMD-SHELL, pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -86,7 +86,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     ports:
-      - "9090:9090"
+      - 9090:9090
     volumes:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     networks:
@@ -98,7 +98,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
-      - "3001:3000"
+      - 3001:3000
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:

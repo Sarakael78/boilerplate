@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from typing import Optional
+import secrets
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -8,15 +9,26 @@ from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
 from ..core.config import settings
-from ..models.user import AuditLog, RefreshToken, User
+from ..db.database import get_db
+from ..models.user import User
 from ..schemas.user import TokenData, UserCreate
+from ..repositories.user_repository import (
+    UserRepository, 
+    RefreshTokenRepository, 
+    AuditLogRepository
+)
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
 
 
 class AuthService:
-    def __init__(self):
+    def __init__(self, db: Session):
+        self.db = db
+        self.user_repo = UserRepository(db)
+        self.refresh_token_repo = RefreshTokenRepository(db)
+        self.audit_repo = AuditLogRepository(db)
+        
         self.secret_key = settings.SECRET_KEY
         self.algorithm = settings.JWT_ALGORITHM
         self.access_token_expire_minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES
@@ -43,19 +55,13 @@ class AuthService:
         encoded_jwt = jwt.encode(to_encode, self.secret_key, algorithm=self.algorithm)
         return encoded_jwt
 
-    def create_refresh_token(self, user_id: int, db: Session) -> str:
+    def create_refresh_token(self, user_id: int) -> str:
         # Generate a random refresh token
-        import secrets
-
         refresh_token = secrets.token_urlsafe(32)
 
         # Store refresh token in database
         expires_at = datetime.utcnow() + timedelta(days=self.refresh_token_expire_days)
-        db_refresh_token = RefreshToken(
-            user_id=user_id, token=refresh_token, expires_at=expires_at
-        )
-        db.add(db_refresh_token)
-        db.commit()
+        self.refresh_token_repo.create_refresh_token(user_id, refresh_token, expires_at)
 
         return refresh_token
 
@@ -70,32 +76,25 @@ class AuthService:
         except JWTError:
             return None
 
-    def authenticate_user(
-        self, db: Session, username: str, password: str
-    ) -> Optional[User]:
-        user = db.query(User).filter(User.username == username).first()
+    def authenticate_user(self, username: str, password: str) -> Optional[User]:
+        user = self.user_repo.get_by_username(username)
         if not user or not self.verify_password(password, user.hashed_password):
             return None
         return user
 
-    def get_current_user(self, db: Session, token: str) -> Optional[User]:
+    def get_current_user(self, token: str) -> Optional[User]:
         token_data = self.verify_token(token)
         if token_data is None:
             return None
 
-        user = db.query(User).filter(User.id == token_data.user_id).first()
+        user = self.user_repo.get_by_id(token_data.user_id)
         if user is None:
             return None
         return user
 
-    def create_user(self, db: Session, user: UserCreate) -> User:
+    def create_user(self, user: UserCreate) -> User:
         # Check if user already exists
-        existing_user = (
-            db.query(User)
-            .filter((User.email == user.email) | (User.username == user.username))
-            .first()
-        )
-        if existing_user:
+        if self.user_repo.user_exists(user.username, user.email):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="User with this email or username already exists",
@@ -103,22 +102,27 @@ class AuthService:
 
         # Create new user
         hashed_password = self.get_password_hash(user.password)
-        db_user = User(
-            email=user.email,
-            username=user.username,
-            hashed_password=hashed_password,
-            full_name=user.full_name,
-            is_active=user.is_active,
-            is_superuser=user.is_superuser,
+        db_user = self.user_repo.create_user(user, hashed_password)
+
+        # Log user creation
+        self.audit_repo.create_audit_log(
+            user_id=db_user.id,
+            action="USER_CREATED",
+            resource="user",
+            resource_id=str(db_user.id),
+            details=f"User {db_user.username} created",
         )
-        db.add(db_user)
-        db.commit()
-        db.refresh(db_user)
 
         return db_user
 
-    def login_user(self, db: Session, username: str, password: str) -> dict:
-        user = self.authenticate_user(db, username, password)
+    def login_user(
+        self, 
+        username: str, 
+        password: str, 
+        ip_address: Optional[str] = None, 
+        user_agent: Optional[str] = None
+    ) -> dict:
+        user = self.authenticate_user(username, password)
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -135,7 +139,21 @@ class AuthService:
         access_token = self.create_access_token(
             data={"sub": user.username, "user_id": user.id}
         )
-        refresh_token = self.create_refresh_token(user.id, db)
+        refresh_token = self.create_refresh_token(user.id)
+
+        # Update last login
+        self.user_repo.update_last_login(user)
+
+        # Log login
+        self.audit_repo.create_audit_log(
+            user_id=user.id,
+            action="USER_LOGIN",
+            resource="auth",
+            resource_id=str(user.id),
+            details="User login successful",
+            ip_address=ip_address,
+            user_agent=user_agent,
+        )
 
         return {
             "access_token": access_token,
@@ -144,17 +162,9 @@ class AuthService:
             "expires_in": self.access_token_expire_minutes * 60,
         }
 
-    def refresh_access_token(self, db: Session, refresh_token: str) -> dict:
+    def refresh_access_token(self, refresh_token: str) -> dict:
         # Verify refresh token exists and is not expired
-        db_refresh_token = (
-            db.query(RefreshToken)
-            .filter(
-                RefreshToken.token == refresh_token,
-                not RefreshToken.is_revoked,
-                RefreshToken.expires_at > datetime.utcnow(),
-            )
-            .first()
-        )
+        db_refresh_token = self.refresh_token_repo.get_valid_token(refresh_token)
 
         if not db_refresh_token:
             raise HTTPException(
@@ -162,8 +172,8 @@ class AuthService:
             )
 
         # Get user
-        user = db.query(User).filter(User.id == db_refresh_token.user_id).first()
-        if not user or not user.is_active:
+        user = self.user_repo.get_active_user_by_id(db_refresh_token.user_id)
+        if not user:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="User not found or inactive",
@@ -180,21 +190,32 @@ class AuthService:
             "expires_in": self.access_token_expire_minutes * 60,
         }
 
-    def logout_user(self, db: Session, refresh_token: str) -> bool:
+    def logout_user(
+        self, 
+        refresh_token: str, 
+        user_id: Optional[int] = None,
+        ip_address: Optional[str] = None,
+        user_agent: Optional[str] = None
+    ) -> bool:
         # Revoke refresh token
-        db_refresh_token = (
-            db.query(RefreshToken).filter(RefreshToken.token == refresh_token).first()
-        )
+        success = self.refresh_token_repo.revoke_token(refresh_token)
 
-        if db_refresh_token:
-            db_refresh_token.is_revoked = True
-            db.commit()
-            return True
-        return False
+        if success and user_id:
+            # Log logout
+            self.audit_repo.create_audit_log(
+                user_id=user_id,
+                action="USER_LOGOUT",
+                resource="auth",
+                resource_id=str(user_id),
+                details="User logout",
+                ip_address=ip_address,
+                user_agent=user_agent,
+            )
+        
+        return success
 
     def log_audit_event(
         self,
-        db: Session,
         user_id: Optional[int],
         action: str,
         resource: str,
@@ -203,7 +224,8 @@ class AuthService:
         ip_address: Optional[str] = None,
         user_agent: Optional[str] = None,
     ):
-        audit_log = AuditLog(
+        """Convenience method to log audit events."""
+        return self.audit_repo.create_audit_log(
             user_id=user_id,
             action=action,
             resource=resource,
@@ -212,20 +234,19 @@ class AuthService:
             ip_address=ip_address,
             user_agent=user_agent,
         )
-        db.add(audit_log)
-        db.commit()
-
-
-# Create service instance
-auth_service = AuthService()
 
 
 # Dependency functions
+def get_auth_service(db: Session = Depends(get_db)) -> AuthService:
+    """Dependency to get AuthService instance."""
+    return AuthService(db)
+
+
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_db),
+    auth_service: AuthService = Depends(get_auth_service),
 ) -> User:
-    user = auth_service.get_current_user(db, credentials.credentials)
+    user = auth_service.get_current_user(credentials.credentials)
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

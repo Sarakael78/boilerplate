@@ -4,7 +4,7 @@
 
 All documentation created by agents or LLMs must follow this naming pattern:
 
-```
+```text
 docs/agent-work/XXX-descriptive-name.md
 ```
 
@@ -16,7 +16,7 @@ Where:
 
 ## Directory Structure
 
-```
+```text
 docs/
 ├── agent-work/           # All agent/LLM generated documentation
 │   ├── 001-improvements-analysis.md
