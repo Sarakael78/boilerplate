@@ -101,40 +101,48 @@ This is a production-ready, secure, and scalable full-stack application template
 
 1. **Install Poetry** (if not already installed):
 
-   ```bash
+   ````bash
    curl -sSL https://install.python-poetry.org | python3 -
-   ```
+   ```text
+
+   ````
 
 2. **Clone the repository**
 
-   ```bash
+   ````bash
    git clone <repository-url>
    cd project_template
-   ```
+   ```text
+
+   ````
 
 3. **Set up environment**
 
-   ```bash
+   ````bash
    cp env.example .env
    # Edit .env with your configuration
-   ```
+   ```text
+
+   ````
 
 4. **Start development environment**
 
-   ```bash
+   ````bash
    ./run-dev.sh
-   ```
+   ```text
+
+   ````
 
 5. **Access the application**
-   - Frontend: [http://localhost](http://localhost)
-   - Backend API: [http://localhost:8000](http://localhost:8000)
-   - API Documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
-   - Database Admin: [http://localhost:8080](http://localhost:8080)
-   - Monitoring: [http://localhost:9090](http://localhost:9090) (Prometheus), [http://localhost:3001](http://localhost:3001) (Grafana)
+   - Frontend: <http://localhost>
+   - Backend API: <http://localhost:8000>
+   - API Documentation: <http://localhost:8000/docs>
+   - Database Admin: <http://localhost:8080>
+   - Monitoring: <http://localhost:9090> (Prometheus), <http://localhost:3001> (Grafana)
 
 ### Development Commands
 
-```bash
+````bash
 # Development
 ./run-dev.sh                    # Start development environment
 ./run-prod.sh                   # Start production environment
@@ -163,7 +171,7 @@ npm install                     # Install dependencies
 npm run dev                     # Start development server
 npm run build                   # Build for production
 npm run lint                    # Run linting
-```
+```text
 
 ## Project Structure
 
@@ -196,7 +204,7 @@ project_template/
 │   └── init-db.sql           # Database initialization script
 ├── .cursor/                  # Cursor IDE rules and configurations
 └── docker-compose.yml        # Development environment orchestration
-```
+```text
 
 ## Configuration
 
@@ -300,13 +308,13 @@ The application uses environment variables for configuration. Key variables incl
 
 ```bash
 ./run-dev.sh
-```
+```text
 
 ### Production Deployment
 
 ```bash
 ./run-prod.sh
-```
+```text
 
 ### Environment-Specific Configurations
 
@@ -334,7 +342,7 @@ The application uses environment variables for configuration. Key variables incl
 cd backend
 poetry run pytest
 poetry run pytest --cov=app --cov-report=html
-```
+```text
 
 ### Frontend Testing
 
@@ -342,13 +350,13 @@ poetry run pytest --cov=app --cov-report=html
 cd frontend
 npm test
 npm run test:coverage
-```
+```text
 
 ### End-to-End Testing
 
 ```bash
 npm run test:e2e
-```
+```text
 
 ### Test Coverage Requirements
 
@@ -489,3 +497,4 @@ npm run test:e2e
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+````

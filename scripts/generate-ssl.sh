@@ -24,16 +24,16 @@ COMMON_NAME="localhost"
 echo -e "🔒 Generating SSL certificates for local development"
 
 # Create SSL directory if it doesn't exist
-if [ ! -d "" ]; then
-    echo -e "📁 Creating SSL directory: "
-    mkdir -p ""
+if [ ! -d "${SSL_DIR}" ]; then
+    echo -e "📁 Creating SSL directory: ${SSL_DIR}"
+    mkdir -p "${SSL_DIR}"
 fi
 
 # Check if certificates already exist
-if [ -f "/" ] && [ -f "/" ]; then
+if [ -f "${SSL_DIR}/${CERT_FILE}" ] && [ -f "${SSL_DIR}/${KEY_FILE}" ]; then
     read -p "SSL certificates already exist. Overwrite? (y/n): " -n 1 -r
     echo
-    if [[ !  =~ ^[Yy]$ ]]; then
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         echo -e "⏭️  Skipping certificate generation"
         exit 0
     fi
@@ -41,27 +41,27 @@ fi
 
 # Generate private key
 echo -e "🔑 Generating private key..."
-openssl genrsa -out "/" 2048
+openssl genrsa -out "${SSL_DIR}/${KEY_FILE}" 2048
 
 # Generate certificate signing request
 echo -e "📝 Generating certificate signing request..."
-openssl req -new -key "/" -out "/cert.csr" -subj "/C=/ST=/L=/O=/OU=/CN="
+openssl req -new -key "${SSL_DIR}/${KEY_FILE}" -out "${SSL_DIR}/cert.csr" -subj "/C=${COUNTRY}/ST=${STATE}/L=${CITY}/O=${ORGANIZATION}/OU=${ORGANIZATIONAL_UNIT}/CN=${COMMON_NAME}"
 
 # Generate self-signed certificate
 echo -e "📜 Generating self-signed certificate..."
-openssl x509 -req -in "/cert.csr" -signkey "/" -out "/" -days  -extensions v3_req -extfile <(cat <<EOF
+openssl x509 -req -in "${SSL_DIR}/cert.csr" -signkey "${SSL_DIR}/${KEY_FILE}" -out "${SSL_DIR}/${CERT_FILE}" -days ${DAYS_VALID} -extensions v3_req -extfile <(cat <<EOF
 [req]
 distinguished_name = req_distinguished_name
 req_extensions = v3_req
 prompt = no
 
 [req_distinguished_name]
-C=
-ST=
-L=
-O=
-OU=
-CN=
+C=${COUNTRY}
+ST=${STATE}
+L=${CITY}
+O=${ORGANIZATION}
+OU=${ORGANIZATIONAL_UNIT}
+CN=${COMMON_NAME}
 
 [v3_req]
 keyUsage = keyEncipherment, dataEncipherment
@@ -74,31 +74,3 @@ DNS.2 = *.localhost
 DNS.3 = 127.0.0.1
 IP.1 = 127.0.0.1
 IP.2 = ::1
-EOF
-)
-
-# Clean up CSR file
-rm "/cert.csr"
-
-# Set appropriate permissions
-chmod 600 "/"
-chmod 644 "/"
-
-echo -e "✅ SSL certificates generated successfully!"
-echo
-echo -e "📁 Certificate files created:"
-echo -e "   🔑 Private Key: /"
-echo -e "   📜 Certificate: /"
-echo
-echo -e "🚀 Next steps:"
-echo -e "   1. Update your nginx configuration to use these certificates"
-echo -e "   2. Add the certificate to your browser's trusted certificates (optional)"
-echo -e "   3. Access your application via https://localhost"
-echo
-echo -e "⚠️  Warning: These are self-signed certificates for development only!"
-echo -e "   Do not use in production environments."
-
-# Display certificate information
-echo
-echo -e "📋 Certificate Information:"
-openssl x509 -in "/" -text -noout | grep -A 5 "Subject:\|Validity\|DNS:"

@@ -42,7 +42,7 @@ check_docker() {
 check_env_file() {
 	if [[ ! -f .env ]]; then
 		print_warning ".env file not found. Creating from template..."
-		if [ ! -f env.example ]; then
+		if [[ ! -f env.example ]]; then
 			print_error "env.example template not found. Cannot create .env file."
 			exit 1
 		fi
@@ -78,7 +78,7 @@ validate_env() {
 	missing_vars=()
 
 	for var in "${required_vars[@]}"; do
-		if [[ -z "${!var-}" ]]; then
+		if [[ -z ${!var-} ]]; then
 			missing_vars+=("${var}")
 		fi
 	done
@@ -90,12 +90,12 @@ validate_env() {
 	fi
 
 	# Validate SECRET_KEY strength
-	if [[ "${#SECRET_KEY}" -lt 32 ]]; then
+	if [[ ${#SECRET_KEY} -lt 32 ]]; then
 		print_warning "SECRET_KEY is too short. Recommended minimum length: 32 characters"
 	fi
 
 	# Validate password strength
-	if [[ "${#POSTGRES_PASSWORD}" -lt 8 ]]; then
+	if [[ ${#POSTGRES_PASSWORD} -lt 8 ]]; then
 		print_warning "POSTGRES_PASSWORD is too short. Recommended minimum length: 8 characters"
 	fi
 
@@ -109,7 +109,7 @@ check_resources() {
 	# Check available memory
 	if command -v free >/dev/null 2>&1; then
 		available_memory=$(free -m | awk 'NR==2{printf "%.0f", $7/1024}')
-		if [[ "${available_memory}" -lt 2 ]]; then
+		if [[ ${available_memory} -lt 2 ]]; then
 			print_warning "Low memory available: ${available_memory}GB. Recommended: 4GB+"
 		else
 			print_success "Memory check passed: ${available_memory}GB available"
@@ -121,7 +121,7 @@ check_resources() {
 	# Check available disk space
 	if command -v df >/dev/null 2>&1; then
 		available_disk=$(df -BG . | awk 'NR==2{print $4}' | sed 's/G//')
-		if [[ "${available_disk}" -lt 5 ]]; then
+		if [[ ${available_disk} -lt 5 ]]; then
 			print_warning "Low disk space: ${available_disk}GB. Recommended: 10GB+"
 		else
 			print_success "Disk space check passed: ${available_disk}GB available"
@@ -166,14 +166,14 @@ start_services() {
 	# Wait for database with better error handling
 	timeout=60
 	print_status "Waiting for database..."
-	while [[ "$timeout" -gt 0 ]]; do
+	while [[ ${timeout} -gt 0 ]]; do
 		if docker-compose exec -T db pg_isready -U "${POSTGRES_USER:-user}" -d "${POSTGRES_DB:-app_db}" >/dev/null 2>&1; then
 			print_success "Database is ready"
 			break
 		fi
 		sleep 1
 		timeout=$((timeout - 1))
-		if [[ "$timeout" -eq 0 ]]; then
+		if [[ ${timeout} -eq 0 ]]; then
 			print_error "Database failed to start within 60 seconds"
 			docker-compose logs db
 			exit 1
@@ -183,14 +183,14 @@ start_services() {
 	# Wait for Redis with better error handling
 	timeout=30
 	print_status "Waiting for Redis..."
-	while [[ "$timeout" -gt 0 ]]; do
+	while [[ ${timeout} -gt 0 ]]; do
 		if docker-compose exec -T redis redis-cli ping >/dev/null 2>&1; then
 			print_success "Redis is ready"
 			break
 		fi
 		sleep 1
 		timeout=$((timeout - 1))
-		if [[ "$timeout" -eq 0 ]]; then
+		if [[ ${timeout} -eq 0 ]]; then
 			print_error "Redis failed to start within 30 seconds"
 			docker-compose logs redis
 			exit 1
@@ -200,14 +200,14 @@ start_services() {
 	# Wait for backend with better error handling
 	timeout=60
 	print_status "Waiting for backend API..."
-	while [[ "$timeout" -gt 0 ]]; do
+	while [[ ${timeout} -gt 0 ]]; do
 		if curl -f http://localhost:8000/health >/dev/null 2>&1; then
 			print_success "Backend API is ready"
 			break
 		fi
 		sleep 1
 		timeout=$((timeout - 1))
-		if [[ "$timeout" -eq 0 ]]; then
+		if [[ ${timeout} -eq 0 ]]; then
 			print_error "Backend API failed to start within 60 seconds"
 			docker-compose logs backend
 			exit 1
@@ -217,14 +217,14 @@ start_services() {
 	# Wait for frontend with better error handling
 	timeout=60
 	print_status "Waiting for frontend..."
-	while [[ "$timeout" -gt 0 ]]; do
+	while [[ ${timeout} -gt 0 ]]; do
 		if curl -f http://localhost:3000 >/dev/null 2>&1; then
 			print_success "Frontend is ready"
 			break
 		fi
 		sleep 1
 		timeout=$((timeout - 1))
-		if [[ "$timeout" -eq 0 ]]; then
+		if [[ ${timeout} -eq 0 ]]; then
 			print_error "Frontend failed to start within 60 seconds"
 			docker-compose logs frontend
 			exit 1

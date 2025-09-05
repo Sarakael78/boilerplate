@@ -1,8 +1,9 @@
 """
 Base repository pattern implementation.
 """
+
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar, Optional, List, Any
+from typing import Any, Generic, List, Optional, TypeVar
 
 from sqlalchemy.orm import Session
 
@@ -50,8 +51,16 @@ class BaseRepository(ABC, Generic[T]):
 
     def get_by_field(self, field_name: str, value: Any) -> Optional[T]:
         """Get an entity by a specific field."""
-        return self.db.query(self.model).filter(getattr(self.model, field_name) == value).first()
+        return (
+            self.db.query(self.model)
+            .filter(getattr(self.model, field_name) == value)
+            .first()
+        )
 
     def get_many_by_field(self, field_name: str, value: Any) -> List[T]:
         """Get multiple entities by a specific field."""
-        return self.db.query(self.model).filter(getattr(self.model, field_name) == value).all()
+        return (
+            self.db.query(self.model)
+            .filter(getattr(self.model, field_name) == value)
+            .all()
+        )

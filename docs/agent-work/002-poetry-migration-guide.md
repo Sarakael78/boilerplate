@@ -8,13 +8,13 @@ This project uses Poetry exclusively for Python dependency management. Poetry pr
 
 ### Installing Poetry
 
-```bash
+````bash
 # Install Poetry
 curl -sSL https://install.python-poetry.org | python3 -
 
 # Verify installation
 poetry --version
-```
+```text
 
 ### Poetry Configuration
 
@@ -24,7 +24,7 @@ poetry config virtualenvs.in-project true
 
 # Configure Poetry to use system Python (optional)
 poetry config virtualenvs.prefer-active-python true
-```
+```text
 
 ## Project Structure
 
@@ -34,7 +34,7 @@ backend/
 ├── poetry.lock            # Locked dependency versions (commit this!)
 ├── app/                   # Application code
 └── tests/                 # Test files
-```
+```text
 
 ## Dependency Management
 
@@ -52,7 +52,7 @@ poetry add --group test factory-boy
 
 # Add dependency with specific version
 poetry add "fastapi>=0.100.0,<0.200.0"
-```
+```text
 
 ### Removing Dependencies
 
@@ -62,7 +62,7 @@ poetry remove package-name
 
 # Remove from specific group
 poetry remove --group dev package-name
-```
+```text
 
 ### Updating Dependencies
 
@@ -75,7 +75,7 @@ poetry update fastapi
 
 # Update dependencies in specific group
 poetry update --group dev
-```
+```text
 
 ## Poetry Scripts
 
@@ -95,7 +95,7 @@ poetry run test
 
 # Run tests with coverage
 poetry run test-cov
-```
+```text
 
 ### Code Quality Scripts
 
@@ -114,7 +114,7 @@ poetry run type-check
 
 # Run security checks
 poetry run security-check
-```
+```text
 
 ### Database Scripts
 
@@ -124,7 +124,7 @@ poetry run migrate
 
 # Create new migration
 poetry run migrate-create "migration description"
-```
+```text
 
 ## Dependency Groups
 
@@ -169,14 +169,14 @@ Dependencies specifically for testing:
 line-length = 88
 select = ["E", "W", "F", "I", "C", "B"]
 ignore = ["E501"]
-```
+```text
 
 ### Black Configuration
 
 ```toml
 [tool.black]
 line-length = 88
-```
+```text
 
 ### MyPy Configuration
 
@@ -186,7 +186,7 @@ strict = true
 warn_return_any = true
 disallow_untyped_defs = true
 # ... additional strict settings
-```
+```text
 
 ### Pytest Configuration
 
@@ -200,7 +200,7 @@ addopts = [
     "--cov-report=html",
     "--cov-fail-under=80"
 ]
-```
+```text
 
 ## Best Practices
 
@@ -243,7 +243,7 @@ addopts = [
 ```bash
 # Add Poetry to PATH
 export PATH="$HOME/.local/bin:$PATH"
-```
+```text
 
 #### Virtual Environment Issues
 
@@ -253,7 +253,7 @@ poetry env remove python
 
 # Create new environment
 poetry install
-```
+```text
 
 #### Lock File Conflicts
 
@@ -261,7 +261,7 @@ poetry install
 # Regenerate lock file
 rm poetry.lock
 poetry install
-```
+```text
 
 #### Dependency Resolution Issues
 
@@ -271,7 +271,7 @@ poetry self update
 
 # Clear cache
 poetry cache clear --all pypi
-```
+```text
 
 ### Performance Tips
 
@@ -283,14 +283,14 @@ poetry config virtualenvs.prefer-active-python true
 
 # Use faster package index
 poetry source add --priority=primary pypi https://pypi.org/simple/
-```
+```text
 
 #### Parallel Installation
 
 ```bash
 # Install dependencies in parallel (if supported)
 poetry install --no-dev --no-interaction
-```
+```text
 
 ## Integration with CI/CD
 
@@ -318,7 +318,7 @@ poetry install --no-dev --no-interaction
 
 - name: Run security checks
   run: poetry run security-check
-```
+```text
 
 ### Docker Integration
 
@@ -335,7 +335,7 @@ RUN poetry config virtualenvs.create false \
 
 # Copy application code
 COPY . .
-```
+```text
 
 ## Migration from Other Tools
 
@@ -353,7 +353,7 @@ cat requirements.txt | xargs -I {} poetry add {}
 
 # Remove requirements.txt
 rm requirements.txt
-```
+```text
 
 ### From pipenv
 
@@ -369,7 +369,7 @@ cat requirements.txt | xargs -I {} poetry add {}
 
 # Remove Pipfile and Pipfile.lock
 rm Pipfile Pipfile.lock
-```
+```text
 
 ## Additional Resources
 
@@ -377,3 +377,4 @@ rm Pipfile Pipfile.lock
 - [Poetry GitHub Repository](https://github.com/python-poetry/poetry)
 - [Poetry Best Practices](https://python-poetry.org/docs/basic-usage/)
 - [Dependency Management Best Practices](https://python-poetry.org/docs/dependency-specification/)
+````

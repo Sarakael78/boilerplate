@@ -9,19 +9,18 @@ This document outlines the API versioning strategy for the boilerplate project. 
 ### URL-Based Versioning
 
 We currently use URL-based versioning with the following pattern:
+
 - /api/v1/ - Current API version
 - All endpoints are prefixed with the version identifier
 
 ### Current API Structure
 
-`
-/api/v1/auth/login
+`/api/v1/auth/login
 /api/v1/auth/register  
 /api/v1/auth/logout
 /api/v1/auth/refresh
 /api/v1/auth/me
-/api/v1/users/
-`
+/api/v1/users/`
 
 ## Implementation Details
 
@@ -30,12 +29,15 @@ We currently use URL-based versioning with the following pattern:
 The current implementation uses FastAPI's router system:
 
 `python
+
 # In main.py
+
 app.include_router(auth_router, prefix="/api/v1/auth", tags=["auth"])
 app.include_router(users_router, prefix="/api/v1/users", tags=["users"])
 `
 
 ### Router Files
+
 - ackend/app/api/v1/auth.py - Authentication endpoints
 - ackend/app/api/users.py - User management endpoints
 
@@ -46,17 +48,17 @@ app.include_router(users_router, prefix="/api/v1/users", tags=["users"])
 When we need to introduce breaking changes, we'll create a new version:
 
 1. **Create New Router Module**
-   `
-   backend/app/api/v2/
-   ├── __init__.py
-   ├── auth.py
-   ├── users.py
-   └── posts.py
-   `
+   `backend/app/api/v2/
+├── __init__.py
+├── auth.py
+├── users.py
+└── posts.py`
 
 2. **Update Main Application**
    `python
+
    # Add v2 routers alongside v1
+
    app.include_router(v1_auth_router, prefix="/api/v1/auth", tags=["auth-v1"])
    app.include_router(v2_auth_router, prefix="/api/v2/auth", tags=["auth-v2"])
    `
@@ -86,16 +88,19 @@ When we need to introduce breaking changes, we'll create a new version:
 ## Version-Specific Considerations
 
 ### Database Changes
+
 - Use Alembic migrations for schema changes
 - Ensure backward compatibility during transition periods
 - Consider data transformation needs between versions
 
 ### Authentication
+
 - Token validation should work across versions
 - Consider version-specific claims if needed
 - Maintain consistent security standards
 
 ### Error Handling
+
 - Version-specific error response formats
 - Maintain consistent error codes where possible
 - Clear migration documentation for error format changes
@@ -152,6 +157,7 @@ When we need to introduce breaking changes, we'll create a new version:
 `
 
 **Implementation:**
+
 1. Create v2 router with new schema
 2. Update service layer to handle both formats
 3. Maintain v1 compatibility by mapping to new structure
@@ -160,6 +166,7 @@ When we need to introduce breaking changes, we'll create a new version:
 ## Conclusion
 
 This versioning strategy provides:
+
 - **Flexibility** - Easy to introduce new features and breaking changes
 - **Stability** - Existing clients continue to work
 - **Clarity** - Clear version identification in URLs

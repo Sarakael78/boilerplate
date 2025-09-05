@@ -1,12 +1,14 @@
 """
 User repository for database operations.
 """
-from datetime import datetime, timedelta
-from typing import Optional
-from sqlalchemy.orm import Session
-from sqlalchemy import or_
 
-from ..models.user import User, RefreshToken, AuditLog
+from datetime import datetime
+from typing import Optional
+
+from sqlalchemy import or_
+from sqlalchemy.orm import Session
+
+from ..models.user import AuditLog, RefreshToken, User
 from ..schemas.user import UserCreate
 from . import BaseRepository
 
@@ -27,15 +29,20 @@ class UserRepository(BaseRepository[User]):
 
     def get_by_username_or_email(self, identifier: str) -> Optional[User]:
         """Get user by username or email."""
-        return self.db.query(User).filter(
-            or_(User.username == identifier, User.email == identifier)
-        ).first()
+        return (
+            self.db.query(User)
+            .filter(or_(User.username == identifier, User.email == identifier))
+            .first()
+        )
 
     def user_exists(self, username: str, email: str) -> bool:
         """Check if user exists by username or email."""
-        return self.db.query(User).filter(
-            or_(User.username == username, User.email == email)
-        ).first() is not None
+        return (
+            self.db.query(User)
+            .filter(or_(User.username == username, User.email == email))
+            .first()
+            is not None
+        )
 
     def create_user(self, user_data: UserCreate, hashed_password: str) -> User:
         """Create a new user with hashed password."""
@@ -54,9 +61,7 @@ class UserRepository(BaseRepository[User]):
 
     def get_active_user_by_id(self, user_id: int) -> Optional[User]:
         """Get active user by ID."""
-        return self.db.query(User).filter(
-            User.id == user_id, User.is_active == True
-        ).first()
+        return self.db.query(User).filter(User.id == user_id, User.is_active).first()
 
     def update_last_login(self, user: User) -> User:
         """Update user's last login timestamp."""
@@ -72,12 +77,12 @@ class RefreshTokenRepository(BaseRepository[RefreshToken]):
     def __init__(self, db: Session):
         super().__init__(db, RefreshToken)
 
-    def create_refresh_token(self, user_id: int, token: str, expires_at: datetime) -> RefreshToken:
+    def create_refresh_token(
+        self, user_id: int, token: str, expires_at: datetime
+    ) -> RefreshToken:
         """Create a new refresh token."""
         refresh_token = RefreshToken(
-            user_id=user_id,
-            token=token,
-            expires_at=expires_at
+            user_id=user_id, token=token, expires_at=expires_at
         )
         self.db.add(refresh_token)
         self.db.commit()
@@ -86,18 +91,22 @@ class RefreshTokenRepository(BaseRepository[RefreshToken]):
 
     def get_valid_token(self, token: str) -> Optional[RefreshToken]:
         """Get valid (non-revoked, non-expired) refresh token."""
-        return self.db.query(RefreshToken).filter(
-            RefreshToken.token == token,
-            RefreshToken.is_revoked == False,
-            RefreshToken.expires_at > datetime.utcnow()
-        ).first()
+        return (
+            self.db.query(RefreshToken)
+            .filter(
+                RefreshToken.token == token,
+                not RefreshToken.is_revoked,
+                RefreshToken.expires_at > datetime.utcnow(),
+            )
+            .first()
+        )
 
     def revoke_token(self, token: str) -> bool:
         """Revoke a refresh token."""
-        db_token = self.db.query(RefreshToken).filter(
-            RefreshToken.token == token
-        ).first()
-        
+        db_token = (
+            self.db.query(RefreshToken).filter(RefreshToken.token == token).first()
+        )
+
         if db_token:
             db_token.is_revoked = True
             self.db.commit()
@@ -107,8 +116,7 @@ class RefreshTokenRepository(BaseRepository[RefreshToken]):
     def revoke_all_user_tokens(self, user_id: int) -> None:
         """Revoke all refresh tokens for a user."""
         self.db.query(RefreshToken).filter(
-            RefreshToken.user_id == user_id,
-            RefreshToken.is_revoked == False
+            RefreshToken.user_id == user_id, not RefreshToken.is_revoked
         ).update({"is_revoked": True})
         self.db.commit()
 
@@ -146,6 +154,10 @@ class AuditLogRepository(BaseRepository[AuditLog]):
 
     def get_user_audit_logs(self, user_id: int, limit: int = 100):
         """Get audit logs for a specific user."""
-        return self.db.query(AuditLog).filter(
-            AuditLog.user_id == user_id
-        ).order_by(AuditLog.created_at.desc()).limit(limit).all()
+        return (
+            self.db.query(AuditLog)
+            .filter(AuditLog.user_id == user_id)
+            .order_by(AuditLog.created_at.desc())
+            .limit(limit)
+            .all()
+        )
